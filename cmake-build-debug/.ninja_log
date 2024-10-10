@@ -1,0 +1,10 @@
+# ninja log v6
+0	184	1728553408325108120	CMakeFiles/CppGameDarCuOpenGL.dir/Core/Loop/Game.cpp.o	3b37972b327ee55f
+1	184	1728553408325108120	CMakeFiles/CppGameDarCuOpenGL.dir/Renderer/Element.cpp.o	4cdafbb89c17a533
+1	187	1728551601269048853	CMakeFiles/CppGameDarCuOpenGL.dir/Core/main.cpp.o	5b78c86c3ebae36
+1	56	1728467408938215052	build.ninja	94f822b3c57520fb
+1	182	1728225137302208054	CMakeFiles/CppGameDarCuOpenGL.dir/main.cpp.o	7b560286557d61fa
+0	185	1728552017425066249	CMakeFiles/CppGameDarCuOpenGL.dir/Core/Context/GameContext.cpp.o	5b706b2cbfce822f
+184	223	1728553408509108186	CppGameDarCuOpenGL	7668bbc00e8c65
+1	179	1728553450225121142	CMakeFiles/CppGameDarCuOpenGL.dir/Core/Loop/Game.cpp.o	3b37972b327ee55f
+179	217	1728553450401121189	CppGameDarCuOpenGL	7668bbc00e8c65
