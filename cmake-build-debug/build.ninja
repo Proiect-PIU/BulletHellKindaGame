@@ -67,8 +67,20 @@ build CMakeFiles/CppGameDarCuOpenGL.dir/Core/Context/GameContext.cpp.o: CXX_COMP
   OBJECT_DIR = CMakeFiles/CppGameDarCuOpenGL.dir
   OBJECT_FILE_DIR = CMakeFiles/CppGameDarCuOpenGL.dir/Core/Context
 
-build CMakeFiles/CppGameDarCuOpenGL.dir/Renderer/Element.cpp.o: CXX_COMPILER__CppGameDarCuOpenGL_unscanned_Debug /home/francisc/CLionProjects/CppGameDarCuOpenGL/Renderer/Element.cpp || cmake_object_order_depends_target_CppGameDarCuOpenGL
-  DEP_FILE = CMakeFiles/CppGameDarCuOpenGL.dir/Renderer/Element.cpp.o.d
+build CMakeFiles/CppGameDarCuOpenGL.dir/Renderer/Canvas/Element/Element.cpp.o: CXX_COMPILER__CppGameDarCuOpenGL_unscanned_Debug /home/francisc/CLionProjects/CppGameDarCuOpenGL/Renderer/Canvas/Element/Element.cpp || cmake_object_order_depends_target_CppGameDarCuOpenGL
+  DEP_FILE = CMakeFiles/CppGameDarCuOpenGL.dir/Renderer/Canvas/Element/Element.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles/CppGameDarCuOpenGL.dir
+  OBJECT_FILE_DIR = CMakeFiles/CppGameDarCuOpenGL.dir/Renderer/Canvas/Element
+
+build CMakeFiles/CppGameDarCuOpenGL.dir/Renderer/Canvas/Canvas.cpp.o: CXX_COMPILER__CppGameDarCuOpenGL_unscanned_Debug /home/francisc/CLionProjects/CppGameDarCuOpenGL/Renderer/Canvas/Canvas.cpp || cmake_object_order_depends_target_CppGameDarCuOpenGL
+  DEP_FILE = CMakeFiles/CppGameDarCuOpenGL.dir/Renderer/Canvas/Canvas.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles/CppGameDarCuOpenGL.dir
+  OBJECT_FILE_DIR = CMakeFiles/CppGameDarCuOpenGL.dir/Renderer/Canvas
+
+build CMakeFiles/CppGameDarCuOpenGL.dir/Renderer/Renderer.cpp.o: CXX_COMPILER__CppGameDarCuOpenGL_unscanned_Debug /home/francisc/CLionProjects/CppGameDarCuOpenGL/Renderer/Renderer.cpp || cmake_object_order_depends_target_CppGameDarCuOpenGL
+  DEP_FILE = CMakeFiles/CppGameDarCuOpenGL.dir/Renderer/Renderer.cpp.o.d
   FLAGS = -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles/CppGameDarCuOpenGL.dir
   OBJECT_FILE_DIR = CMakeFiles/CppGameDarCuOpenGL.dir/Renderer
@@ -81,7 +93,7 @@ build CMakeFiles/CppGameDarCuOpenGL.dir/Renderer/Element.cpp.o: CXX_COMPILER__Cp
 #############################################
 # Link the executable CppGameDarCuOpenGL
 
-build CppGameDarCuOpenGL: CXX_EXECUTABLE_LINKER__CppGameDarCuOpenGL_Debug CMakeFiles/CppGameDarCuOpenGL.dir/Core/main.cpp.o CMakeFiles/CppGameDarCuOpenGL.dir/Core/Loop/Game.cpp.o CMakeFiles/CppGameDarCuOpenGL.dir/Core/Context/GameContext.cpp.o CMakeFiles/CppGameDarCuOpenGL.dir/Renderer/Element.cpp.o | /usr/lib/x86_64-linux-gnu/libglfw.so.3.3 /usr/lib/x86_64-linux-gnu/libGLEW.so /usr/lib/x86_64-linux-gnu/libGLX.so /usr/lib/x86_64-linux-gnu/libOpenGL.so
+build CppGameDarCuOpenGL: CXX_EXECUTABLE_LINKER__CppGameDarCuOpenGL_Debug CMakeFiles/CppGameDarCuOpenGL.dir/Core/main.cpp.o CMakeFiles/CppGameDarCuOpenGL.dir/Core/Loop/Game.cpp.o CMakeFiles/CppGameDarCuOpenGL.dir/Core/Context/GameContext.cpp.o CMakeFiles/CppGameDarCuOpenGL.dir/Renderer/Canvas/Element/Element.cpp.o CMakeFiles/CppGameDarCuOpenGL.dir/Renderer/Canvas/Canvas.cpp.o CMakeFiles/CppGameDarCuOpenGL.dir/Renderer/Renderer.cpp.o | /usr/lib/x86_64-linux-gnu/libglfw.so.3.3 /usr/lib/x86_64-linux-gnu/libGLEW.so /usr/lib/x86_64-linux-gnu/libGLX.so /usr/lib/x86_64-linux-gnu/libOpenGL.so
   FLAGS = -g
   LINK_LIBRARIES = /usr/lib/x86_64-linux-gnu/libglfw.so.3.3  /usr/lib/x86_64-linux-gnu/libGLEW.so  /usr/lib/x86_64-linux-gnu/libGLX.so  /usr/lib/x86_64-linux-gnu/libOpenGL.so
   OBJECT_DIR = CMakeFiles/CppGameDarCuOpenGL.dir

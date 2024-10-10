@@ -7,19 +7,26 @@
 #include "GameContext.hpp"
 
 const char *vertexShaderSource = R"(
-    #version 330 core
-    layout (location = 0) in vec3 aPos;
-    void main() {
-        gl_Position = vec4(aPos, 1.0);
-    }
+#version 330 core
+layout(location = 0) in vec3 aPos;
+layout(location = 1) in vec3 aColor;
+
+out vec3 vertexColor;
+
+void main() {
+    gl_Position = vec4(aPos, 1.0);
+    vertexColor = aColor;
+}
 )";
 
 const char *fragmentShaderSource = R"(
-    #version 330 core
-    out vec4 FragColor;
-    void main() {
-        FragColor = vec4(1.0, 0.5, 0.2, 1.0);
-    }
+#version 330 core
+in vec3 vertexColor;
+out vec4 FragColor;
+
+void main() {
+    FragColor = vec4(vertexColor, 1.0);
+}
 )";
 
 GameContext::GameContext() {
@@ -39,13 +46,11 @@ GameContext::GameContext() {
     if (!window) {
         std::cerr << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
-        //return -1;
     }
     glfwMakeContextCurrent(window);
 
     if (glewInit() != GLEW_OK) {
         std::cerr << "Failed to initialize GLEW" << std::endl;
-        //return -1;
     }
 
     //glViewport(0, 0, 200, 200);
@@ -55,7 +60,6 @@ GameContext::GameContext() {
     glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
     glCompileShader(vertexShader);
 
-    // Check for shader compile errors
     int success;
     char infoLog[512];
     glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
@@ -63,25 +67,21 @@ GameContext::GameContext() {
         glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
         std::cerr << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
     }
-
     unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
     glCompileShader(fragmentShader);
 
-    // Check for shader compile errors
     glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
     if (!success) {
         glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
         std::cerr << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
     }
 
-    // Link shaders
     shaderProgram = glCreateProgram();
     glAttachShader(shaderProgram, vertexShader);
     glAttachShader(shaderProgram, fragmentShader);
     glLinkProgram(shaderProgram);
 
-    // Check for linking errors
     glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
     if (!success) {
         glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
@@ -89,7 +89,6 @@ GameContext::GameContext() {
     }
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
-
 }
 
 GameContext::~GameContext() {
