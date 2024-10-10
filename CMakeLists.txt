@@ -19,7 +19,9 @@ add_executable(CppGameDarCuOpenGL Core/main.cpp
         Renderer/Canvas/Canvas.cpp
         Renderer/Canvas/Canvas.hpp
         Renderer/Renderer.cpp
-        Renderer/Renderer.hpp)
+        Renderer/Renderer.hpp
+        Core/Utility/Utils.cpp
+        Core/Utility/Utils.hpp)
 
 target_link_libraries(CppGameDarCuOpenGL
         OpenGL::GL

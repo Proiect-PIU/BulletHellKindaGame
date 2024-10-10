@@ -4,8 +4,10 @@
 
 #include <GL/glew.h>
 #include <iostream>
+#include <glm/vec3.hpp>
 #include "Game.hpp"
 #include "../../Renderer/Canvas/Element/Element.hpp"
+#include "../Utility/Utils.hpp"
 
 Game::Game() {
     gc = new GameContext();
@@ -27,12 +29,11 @@ void processInput(GLFWwindow *window) {
 
 void Game::run() {
     std::vector<float> triangleVertices = {
-            -0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f, // Vertex 1
-            0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f, // Vertex 2
+            -0.9f, -0.9f, 0.0f,  1.0f, 0.0f, 0.0f, // Vertex 1
+            0.0f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f, // Vertex 2
             0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f  // Vertex 3
     };
     std::vector<float> squareVertices = {
-            // Positions          // Colors
             -0.5f, -0.5f, 0.0f,   1.0f, 1.0f, 1.0f, // Bottom Left (White)
             0.5f, -0.5f, 0.0f,   1.0f, 0.0f, 1.0f, // Bottom Right (Magenta)
             0.5f,  0.5f, 0.0f,   0.0f, 1.0f, 1.0f, // Top Right (Cyan)
@@ -45,6 +46,16 @@ void Game::run() {
     };
     auto* triangle = new Element(triangleVertices);
     auto* square = new Element(squareVertices, squareIndices);
+
+    auto *tool = new Utils();
+    auto circleVertices = tool->generateCircleVertices(
+            -0.5f, 0.0f, 0.0f, // Center
+            0.3f,              // Radius
+            50,                // Segments
+            glm::vec3(0.0f, 0.0f, 1.0f), // Center Color (Blue)
+            glm::vec3(1.0f, 0.0f, 0.0f) // Edge Color (Blue)
+    );
+    auto* circle = new Element(circleVertices);
     while (!gc->windowClosed()) {
         processInput(gc->getWindow());
 
@@ -58,6 +69,9 @@ void Game::run() {
 
         glBindVertexArray(square->getVAO());
         glDrawElements(GL_TRIANGLES, square->getIndexCount(), GL_UNSIGNED_INT, 0);
+
+        glBindVertexArray(circle->getVAO());
+        glDrawArrays(GL_TRIANGLE_FAN, 0, circle->getVertexCount() / 6);
 
         glfwSwapBuffers(gc->getWindow());
         glfwPollEvents();
