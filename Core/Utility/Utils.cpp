@@ -3,6 +3,7 @@
 //
 
 #include <valarray>
+#include <thread>
 #include "Utils.hpp"
 
 
@@ -36,4 +37,15 @@ Utils::generateCircleVertices(float cx, float cy, float cz, float radius, int nu
     }
 
     return vertices;
+}
+const int FPS = 144;
+const std::chrono::milliseconds frameDuration(1000 / FPS);
+void Utils::capFrameRate(const std::chrono::steady_clock::time_point &frameStart) {
+    auto frameEnd = std::chrono::steady_clock::now();
+    auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(frameEnd - frameStart);
+    auto delayTime = frameDuration - elapsedTime;
+
+    if (delayTime.count() > 0) {
+        std::this_thread::sleep_for(delayTime);
+    }
 }

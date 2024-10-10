@@ -8,6 +8,7 @@
 
 #include <vector>
 #include <glm/glm.hpp>
+#include <chrono>
 
 class Utils{
 public:
@@ -18,6 +19,7 @@ public:
             const glm::vec3& centerColor,
             const glm::vec3& edgeColor
     );
+    static void capFrameRate(const std::chrono::steady_clock::time_point& frameStart);
 };
 
 

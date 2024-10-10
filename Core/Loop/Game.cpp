@@ -61,10 +61,12 @@ void Game::run() {
     c->addElement(std::move(circle));
 
     while (!gc->windowClosed()) {
+        auto frameStart = std::chrono::steady_clock::now();
         processInput(gc->getWindow());
         Renderer::drawCanvas(*c, gc->getShaderProgram());
         glfwSwapBuffers(gc->getWindow());
         glfwPollEvents();
+        Utils::capFrameRate(frameStart);
     }
     glfwTerminate();
 }
