@@ -8,6 +8,8 @@
 #include "Game.hpp"
 #include "../../Renderer/Canvas/Element/Element.hpp"
 #include "../Utility/Utils.hpp"
+#include "../../Renderer/Canvas/Canvas.hpp"
+#include "../../Renderer/Renderer.hpp"
 
 Game::Game() {
     gc = new GameContext();
@@ -28,6 +30,7 @@ void processInput(GLFWwindow *window) {
 
 
 void Game::run() {
+    auto *c = new Canvas();
     std::vector<float> triangleVertices = {
             -0.9f, -0.9f, 0.0f,  1.0f, 0.0f, 0.0f, // Vertex 1
             0.0f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f, // Vertex 2
@@ -39,40 +42,27 @@ void Game::run() {
             0.5f,  0.5f, 0.0f,   0.0f, 1.0f, 1.0f, // Top Right (Cyan)
             -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f  // Top Left (Yellow)
     };
-
     std::vector<unsigned int> squareIndices = {
             0, 1, 2,  // First Triangle
             2, 3, 0   // Second Triangle
     };
-    auto* triangle = new Element(triangleVertices);
-    auto* square = new Element(squareVertices, squareIndices);
-
-    auto *tool = new Utils();
-    auto circleVertices = tool->generateCircleVertices(
+    auto circleVertices = Utils::generateCircleVertices(
             -0.5f, 0.0f, 0.0f, // Center
             0.3f,              // Radius
             50,                // Segments
             glm::vec3(0.0f, 0.0f, 1.0f), // Center Color (Blue)
             glm::vec3(1.0f, 0.0f, 0.0f) // Edge Color (Blue)
     );
-    auto* circle = new Element(circleVertices);
+    std::unique_ptr<Element> triangle = std::make_unique<Element>(triangleVertices);
+    std::unique_ptr<Element> square = std::make_unique<Element>(squareVertices, squareIndices);
+    std::unique_ptr<Element> circle = std::make_unique<Element>(circleVertices);
+    c->addElement(std::move(triangle));
+    c->addElement(std::move(square));
+    c->addElement(std::move(circle));
+
     while (!gc->windowClosed()) {
         processInput(gc->getWindow());
-
-        glClearColor(0.5f, 0.0f, 0.0f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        glUseProgram(gc->getShaderProgram());
-
-        glBindVertexArray(triangle->getVAO());
-        glDrawArrays(GL_TRIANGLES, 0, triangle->getVertexCount() / 6);
-
-        glBindVertexArray(square->getVAO());
-        glDrawElements(GL_TRIANGLES, square->getIndexCount(), GL_UNSIGNED_INT, 0);
-
-        glBindVertexArray(circle->getVAO());
-        glDrawArrays(GL_TRIANGLE_FAN, 0, circle->getVertexCount() / 6);
-
+        Renderer::drawCanvas(*c, gc->getShaderProgram());
         glfwSwapBuffers(gc->getWindow());
         glfwPollEvents();
     }

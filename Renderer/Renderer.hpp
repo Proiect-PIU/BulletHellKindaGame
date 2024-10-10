@@ -9,8 +9,9 @@
 #include "Canvas/Canvas.hpp"
 
 class Renderer{
+public:
     Renderer(){};
-    void drawCanvas(Canvas &c, unsigned int shaderProgram);
+    static void drawCanvas(Canvas &c, unsigned int shaderProgram);
 };
 
 
