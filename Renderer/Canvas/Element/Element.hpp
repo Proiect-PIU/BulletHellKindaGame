@@ -7,6 +7,8 @@
 
 
 #include <vector>
+#include <glm/gtc/matrix_transform.hpp>
+
 
 class Element{
     unsigned int VBO, VAO, EBO;
@@ -14,14 +16,19 @@ class Element{
     size_t vertexCount;
     std::vector<unsigned int> indices;
     size_t indexCount;
+    glm::mat4 modelMatrix;
 public:
     Element(const std::vector<float>& vertices, const std::vector<unsigned int>& indices = {});
     ~Element();
     void loadElement();
+    void setPosition(const glm::vec3& position);
+    void setRotation(float angle, const glm::vec3& axis);
+    void setScale(const glm::vec3& scale);
     [[nodiscard]] unsigned int getVAO() const{ return VAO;}
     [[nodiscard]] size_t getVertexCount() const { return vertexCount; }
     [[nodiscard]] size_t getIndexCount() const { return indexCount; }
     [[nodiscard]] bool hasIndices() const { return !indices.empty(); }
+    [[nodiscard]] const glm::mat4& getModelMatrix() const { return modelMatrix; }
 };
 
 

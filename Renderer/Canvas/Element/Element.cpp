@@ -6,6 +6,13 @@
 #include <iostream>
 #include "Element.hpp"
 
+Element::Element(const std::vector<float>& vertices, const std::vector<unsigned int>& indices)
+        : vertices(vertices), vertexCount(vertices.size()),
+          indices(indices), indexCount(indices.size()),
+          VAO(0), VBO(0), EBO(0), modelMatrix(glm::mat4(1.0f)) {
+    loadElement();
+}
+
 void Element::loadElement() {
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
@@ -33,7 +40,6 @@ void Element::loadElement() {
     glBindVertexArray(0);
 }
 
-
 Element::~Element() {
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
@@ -42,9 +48,14 @@ Element::~Element() {
     }
 }
 
-Element::Element(const std::vector<float>& vertices, const std::vector<unsigned int>& indices)
-        : vertices(vertices), vertexCount(vertices.size()),
-          indices(indices), indexCount(indices.size()),
-          VAO(0), VBO(0), EBO(0) {
-    loadElement();
+void Element::setPosition(const glm::vec3& position) {
+    modelMatrix = glm::translate(glm::mat4(1.0f), position);
+}
+
+void Element::setRotation(float angle, const glm::vec3& axis) {
+    modelMatrix = glm::rotate(glm::mat4(1.0f), angle, axis);
+}
+
+void Element::setScale(const glm::vec3& scale) {
+    modelMatrix = glm::scale(glm::mat4(1.0f), scale);
 }
