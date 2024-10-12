@@ -7,10 +7,12 @@
 
 
 #include "../Logic.hpp"
+#include "../../Components/Entities/Entities.hpp"
 
 class GameLogic: Logic{
+    Entities *e;
 public:
-    GameLogic();
+    GameLogic(const std::vector<float>& vertices) {e = new Entities(vertices);};
     void processLogic(Canvas &c, GLFWwindow &window) override;
     ~GameLogic() override;
 };

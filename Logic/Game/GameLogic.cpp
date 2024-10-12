@@ -6,28 +6,20 @@
 #include "../../Core/Utility/Utils.hpp"
 #include "../../Components/Entities/Entities.hpp"
 
-GameLogic::GameLogic() {
 
-}
-std::vector<float> triangleVertices = {
-        -0.02f, -0.01f, 0.0f,  1.0f, 0.0f, 0.0f, // Vertex 1
-        0.0f, 0.1f, 0.0f,  0.0f, 1.0f, 0.0f, // Vertex 2
-        0.02f,  -0.01f, 0.0f,  0.0f, 0.0f, 1.0f  // Vertex 3
-};
-
-void processInput(GLFWwindow &window, std::unique_ptr<Element> &triangle) {
+void processInput(GLFWwindow &window, Element *e) {
     static float pozX = 0.0f, pozY = 0.0f;
     if (glfwGetKey(&window, GLFW_KEY_LEFT) == GLFW_PRESS) {
-        triangle->setPosition(glm::vec3(pozX -= 0.01f, pozY, 0.0f));
+        e->setPosition(glm::vec3(pozX -= 0.01f, pozY, 0.0f));
     }
     if (glfwGetKey(&window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
-        triangle->setPosition(glm::vec3(pozX += 0.01f, pozY, 0.0f));
+        e->setPosition(glm::vec3(pozX += 0.01f, pozY, 0.0f));
     }
     if (glfwGetKey(&window, GLFW_KEY_UP) == GLFW_PRESS) {
-        triangle->setPosition(glm::vec3(pozX, pozY += 0.01f, 0.0f));
+        e->setPosition(glm::vec3(pozX, pozY += 0.01f, 0.0f));
     }
     if (glfwGetKey(&window, GLFW_KEY_DOWN) == GLFW_PRESS) {
-        triangle->setPosition(glm::vec3(pozX, pozY -= 0.01f, 0.0f));
+        e->setPosition(glm::vec3(pozX, pozY -= 0.01f, 0.0f));
     }
 } 
 void GameLogic::processLogic(Canvas &c, GLFWwindow &window) {
@@ -48,12 +40,12 @@ void GameLogic::processLogic(Canvas &c, GLFWwindow &window) {
             glm::vec3(0.0f, 0.0f, 1.0f), // Center Color (Blue)
             glm::vec3(1.0f, 0.0f, 0.0f) // Edge Color (Blue)
     );
-    static Entities *e = new Entities(triangleVertices);
-    std::unique_ptr<Element> triangle = std::make_unique<Element>(e->getVertices());
-    processInput(window, triangle);
+
+    processInput(window, e->getElement());
     std::unique_ptr<Element> square = std::make_unique<Element>(squareVertices, squareIndices);
     std::unique_ptr<Element> circle = std::make_unique<Element>(circleVertices);
-    c.addElement(std::move(triangle));
+
+    c.addElement(std::move(std::make_unique<Element>(*e->getElement())));
 //    c.addElement(std::move(square));
 //    c.addElement(std::move(circle));
 }

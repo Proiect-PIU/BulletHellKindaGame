@@ -31,8 +31,13 @@ Game::~Game() {
 
 
 void Game::run() {
+    std::vector<float> triangleVertices = {
+            -0.02f, -0.01f, 0.0f,  1.0f, 0.0f, 0.0f, // Vertex 1
+            0.0f, 0.1f, 0.0f,  0.0f, 1.0f, 0.0f, // Vertex 2
+            0.02f,  -0.01f, 0.0f,  0.0f, 0.0f, 1.0f  // Vertex 3
+    };
     auto *c = new Canvas();
-    auto *l = new GameLogic();
+    auto *l = new GameLogic(triangleVertices);
 
     while (!gc->windowClosed()) {
         auto frameStart = std::chrono::steady_clock::now();

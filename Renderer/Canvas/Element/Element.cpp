@@ -12,6 +12,15 @@ Element::Element(const std::vector<float>& vertices, const std::vector<unsigned 
           VAO(0), VBO(0), EBO(0), modelMatrix(glm::mat4(1.0f)) {
     loadElement();
 }
+Element::Element(const Element& other)
+        : vertices(other.vertices),
+          vertexCount(other.vertexCount),
+          indices(other.indices),
+          indexCount(other.indexCount),
+          VAO(0), VBO(0), EBO(0),
+          modelMatrix(other.modelMatrix) {
+    loadElement();
+}
 
 void Element::loadElement() {
     glGenVertexArrays(1, &VAO);

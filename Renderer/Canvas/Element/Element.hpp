@@ -19,6 +19,7 @@ class Element{
     glm::mat4 modelMatrix;
 public:
     Element(const std::vector<float>& vertices, const std::vector<unsigned int>& indices = {});
+    Element(const Element& other);
     ~Element();
     void loadElement();
     void setPosition(const glm::vec3& position);
