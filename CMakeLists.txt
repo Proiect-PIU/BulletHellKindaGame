@@ -28,7 +28,9 @@ add_executable(CppGameDarCuOpenGL Core/main.cpp
         Components/Entities/Entities.cpp
         Components/Entities/Entities.hpp
         Components/Entities/Player/Player.cpp
-        Components/Entities/Player/Player.hpp)
+        Components/Entities/Player/Player.hpp
+        Components/Entities/Bullets/Bullets.cpp
+        Components/Entities/Bullets/Bullets.hpp)
 
 target_link_libraries(CppGameDarCuOpenGL
         OpenGL::GL

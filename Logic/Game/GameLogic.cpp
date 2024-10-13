@@ -24,6 +24,15 @@ GameLogic::GameLogic() {
     };
     e = new Player(triangleVertices, weaponVertices, weaponIndices);
 }
+
+static std::chrono::steady_clock::time_point lastUpdateTime = std::chrono::steady_clock::now();
+float getDeltaTime() {
+    auto currentTime = std::chrono::steady_clock::now();
+    float deltaTime = std::chrono::duration<float, std::chrono::seconds::period>(currentTime - lastUpdateTime).count();
+    lastUpdateTime = currentTime;
+    return deltaTime;
+}
+
 void GameLogic::processLogic(Canvas &c, GLFWwindow &window) {
     std::vector<float> squareVertices = {
             -0.5f, -0.5f, 0.0f,   1.0f, 1.0f, 1.0f, // Bottom Left (White)
@@ -43,7 +52,7 @@ void GameLogic::processLogic(Canvas &c, GLFWwindow &window) {
             glm::vec3(1.0f, 0.0f, 0.0f) // Edge Color (Blue)
     );
 
-    e->processInputs(window, c);
+    e->processInputs(window, c, getDeltaTime());
 //    std::unique_ptr<Element> square = std::make_unique<Element>(squareVertices, squareIndices);
 //    std::unique_ptr<Element> circle = std::make_unique<Element>(circleVertices);
 

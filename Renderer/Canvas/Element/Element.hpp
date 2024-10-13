@@ -33,6 +33,8 @@ public:
     [[nodiscard]] unsigned int getVAO() const{ return VAO;}
     [[nodiscard]] size_t getVertexCount() const { return vertexCount; }
     [[nodiscard]] size_t getIndexCount() const { return indexCount; }
+    [[nodiscard]] std::vector<float> getVertices() const { return vertices; }
+    [[nodiscard]] std::vector<unsigned int> getIndices() const { return indices; }
     [[nodiscard]] bool hasIndices() const { return !indices.empty(); }
     [[nodiscard]] const glm::mat4& getModelMatrix() const { return modelMatrix; }
     [[nodiscard]] glm::vec3 getPosition() const { return position;};

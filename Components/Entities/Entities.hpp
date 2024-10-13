@@ -6,9 +6,12 @@
 #define CPPGAMEDARCUOPENGL_ENTITIES_HPP
 
 
+#include <GLFW/glfw3.h>
 #include "../../Renderer/Canvas/Element/Element.hpp"
+#include "../../Core/Utility/Utils.hpp"
 
 class Entities{
+protected:
     Element *e;
 public:
     Entities(const std::vector<float>& vertices){
@@ -18,6 +21,7 @@ public:
         e = new Element(vertices, indices);
     };
     Element *getElement(){ return e;};
+    void move(Directions dir, float deltaTime);
     ~Entities();
 };
 
