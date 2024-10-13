@@ -13,7 +13,7 @@
 class GameLogic: public Logic{
     Player *e;
 public:
-    GameLogic(const std::vector<float>& vertices) {e = new Player(vertices);};
+    GameLogic();
     void processLogic(Canvas &c, GLFWwindow &window) override;
     ~GameLogic() override;
 };

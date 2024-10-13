@@ -10,13 +10,14 @@
 
 class Entities{
     Element *e;
-    std::vector<float> vertices;
 public:
-    Entities(const std::vector<float>& vertices): vertices(vertices){
+    Entities(const std::vector<float>& vertices){
         e = new Element(vertices);
     };
+    Entities(const std::vector<float>& vertices, const std::vector<unsigned int>& indices){
+        e = new Element(vertices, indices);
+    };
     Element *getElement(){ return e;};
-    std::vector<float> getVertices(){ return vertices;};
     ~Entities();
 };
 

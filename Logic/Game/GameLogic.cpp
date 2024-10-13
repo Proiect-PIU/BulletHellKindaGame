@@ -6,27 +6,24 @@
 #include "../../Core/Utility/Utils.hpp"
 #include "../../Components/Entities/Entities.hpp"
 
-
-void processInput(GLFWwindow &window, Element *e) {
-    static float pozX = 0.0f, pozY = 0.0f;
-    static float rotation = 0.0f;
-    if (glfwGetKey(&window, GLFW_KEY_LEFT) == GLFW_PRESS) {
-        e->setPosition(glm::vec3(pozX -= 0.01f, pozY, 0.0f));
-    }
-    if (glfwGetKey(&window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
-        e->setPosition(glm::vec3(pozX += 0.01f, pozY, 0.0f));
-    }
-    if (glfwGetKey(&window, GLFW_KEY_UP) == GLFW_PRESS) {
-        e->setPosition(glm::vec3(pozX, pozY += 0.01f, 0.0f));
-    }
-    if (glfwGetKey(&window, GLFW_KEY_DOWN) == GLFW_PRESS) {
-        e->setPosition(glm::vec3(pozX, pozY -= 0.01f, 0.0f));
-    }
-    //e->setRotation(rotation += 0.1f, glm::vec3(0.0f, 0.0f, 1.0f));
-    //e->setScale(glm::vec3(3.0f, 3.0f, 3.0f));
-    if(rotation >= 360)
-        rotation = 0.0f;
-} 
+GameLogic::GameLogic() {
+    std::vector<float> triangleVertices = {
+            -0.04f, -0.01f, 0.0f,  1.0f, 0.0f, 0.0f, // Vertex 1
+            0.0f, 0.1f, 0.0f,  0.0f, 1.0f, 0.0f, // Vertex 2
+            0.04f,  -0.01f, 0.0f,  0.0f, 0.0f, 1.0f  // Vertex 3
+    };
+    std::vector<float> weaponVertices = {
+            -0.01f, -0.05f, 0.0f,   1.0f, 1.0f, 1.0f, // Bottom Left (White)
+            0.01f, -0.05f, 0.0f,   1.0f, 0.0f, 1.0f, // Bottom Right (Magenta)
+            0.01f,  0.05f, 0.0f,   0.0f, 1.0f, 1.0f, // Top Right (Cyan)
+            -0.01f,  0.05f, 0.0f,   1.0f, 1.0f, 0.0f  // Top Left (Yellow)
+    };
+    std::vector<unsigned int> weaponIndices = {
+            0, 1, 2,  // First Triangle
+            2, 3, 0   // Second Triangle
+    };
+    e = new Player(triangleVertices, weaponVertices, weaponIndices);
+}
 void GameLogic::processLogic(Canvas &c, GLFWwindow &window) {
     std::vector<float> squareVertices = {
             -0.5f, -0.5f, 0.0f,   1.0f, 1.0f, 1.0f, // Bottom Left (White)
@@ -46,7 +43,7 @@ void GameLogic::processLogic(Canvas &c, GLFWwindow &window) {
             glm::vec3(1.0f, 0.0f, 0.0f) // Edge Color (Blue)
     );
 
-    e->processInputs(window);
+    e->processInputs(window, c);
 //    std::unique_ptr<Element> square = std::make_unique<Element>(squareVertices, squareIndices);
 //    std::unique_ptr<Element> circle = std::make_unique<Element>(circleVertices);
 
