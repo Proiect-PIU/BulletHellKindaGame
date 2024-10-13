@@ -9,7 +9,11 @@
 Element::Element(const std::vector<float>& vertices, const std::vector<unsigned int>& indices)
         : vertices(vertices), vertexCount(vertices.size()),
           indices(indices), indexCount(indices.size()),
-          VAO(0), VBO(0), EBO(0), modelMatrix(glm::mat4(1.0f)) {
+          VAO(0), VBO(0), EBO(0), position(0.0f, 0.0f, 0.0f),
+          rotationAngle(0.0f),
+          rotationAxis(0.0f, 0.0f, 1.0f),
+          scale(1.0f, 1.0f, 1.0f),
+          modelMatrix(glm::mat4(1.0f)) {
     loadElement();
 }
 Element::Element(const Element& other)
@@ -18,6 +22,10 @@ Element::Element(const Element& other)
           indices(other.indices),
           indexCount(other.indexCount),
           VAO(0), VBO(0), EBO(0),
+          position(other.position),
+          rotationAngle(other.rotationAngle),
+          rotationAxis(other.rotationAxis),
+          scale(other.scale),
           modelMatrix(other.modelMatrix) {
     loadElement();
 }
@@ -56,15 +64,25 @@ Element::~Element() {
         glDeleteBuffers(1, &EBO);
     }
 }
+void Element::updateModelMatrix() {
+    modelMatrix = glm::mat4(1.0f);
+    modelMatrix = glm::translate(modelMatrix, position);
+    modelMatrix = glm::rotate(modelMatrix, rotationAngle, rotationAxis);
+    modelMatrix = glm::scale(modelMatrix, scale);
+}
 
-void Element::setPosition(const glm::vec3& position) {
-    modelMatrix = glm::translate(glm::mat4(1.0f), position);
+void Element::setPosition(const glm::vec3& newPos) {
+    position = newPos;
+    updateModelMatrix();
 }
 
 void Element::setRotation(float angle, const glm::vec3& axis) {
-    modelMatrix = glm::rotate(glm::mat4(1.0f), angle, axis);
+    rotationAngle = angle;
+    rotationAxis = axis;
+    updateModelMatrix();
 }
 
-void Element::setScale(const glm::vec3& scale) {
-    modelMatrix = glm::scale(glm::mat4(1.0f), scale);
+void Element::setScale(const glm::vec3& newScale) {
+    scale = newScale;
+    updateModelMatrix();
 }

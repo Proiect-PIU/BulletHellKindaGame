@@ -20,11 +20,6 @@ Game::~Game() {
     delete gc;
 }
 
-//void processInput(GLFWwindow *window) {
-//    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-//        glfwSetWindowShouldClose(window, true);
-//}
-
 //void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 //    glViewport(0, 0, width, height);
 //}
@@ -32,12 +27,12 @@ Game::~Game() {
 
 void Game::run() {
     std::vector<float> triangleVertices = {
-            -0.02f, -0.01f, 0.0f,  1.0f, 0.0f, 0.0f, // Vertex 1
+            -0.04f, -0.01f, 0.0f,  1.0f, 0.0f, 0.0f, // Vertex 1
             0.0f, 0.1f, 0.0f,  0.0f, 1.0f, 0.0f, // Vertex 2
-            0.02f,  -0.01f, 0.0f,  0.0f, 0.0f, 1.0f  // Vertex 3
+            0.04f,  -0.01f, 0.0f,  0.0f, 0.0f, 1.0f  // Vertex 3
     };
     auto *c = new Canvas();
-    auto *l = new GameLogic(triangleVertices);
+    Logic *l = new GameLogic(triangleVertices);
 
     while (!gc->windowClosed()) {
         auto frameStart = std::chrono::steady_clock::now();

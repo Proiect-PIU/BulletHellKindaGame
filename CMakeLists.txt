@@ -26,7 +26,9 @@ add_executable(CppGameDarCuOpenGL Core/main.cpp
         Logic/Game/GameLogic.hpp
         Logic/Logic.hpp
         Components/Entities/Entities.cpp
-        Components/Entities/Entities.hpp)
+        Components/Entities/Entities.hpp
+        Components/Entities/Player/Player.cpp
+        Components/Entities/Player/Player.hpp)
 
 target_link_libraries(CppGameDarCuOpenGL
         OpenGL::GL

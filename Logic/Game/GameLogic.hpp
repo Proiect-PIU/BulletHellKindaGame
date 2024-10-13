@@ -8,11 +8,12 @@
 
 #include "../Logic.hpp"
 #include "../../Components/Entities/Entities.hpp"
+#include "../../Components/Entities/Player/Player.hpp"
 
-class GameLogic: Logic{
-    Entities *e;
+class GameLogic: public Logic{
+    Player *e;
 public:
-    GameLogic(const std::vector<float>& vertices) {e = new Entities(vertices);};
+    GameLogic(const std::vector<float>& vertices) {e = new Player(vertices);};
     void processLogic(Canvas &c, GLFWwindow &window) override;
     ~GameLogic() override;
 };

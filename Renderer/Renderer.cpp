@@ -31,4 +31,5 @@ void Renderer::drawCanvas(Canvas &c, unsigned int shaderProgram) {
             glDrawArrays(GL_TRIANGLE_FAN, 0, element->getVertexCount() / 6);
         }
     }
+    c.blank();
 }

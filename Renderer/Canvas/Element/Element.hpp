@@ -17,14 +17,19 @@ class Element{
     std::vector<unsigned int> indices;
     size_t indexCount;
     glm::mat4 modelMatrix;
+    glm::vec3 position;
+    float rotationAngle;
+    glm::vec3 rotationAxis;
+    glm::vec3 scale;
 public:
     Element(const std::vector<float>& vertices, const std::vector<unsigned int>& indices = {});
     Element(const Element& other);
     ~Element();
     void loadElement();
-    void setPosition(const glm::vec3& position);
+    void setPosition(const glm::vec3& newPos);
     void setRotation(float angle, const glm::vec3& axis);
-    void setScale(const glm::vec3& scale);
+    void setScale(const glm::vec3& newScale);
+    void updateModelMatrix();
     [[nodiscard]] unsigned int getVAO() const{ return VAO;}
     [[nodiscard]] size_t getVertexCount() const { return vertexCount; }
     [[nodiscard]] size_t getIndexCount() const { return indexCount; }
