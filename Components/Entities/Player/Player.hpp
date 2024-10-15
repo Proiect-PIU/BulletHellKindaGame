@@ -15,11 +15,12 @@
 
 class Player: public Entities{
     enum player_state{IDLE, MOVING, ATTACKING, BOMBING} state = IDLE;
+    int dir;
     std::vector<Bullets> mag;
     Element *w;
     float shootCooldown = 0.0f;
     const float shootCooldownMax = 0.3f;
-    Pattern *pat = new ClassicPattern(5);
+    Pattern *bulletPattern = new ClassicPattern(3);
 public:
     Player(const std::vector<float>& vertices, const std::vector<float>& weapon): Entities(vertices){
         w = new Element(weapon);
@@ -35,7 +36,8 @@ public:
         w = new Element(weapon, weaponIndices);
     };
     void setPattern(Pattern *p);
-    void processInputs(GLFWwindow &window, Canvas &c, float deltaTime);
+    void update(GLFWwindow &window, Canvas &c, float deltaTime);
+    void processInputs(GLFWwindow &window, float deltaTime);
     void loadBullets();
     void updatedBullets(Canvas &c, float deltaTime);
     ~Player(){

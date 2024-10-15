@@ -9,6 +9,7 @@
 #include <vector>
 #include <glm/glm.hpp>
 #include <chrono>
+#include "Collision/Shape.hpp"
 
 enum Directions: int {UP = 0b1000, DOWN = 0b0100, LEFT = 0b0010, RIGHT = 0b0001, NONE = 0};
 
@@ -22,6 +23,7 @@ public:
             const glm::vec3& edgeColor
     );
     static void capFrameRate(const std::chrono::steady_clock::time_point& frameStart);
+    bool shapesCollide(const Shape& shapeA, const Shape& shapeB);
 };
 
 

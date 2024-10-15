@@ -6,12 +6,8 @@
 #include <thread>
 #include "Utils.hpp"
 
-
-class vec3;
-
-std::vector<float>
-Utils::generateCircleVertices(float cx, float cy, float cz, float radius, int numSegments, const glm::vec3 &centerColor,
-                              const glm::vec3 &edgeColor) {
+std::vector<float> Utils::generateCircleVertices(float cx, float cy, float cz, float radius, int numSegments,
+                                                 const glm::vec3 &centerColor, const glm::vec3 &edgeColor) {
     std::vector<float> vertices;
 
     vertices.push_back(cx);
@@ -38,6 +34,7 @@ Utils::generateCircleVertices(float cx, float cy, float cz, float radius, int nu
 
     return vertices;
 }
+
 const int FPS = 144;
 const std::chrono::milliseconds frameDuration(1000 / FPS);
 void Utils::capFrameRate(const std::chrono::steady_clock::time_point &frameStart) {
@@ -49,3 +46,20 @@ void Utils::capFrameRate(const std::chrono::steady_clock::time_point &frameStart
         std::this_thread::sleep_for(delayTime);
     }
 }
+
+bool Utils::shapesCollide(const Shape& shapeA, const Shape& shapeB) {
+    Shape transformedShapeA = transformShapeToWorld(shapeA);
+    Shape transformedShapeB = transformShapeToWorld(shapeB);
+
+    if (transformedShapeA.type == ShapeType::POLYGON && transformedShapeB.type == ShapeType::POLYGON) {
+        return polygonPolygonCollision(transformedShapeA, transformedShapeB);
+    } else if (transformedShapeA.type == ShapeType::CIRCLE && transformedShapeB.type == ShapeType::CIRCLE) {
+        return circleCircleCollision(transformedShapeA, transformedShapeB);
+    } else if (transformedShapeA.type == ShapeType::CIRCLE && transformedShapeB.type == ShapeType::POLYGON) {
+        return circlePolygonCollision(transformedShapeA, transformedShapeB);
+    } else if (transformedShapeA.type == ShapeType::POLYGON && transformedShapeB.type == ShapeType::CIRCLE) {
+        return circlePolygonCollision(transformedShapeB, transformedShapeA);
+    }
+    return false;
+}
+

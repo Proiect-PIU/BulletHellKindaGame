@@ -34,7 +34,7 @@ float getDeltaTime() {
 }
 
 void GameLogic::processLogic(Canvas &canvas, GLFWwindow &window) {
-    e->processInputs(window, canvas, getDeltaTime());
+    e->update(window, canvas, getDeltaTime());
     canvas.addElement(std::move(std::make_unique<Element>(*e->getElement())));
 }
 

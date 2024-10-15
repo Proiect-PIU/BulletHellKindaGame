@@ -7,7 +7,21 @@
 #include "../../../Core/Utility/Utils.hpp"
 
 void Player::setPattern(Pattern *p) {
-    pat = p;
+    bulletPattern = p;
+}
+
+void Player::update(GLFWwindow &window, Canvas &c, float deltaTime) {
+    processInputs(window, deltaTime);
+    switch (state) {
+        case MOVING:
+            move((Directions)dir, deltaTime);
+            break;
+        case ATTACKING:
+            loadBullets();
+            break;
+    }
+    state = IDLE;
+    updatedBullets(c, deltaTime);
 }
 
 void Player::loadBullets() {
@@ -20,12 +34,11 @@ void Player::loadBullets() {
 
 void Player::updatedBullets(Canvas &c, float deltaTime) {
     for(auto bullet = mag.begin(); bullet != mag.end();) {
-
         bullet->lifespan -= deltaTime;
         if(bullet->lifespan <= 0.0f) {
             bullet = mag.erase(bullet);
         } else {
-            pat->updatePattern(deltaTime, c, *bullet, w);
+            bulletPattern->updatePattern(deltaTime, c, *bullet, w);
         }
         if(!mag.empty()) {
             *bullet++;
@@ -33,8 +46,8 @@ void Player::updatedBullets(Canvas &c, float deltaTime) {
     }
 }
 
-void Player::processInputs(GLFWwindow &window, Canvas &c, float deltaTime) {
-    int dir = NONE;
+void Player::processInputs(GLFWwindow &window, float deltaTime) {
+    dir = NONE;
     if (glfwGetKey(&window, GLFW_KEY_LEFT) == GLFW_PRESS) {
         state = MOVING;
         dir |= LEFT;
@@ -66,16 +79,4 @@ void Player::processInputs(GLFWwindow &window, Canvas &c, float deltaTime) {
             shootCooldown = 0.0f;
         }
     }
-
-    switch (state) {
-        case MOVING:
-            move((Directions)dir, deltaTime);
-            break;
-        case ATTACKING:
-            loadBullets();
-            break;
-    }
-
-    state = IDLE;
-    updatedBullets(c, deltaTime);
 }

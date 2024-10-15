@@ -33,7 +33,9 @@ add_executable(CppGameDarCuOpenGL Core/main.cpp
         Components/Entities/Bullets/Bullets.hpp
         Components/Entities/Player/Player.cpp
         Components/Entities/Bullets/Pattern/Pattern.hpp
-        Components/Entities/Bullets/Pattern/ShootingPatterns/ClassicPattern.hpp)
+        Components/Entities/Bullets/Pattern/ShootingPatterns/ClassicPattern.hpp
+        Core/Utility/Collision/Shape.cpp
+        Core/Utility/Collision/Shape.hpp)
 
 target_link_libraries(CppGameDarCuOpenGL
         OpenGL::GL
