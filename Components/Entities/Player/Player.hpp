@@ -10,13 +10,16 @@
 #include "../Entities.hpp"
 #include "../../../Renderer/Canvas/Canvas.hpp"
 #include "../Bullets/Bullets.hpp"
+#include "../Bullets/Pattern/Pattern.hpp"
+#include "../Bullets/Pattern/ShootingPatterns/ClassicPattern.hpp"
 
 class Player: public Entities{
     enum player_state{IDLE, MOVING, ATTACKING, BOMBING} state = IDLE;
     std::vector<Bullets> mag;
     Element *w;
     float shootCooldown = 0.0f;
-    const float shootCooldownMax = 0.5f;
+    const float shootCooldownMax = 0.3f;
+    Pattern *pat = new ClassicPattern(5);
 public:
     Player(const std::vector<float>& vertices, const std::vector<float>& weapon): Entities(vertices){
         w = new Element(weapon);
@@ -31,6 +34,7 @@ public:
            const std::vector<unsigned int>& weaponIndices): Entities(vertices, indices){
         w = new Element(weapon, weaponIndices);
     };
+    void setPattern(Pattern *p);
     void processInputs(GLFWwindow &window, Canvas &c, float deltaTime);
     void loadBullets();
     void updatedBullets(Canvas &c, float deltaTime);

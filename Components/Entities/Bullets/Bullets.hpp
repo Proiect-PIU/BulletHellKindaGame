@@ -13,9 +13,6 @@ public:
     float lifespan;
     float speed;
     float angle;
-
-    int updateInterval;
-    int updateCounter;
     glm::vec3 pos;
     Bullets(float lifespan, float speed, glm::vec3 pos, float angle):
     lifespan(lifespan), speed(speed), pos(pos), angle(angle) {};

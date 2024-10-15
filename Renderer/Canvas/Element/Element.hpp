@@ -38,6 +38,8 @@ public:
     [[nodiscard]] bool hasIndices() const { return !indices.empty(); }
     [[nodiscard]] const glm::mat4& getModelMatrix() const { return modelMatrix; }
     [[nodiscard]] glm::vec3 getPosition() const { return position;};
+    [[nodiscard]] float getWidth() const;
+    [[nodiscard]] float getHeight() const;
 };
 
 
