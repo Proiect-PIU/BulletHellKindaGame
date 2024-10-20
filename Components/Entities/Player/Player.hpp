@@ -20,7 +20,7 @@ class Player: public Entities{
     Element *w;
     float shootCooldown = 0.0f;
     const float shootCooldownMax = 0.3f;
-    Pattern *bulletPattern = new ClassicPattern(3);
+    Pattern *bulletPattern = new ClassicPattern(4);
 public:
     Player(const std::vector<float>& vertices, const std::vector<float>& weapon): Entities(vertices){
         w = new Element(weapon);
