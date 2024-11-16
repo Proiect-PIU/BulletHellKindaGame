@@ -22,10 +22,16 @@ public:
         while (reps--) {
             bullet.pos = glm::vec3(startPos, posY, 0.0f);
             std::unique_ptr<Element> e;
+            Graphics *g;
             if (w->hasIndices()) {
-                e = std::make_unique<Element>(w->getVertices(), w->getIndices());
+                g = new Graphics(w->getVertices(), w->getIndices());
+                e = std::make_unique<Element>(g);
             } else {
-                e = std::make_unique<Element>(w->getVertices());
+                g = new Graphics(w->getVertices());
+                e = std::make_unique<Element>(g);
+            }
+            if (!g) {
+                delete g;
             }
             e->setPosition(bullet.pos);
             canvas.addElement(std::move(e));

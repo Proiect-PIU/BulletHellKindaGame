@@ -11,7 +11,7 @@
 #include "../../Components/Entities/Player/Player.hpp"
 
 class GameLogic: public Logic{
-    Player *e;
+    Player *player;
 public:
     GameLogic();
     void processLogic(Canvas &c, GLFWwindow &window) override;

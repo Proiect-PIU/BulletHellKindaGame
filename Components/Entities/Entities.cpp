@@ -6,6 +6,12 @@
 #include "Entities.hpp"
 
 Entities::~Entities() {
+    if (!self){
+       delete self;
+    }
+    if (!weapon) {
+        delete weapon;
+    }
 }
 
 void Entities::move(Directions dir, float deltaTime) {
@@ -20,6 +26,8 @@ void Entities::move(Directions dir, float deltaTime) {
         dx /= sqrt(2);
         dy /= sqrt(2);
     }
-    glm::vec3 newPos = glm::vec3(e->getPosition().x + dx * 1.2f * deltaTime, e->getPosition().y + dy * 1.4f * deltaTime, 0.0f);
-    e->setPosition(newPos);
+#define entity self->element->getPosition()
+    glm::vec3 newPos = glm::vec3(entity.x + dx * 1.2f * deltaTime, entity.y + dy * 1.4f * deltaTime, 0.0f);
+    self->element->setPosition(newPos);
+#undef entity
 }

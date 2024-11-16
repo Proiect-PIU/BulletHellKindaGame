@@ -35,7 +35,7 @@
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 40,
+				"line" : 47,
 				"parent" : 0
 			},
 			{
@@ -93,7 +93,8 @@
 				16,
 				18,
 				20,
-				24
+				24,
+				26
 			]
 		}
 	],
@@ -157,7 +158,8 @@
 				16,
 				18,
 				20,
-				24
+				24,
+				26
 			]
 		},
 		{
@@ -177,7 +179,13 @@
 				21,
 				22,
 				23,
-				25
+				25,
+				27,
+				28,
+				29,
+				30,
+				31,
+				32
 			]
 		}
 	],
@@ -323,6 +331,42 @@
 		{
 			"backtrace" : 1,
 			"path" : "Core/Utility/Collision/Shape.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Components/Entities/Enemies/Bacteria/Cocci/Cocci.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Components/Entities/Enemies/Bacteria/Cocci/Cocci.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Persistance/Data/Stats/BaseStats.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Persistance/Data/Geometry/Graphics.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Persistance/Data/Stats/WeaponStats.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Persistance/Data/Objects/Weapon.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Persistance/Data/Objects/Entity.hpp",
 			"sourceGroupIndex" : 1
 		}
 	],

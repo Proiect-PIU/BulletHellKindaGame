@@ -3,8 +3,6 @@
 //
 
 #include "GameLogic.hpp"
-#include "../../Core/Utility/Utils.hpp"
-#include "../../Components/Entities/Entities.hpp"
 
 GameLogic::GameLogic() {
     std::vector<float> triangleVertices = {
@@ -22,7 +20,12 @@ GameLogic::GameLogic() {
             0, 1, 2,
             2, 3, 0
     };
-    e = new Player(triangleVertices, weaponVertices, weaponIndices);
+
+    player = new Player(new Entity(new Graphics(triangleVertices),
+                              new BaseStats(10, 3)),
+                   new Weapon(new Graphics(weaponVertices, weaponIndices),
+                              new WeaponStats(new ClassicPattern(3), 0.3)));
+
 }
 
 static std::chrono::steady_clock::time_point lastUpdateTime = std::chrono::steady_clock::now();
@@ -34,10 +37,12 @@ float getDeltaTime() {
 }
 
 void GameLogic::processLogic(Canvas &canvas, GLFWwindow &window) {
-    e->update(window, canvas, getDeltaTime());
-    canvas.addElement(std::move(std::make_unique<Element>(*e->getElement())));
+    player->update(window, canvas, getDeltaTime());
+    canvas.addElement(std::move(std::make_unique<Element>(*player->self->element)));
 }
 
 GameLogic::~GameLogic() {
-
+    if (!player) {
+        delete player;
+    }
 }

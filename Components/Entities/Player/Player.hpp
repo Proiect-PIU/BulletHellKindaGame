@@ -15,33 +15,19 @@
 
 class Player: public Entities{
     enum player_state{IDLE, MOVING, ATTACKING, BOMBING} state = IDLE;
-    int dir;
-    std::vector<Bullets> mag;
-    Element *w;
-    float shootCooldown = 0.0f;
-    const float shootCooldownMax = 0.3f;
-    Pattern *bulletPattern = new ClassicPattern(3);
+    int dir = NONE;
+    std::vector<Bullets> mag = {};
 public:
-    Player(const std::vector<float>& vertices, const std::vector<float>& weapon): Entities(vertices){
-        w = new Element(weapon);
-    };
-    Player(const std::vector<float>& vertices, const std::vector<unsigned int>& indices, const std::vector<float>& weapon): Entities(vertices, indices){
-        w = new Element(weapon);
-    };
-    Player(const std::vector<float>& vertices, const std::vector<float>& weapon, const std::vector<unsigned int>& weaponIndices): Entities(vertices){
-        w = new Element(weapon, weaponIndices);
-    };
-    Player(const std::vector<float>& vertices, const std::vector<unsigned int>& indices, const std::vector<float>& weapon,
-           const std::vector<unsigned int>& weaponIndices): Entities(vertices, indices){
-        w = new Element(weapon, weaponIndices);
-    };
+    Player(Entity *e, Weapon *w): Entities(*e, *w){};
     void setPattern(Pattern *p);
     void update(GLFWwindow &window, Canvas &c, float deltaTime);
     void processInputs(GLFWwindow &window, float deltaTime);
     void loadBullets();
     void updatedBullets(Canvas &c, float deltaTime);
     ~Player(){
-        delete w;
+        if (!weapon) {
+            delete weapon;
+        }
     };
 };
 

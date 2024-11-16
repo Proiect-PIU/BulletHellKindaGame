@@ -6,9 +6,9 @@
 #include <iostream>
 #include "Element.hpp"
 
-Element::Element(const std::vector<float>& vertices, const std::vector<unsigned int>& indices)
-        : vertices(vertices), vertexCount(vertices.size()),
-          indices(indices), indexCount(indices.size()),
+Element::Element(Graphics *graphics)
+        : vertices(graphics->getVertices()), vertexCount(vertices.size()),
+          indices(graphics->getIndices()), indexCount(indices.size()),
           VAO(0), VBO(0), EBO(0), position(0.0f, 0.0f, 0.0f),
           rotationAngle(0.0f),
           rotationAxis(0.0f, 0.0f, 1.0f),

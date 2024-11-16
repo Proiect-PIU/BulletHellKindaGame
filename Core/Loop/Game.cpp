@@ -2,22 +2,25 @@
 // Created by francisc on 10/6/24.
 //
 
-#include <GL/glew.h>
 #include <iostream>
-#include <glm/vec3.hpp>
 #include "Game.hpp"
-#include "../../Renderer/Canvas/Element/Element.hpp"
 #include "../Utility/Utils.hpp"
-#include "../../Renderer/Canvas/Canvas.hpp"
 #include "../../Renderer/Renderer.hpp"
 #include "../../Logic/Game/GameLogic.hpp"
 
 Game::Game() {
-    gc = new GameContext();
+    gameContext = new GameContext();
+    canvas = new Canvas();
+    gameLogic = new GameLogic();
 }
 
 Game::~Game() {
-    delete gc;
+    if (!gameContext) {
+        delete gameContext;
+    }
+    if (!gameLogic) {
+        delete gameLogic;
+    }
 }
 
 //void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
@@ -26,18 +29,14 @@ Game::~Game() {
 
 
 void Game::run() {
-
-    auto *c = new Canvas();
-    Logic *l = new GameLogic();
-
-    while (!gc->windowClosed()) {
+    while (!gameContext->windowClosed()) {
         auto frameStart = std::chrono::steady_clock::now();
 
-        l->processLogic(*c, *gc->getWindow());
+        gameLogic->processLogic(*canvas, *gameContext->getWindow());
 
-        Renderer::drawCanvas(*c, gc->getShaderProgram());
+        Renderer::drawCanvas(*canvas, gameContext->getShaderProgram());
 
-        glfwSwapBuffers(gc->getWindow());
+        glfwSwapBuffers(gameContext->getWindow());
         glfwPollEvents();
 
         Utils::capFrameRate(frameStart);

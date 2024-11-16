@@ -5,9 +5,15 @@
 #include <iostream>
 #include "Player.hpp"
 #include "../../../Core/Utility/Utils.hpp"
-
+#define pattern weapon->stats->pattern
+#define time weapon->stats->shootTime
+#define cooldown weapon->stats->shootCooldown
+#define reset weapon->stats->shootReset
 void Player::setPattern(Pattern *p) {
-    bulletPattern = p;
+    if (!pattern) {
+        delete pattern;
+    }
+    pattern = p;
 }
 
 void Player::update(GLFWwindow &window, Canvas &c, float deltaTime) {
@@ -19,6 +25,9 @@ void Player::update(GLFWwindow &window, Canvas &c, float deltaTime) {
         case ATTACKING:
             loadBullets();
             break;
+        case BOMBING:
+        case IDLE:
+            break;
     }
     state = IDLE;
     updatedBullets(c, deltaTime);
@@ -27,7 +36,7 @@ void Player::update(GLFWwindow &window, Canvas &c, float deltaTime) {
 void Player::loadBullets() {
     float lifespan = 1.0f;
     float speed = 5.0f;
-    glm::vec3 pos = e->getPosition();
+    glm::vec3 pos = self->element->getPosition();
     pos.y += 0.05f;
     mag.push_back(*(new Bullets(lifespan, speed, pos, 0.0f)));
 }
@@ -38,7 +47,7 @@ void Player::updatedBullets(Canvas &c, float deltaTime) {
         if(bullet->lifespan <= 0.0f) {
             bullet = mag.erase(bullet);
         } else {
-            bulletPattern->updatePattern(deltaTime, c, *bullet, w);
+            pattern->updatePattern(deltaTime, c, *bullet, weapon->element);
         }
         if(!mag.empty()) {
             *bullet++;
@@ -68,15 +77,16 @@ void Player::processInputs(GLFWwindow &window, float deltaTime) {
         state = IDLE;
     }
     if (glfwGetKey(&window, GLFW_KEY_SPACE) == GLFW_PRESS) {
-        if (shootCooldown <= 0.0f) {
+        if (time <= reset) {
             state = ATTACKING;
-            shootCooldown = shootCooldownMax;
+            time = cooldown;
         }
     }
-    if (shootCooldown > 0.0f) {
-        shootCooldown -= deltaTime;
-        if (shootCooldown < 0.0f) {
-            shootCooldown = 0.0f;
-        }
+    if (time > 0.0f) {
+        time -= deltaTime;
     }
 }
+#undef pattern
+#undef time
+#undef cooldown
+#undef reset

@@ -8,6 +8,7 @@
 
 #include <vector>
 #include <glm/gtc/matrix_transform.hpp>
+#include "../../../Persistance/Data/Geometry/Graphics.hpp"
 
 
 class Element{
@@ -22,7 +23,7 @@ class Element{
     glm::vec3 rotationAxis;
     glm::vec3 scale;
 public:
-    Element(const std::vector<float>& vertices, const std::vector<unsigned int>& indices = {});
+    explicit Element(Graphics *graphics);
     Element(const Element& other);
     ~Element();
     void loadElement();

@@ -16,7 +16,7 @@ protected:
 public:
     Pattern(int nrOfBullets): nrOfBullets(nrOfBullets) {};
     virtual void updatePattern(float deltaTime, Canvas &canvas, Bullets &bullet, Element *w) = 0;
-    ~Pattern() = default;
+    virtual ~Pattern() = default;
 };
 
 
