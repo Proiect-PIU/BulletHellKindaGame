@@ -1,3 +1,0 @@
-C:/Users/adria/Desktop/PIU/BulletHellKindaGame/cmake-build-debug/CMakeFiles/CppGameDarCuOpenGL.dir
-C:/Users/adria/Desktop/PIU/BulletHellKindaGame/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/adria/Desktop/PIU/BulletHellKindaGame/cmake-build-debug/CMakeFiles/rebuild_cache.dir
