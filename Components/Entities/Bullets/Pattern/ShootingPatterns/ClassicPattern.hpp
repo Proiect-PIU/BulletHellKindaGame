@@ -13,7 +13,7 @@ class ClassicPattern: public Pattern{
 public:
     ClassicPattern(int nrOfBullets): Pattern(nrOfBullets){};
     void updatePattern(float deltaTime, Canvas &canvas, Bullets &bullet, Element *w) override {
-        float spacing = 0.01f;
+        float spacing = 0.1f;
         float totalWidth = (nrOfBullets - 1) * (w->getWidth() + spacing);
         float startPos = bullet.pos.x - (totalWidth / 2.0f);
         float initPos = bullet.pos.x;
