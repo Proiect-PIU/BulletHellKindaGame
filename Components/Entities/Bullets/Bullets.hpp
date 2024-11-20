@@ -7,6 +7,7 @@
 
 
 #include <glm/vec3.hpp>
+#include "../../../Renderer/Canvas/Element/Element.hpp"
 
 class Bullets{
 public:
@@ -14,8 +15,14 @@ public:
     float speed;
     float angle;
     glm::vec3 pos;
-    Bullets(float lifespan, float speed, glm::vec3 pos, float angle):
-    lifespan(lifespan), speed(speed), pos(pos), angle(angle) {};
+    Element *element;
+    Bullets(float lifespan, float speed, Element *e, glm::vec3 pos, float angle):
+    lifespan(lifespan), speed(speed), element(e), pos(pos), angle(angle) {};
+    ~Bullets(){
+        if(!element)
+            delete element;
+        element = nullptr;
+    }
 };
 
 

@@ -32,8 +32,8 @@ add_executable(CppGameDarCuOpenGL Core/main.cpp
         Components/Entities/Bullets/Bullets.cpp
         Components/Entities/Bullets/Bullets.hpp
         Components/Entities/Player/Player.cpp
-        Components/Entities/Bullets/Pattern/Pattern.hpp
-        Components/Entities/Bullets/Pattern/ShootingPatterns/ClassicPattern.hpp
+        Components/Pattern/BulletPattern.hpp
+        Components/Pattern/ShootingPatterns/ClassicPattern.hpp
         Core/Utility/Collision/Shape.hpp
         Components/Entities/Enemies/Bacteria/Cocci/Cocci.cpp
         Components/Entities/Enemies/Bacteria/Cocci/Cocci.hpp
@@ -43,7 +43,11 @@ add_executable(CppGameDarCuOpenGL Core/main.cpp
         Persistance/Data/Objects/Weapon.hpp
         Persistance/Data/Objects/Entity.hpp
         Core/Utility/Collision/Circle.hpp
-        Core/Utility/Collision/Polygon.hpp)
+        Core/Utility/Collision/Polygon.hpp
+        Components/Pattern/EnemyPattern.hpp
+        Components/Pattern/AiPatterns/CocciPattern.cpp
+        Components/Pattern/AiPatterns/CocciPattern.hpp
+)
 
 target_link_libraries(CppGameDarCuOpenGL
         OpenGL::GL

@@ -11,9 +11,8 @@
 class Cocci: public Entities{
 
 public:
-    Cocci();
-//    Cocci(const std::vector<float>& vertices, const std::vector<unsigned int>& indices): Entities(vertices, indices){
-//    };
+    Cocci(Entity *e, Weapon *w): Entities(*e, *w){};
+    ~Cocci() = default;
 };
 
 

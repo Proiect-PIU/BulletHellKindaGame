@@ -1,0 +1,14 @@
+//
+// Created by francisc on 11/20/24.
+//
+
+#ifndef CPPGAMEDARCUOPENGL_COCCIPATTERN_HPP
+#define CPPGAMEDARCUOPENGL_COCCIPATTERN_HPP
+
+
+class CocciPattern{
+
+};
+
+
+#endif //CPPGAMEDARCUOPENGL_COCCIPATTERN_HPP

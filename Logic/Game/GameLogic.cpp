@@ -3,6 +3,7 @@
 //
 
 #include "GameLogic.hpp"
+#include "../../Components/Pattern/ShootingPatterns/ClassicPattern.hpp"
 
 GameLogic::GameLogic() {
     std::vector<float> playerShip = {
@@ -34,12 +35,11 @@ GameLogic::GameLogic() {
         1, 2, 3
 };
 
-    // fran <3
-
     player = new Player(new Entity(new Graphics(playerShip, playerShipIndices),
                               new BaseStats(10, 3)),
                    new Weapon(new Graphics(weaponVertices, weaponIndices),
                               new WeaponStats(new ClassicPattern(3), 0.3)));
+
 
 }
 

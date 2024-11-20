@@ -6,15 +6,15 @@
 #define CPPGAMEDARCUOPENGL_CLASSICPATTERN_HPP
 
 #include <iostream>
-#include "../Pattern.hpp"
+#include "../BulletPattern.hpp"
 
 
-class ClassicPattern: public Pattern{
+class ClassicPattern: public BulletPattern{
 public:
-    ClassicPattern(int nrOfBullets): Pattern(nrOfBullets){};
-    void updatePattern(float deltaTime, Canvas &canvas, Bullets &bullet, Element *w) override {
+    explicit ClassicPattern(int nrOfBullets): BulletPattern(nrOfBullets){};
+    void updatePattern(float deltaTime, Canvas &canvas, Bullets &bullet) override {
         float spacing = 0.01f;
-        float totalWidth = (nrOfBullets - 1) * (w->getWidth() + spacing);
+        float totalWidth = (float)(nrOfBullets - 1) * (bullet.element->getWidth() + spacing);
         float startPos = bullet.pos.x - (totalWidth / 2.0f);
         float initPos = bullet.pos.x;
         int reps = nrOfBullets;
@@ -23,11 +23,11 @@ public:
             bullet.pos = glm::vec3(startPos, posY, 0.0f);
             std::unique_ptr<Element> e;
             Graphics *g;
-            if (w->hasIndices()) {
-                g = new Graphics(w->getVertices(), w->getIndices());
+            if (bullet.element->hasIndices()) {
+                g = new Graphics(bullet.element->getVertices(), bullet.element->getIndices());
                 e = std::make_unique<Element>(g);
             } else {
-                g = new Graphics(w->getVertices());
+                g = new Graphics(bullet.element->getVertices());
                 e = std::make_unique<Element>(g);
             }
             if (!g) {
@@ -35,7 +35,7 @@ public:
             }
             e->setPosition(bullet.pos);
             canvas.addElement(std::move(e));
-            startPos += w->getWidth() + spacing;
+            startPos += bullet.element->getWidth() + spacing;
         }
         bullet.pos.x = initPos;
     };
