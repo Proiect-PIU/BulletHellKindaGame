@@ -7,12 +7,21 @@
 
 
 #include "../../../Entities.hpp"
+#include "../../../../Pattern/EnemyPattern.hpp"
+#include "../../../../Pattern/AiPatterns/CocciPattern.hpp"
 
 class Cocci: public Entities{
-
+    EnemyPattern *AI;
 public:
-    Cocci(Entity *e, Weapon *w): Entities(*e, *w){};
-    ~Cocci() = default;
+    Cocci(Entity *e, Weapon *w): Entities(*e, *w){
+        AI = new CocciPattern();
+    };
+    void update(Canvas &c, float deltaTime);
+    ~Cocci(){
+        if(!AI)
+            delete AI;
+        AI = nullptr;
+    };
 };
 
 

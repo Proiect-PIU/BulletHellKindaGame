@@ -26,8 +26,11 @@ void Entities::move(Directions dir, float deltaTime) {
         dx /= sqrt(2);
         dy /= sqrt(2);
     }
-#define entity self->element->getPosition()
-    glm::vec3 newPos = glm::vec3(entity.x + dx * 1.2f * deltaTime, entity.y + dy * 1.4f * deltaTime, 0.0f);
+#define pos self->element->getPosition()
+#define speed self->stats->speed
+    glm::vec3 newPos = glm::vec3(pos.x + dx * 1.2f * deltaTime * speed,
+                                 pos.y + dy * 1.4f * deltaTime * speed, 0.0f);
     self->element->setPosition(newPos);
 #undef entity
+#undef speed
 }

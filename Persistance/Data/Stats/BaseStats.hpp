@@ -10,9 +10,10 @@ class BaseStats{
 public:
     unsigned int health;
     unsigned int rockets;
+    float speed;
 
-    BaseStats(unsigned int health, unsigned int rockets):
-    health(health), rockets(rockets){};
+    BaseStats(unsigned int health, unsigned int rockets, float speed):
+    health(health), rockets(rockets), speed(speed){};
 };
 
 

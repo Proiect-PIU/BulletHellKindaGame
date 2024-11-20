@@ -82,7 +82,7 @@ void Player::processInputs(GLFWwindow &window, float deltaTime) {
             time = cooldown;
         }
     }
-    if (time > 0.0f) {
+    if (time > reset) {
         time -= deltaTime;
     }
 }
