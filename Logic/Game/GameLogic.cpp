@@ -21,6 +21,8 @@ GameLogic::GameLogic() {
             2, 3, 0
     };
 
+    // fran <3
+
     player = new Player(new Entity(new Graphics(triangleVertices),
                               new BaseStats(10, 3)),
                    new Weapon(new Graphics(weaponVertices, weaponIndices),
