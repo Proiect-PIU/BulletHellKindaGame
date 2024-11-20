@@ -5,25 +5,38 @@
 #include "GameLogic.hpp"
 
 GameLogic::GameLogic() {
-    std::vector<float> triangleVertices = {
-            -0.04f, -0.01f, 0.0f,  1.0f, 0.0f, 0.0f,
-            0.0f, 0.1f, 0.0f,  0.0f, 1.0f, 0.0f,
-            0.04f,  -0.01f, 0.0f,  0.0f, 0.0f, 1.0f
-    };
+    std::vector<float> playerShip = {
+        0.0f, 0.2f, 0.0f,    0.14f, 0.55f, 0.36f,
+        0.05f, 0.05f, 0.0f,   0.11f, 0.24f, 0.00f,
+        0.1f, 0.0f, 0.0f,   0.11f, 0.24f, 0.00f,
+        0.1f, -0.05f, 0.0f,   1.00f, 0.87f, 0.07f,
+        0.0f, 0.0f, 0.0f,   0.11f, 0.24f, 0.00f,
+        -0.1f, -0.05f, 0.0f,   1.00f, 0.87f, 0.07f,
+        -0.1f, 0.0f, 0.0f,   0.11f, 0.24f, 0.00f,
+        -0.05f, 0.05f, 0.0f,   0.11f, 0.24f, 0.00f
+        };
+    std::vector<unsigned int> playerShipIndices = {
+        0, 1, 7,
+        1, 2, 7,
+        2, 6, 7,
+        2, 3, 4,
+        4, 5, 6
+};
+
     std::vector<float> weaponVertices = {
-            -0.01f, -0.05f, 0.0f,   1.0f, 1.0f, 1.0f,
-            0.01f, -0.05f, 0.0f,   1.0f, 0.0f, 1.0f,
-            0.01f,  0.05f, 0.0f,   0.0f, 1.0f, 1.0f,
-            -0.01f,  0.05f, 0.0f,   1.0f, 1.0f, 0.0f
-    };
+        0.00f, 0.10f, 0.0f,   1.0f, 0.0f, 0.0f,
+        0.025f, 0.075f, 0.0f,   1.0f, 0.33f, 0.0f,
+        0.00f,  0.00f, 0.0f,   1.0f, 1.0f, 0.0f,
+        -0.025f,  0.075f, 0.0f,   1.0f, 0.33f, 0.0f
+};
     std::vector<unsigned int> weaponIndices = {
-            0, 1, 2,
-            2, 3, 0
-    };
+        0, 1, 3,
+        1, 2, 3
+};
 
     // fran <3
 
-    player = new Player(new Entity(new Graphics(triangleVertices),
+    player = new Player(new Entity(new Graphics(playerShip, playerShipIndices),
                               new BaseStats(10, 3)),
                    new Weapon(new Graphics(weaponVertices, weaponIndices),
                               new WeaponStats(new ClassicPattern(3), 0.3)));
