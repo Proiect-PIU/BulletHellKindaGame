@@ -39,8 +39,8 @@ GameLogic::GameLogic() {
                               new BaseStats(10, 3, 1)),
                    new Weapon(new Graphics(weaponVertices, weaponIndices),
                               new WeaponStats(new ClassicPattern(3), 0.3)));
-    cocci = new Cocci(new Entity(new Graphics(Utils::generateCircleVertices(0, 0, 0, 0.05, 20, glm::vec3(0, 0, 0), glm::vec3(1, 1, 1))),
-                                 new BaseStats(10, 3, 0.1)),
+    cocci = new Cocci(new Entity(new Graphics(Utils::generateCircleVertices(-0.9, 0.8, 0, 0.05, 20, glm::vec3(0, 0, 0), glm::vec3(1, 1, 1))),
+                                 new BaseStats(10, 3, 0.5)),
                       new Weapon(new Graphics(weaponVertices, weaponIndices),
                                  new WeaponStats(new ClassicPattern(3), 0.3)));
 

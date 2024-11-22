@@ -10,10 +10,26 @@
 #include "../../../Persistance/Data/Objects/Entity.hpp"
 
 class CocciPattern: public EnemyPattern{
+    float reset = 0.0f;
+    float cooldown = 3.0f;
+    float time = 0.0f;
+    bool swDir = false;
 public:
     explicit CocciPattern() = default;
     void updatePattern(float deltaTime, Canvas &canvas, Entities &entity) override {
-        entity.move(RIGHT, deltaTime);
+        if (time <= reset) {
+            time = cooldown;
+            swDir = !swDir;
+        }
+        if (time > reset) {
+            time -= deltaTime;
+        }
+        if (swDir) {
+            entity.move(RIGHT, deltaTime);
+        }
+        else {
+            entity.move(LEFT, deltaTime);
+        }
     };
 };
 
