@@ -7,13 +7,21 @@
 
 
 #include "../../../Entities.hpp"
+#include "../../../../Pattern/EnemyPattern.hpp"
+#include "../../../../Pattern/AiPatterns/CocciPattern.hpp"
 
 class Cocci: public Entities{
-
+    EnemyPattern *AI;
 public:
-    Cocci();
-//    Cocci(const std::vector<float>& vertices, const std::vector<unsigned int>& indices): Entities(vertices, indices){
-//    };
+    Cocci(Entity *e, Weapon *w): Entities(*e, *w){
+        AI = new CocciPattern();
+    };
+    void update(Canvas &c, float deltaTime);
+    ~Cocci(){
+        if(!AI)
+            delete AI;
+        AI = nullptr;
+    };
 };
 
 

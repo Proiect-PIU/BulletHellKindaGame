@@ -3,6 +3,7 @@
 //
 
 #include "GameLogic.hpp"
+#include "../../Components/Pattern/ShootingPatterns/ClassicPattern.hpp"
 
 GameLogic::GameLogic() {
     std::vector<float> playerShip = {
@@ -34,12 +35,14 @@ GameLogic::GameLogic() {
         1, 2, 3
 };
 
-    // fran <3
-
     player = new Player(new Entity(new Graphics(playerShip, playerShipIndices),
-                              new BaseStats(10, 3)),
+                              new BaseStats(10, 3, 1)),
                    new Weapon(new Graphics(weaponVertices, weaponIndices),
                               new WeaponStats(new ClassicPattern(3), 0.3)));
+    cocci = new Cocci(new Entity(new Graphics(Utils::generateCircleVertices(-0.9, 0.8, 0, 0.05, 20, glm::vec3(0, 0, 0), glm::vec3(1, 1, 1))),
+                                 new BaseStats(10, 3, 0.5)),
+                      new Weapon(new Graphics(weaponVertices, weaponIndices),
+                                 new WeaponStats(new ClassicPattern(3), 0.3)));
 
 }
 
@@ -52,8 +55,11 @@ float getDeltaTime() {
 }
 
 void GameLogic::processLogic(Canvas &canvas, GLFWwindow &window) {
-    player->update(window, canvas, getDeltaTime());
+    float delta = getDeltaTime();
+    player->update(window, canvas, delta);
+    cocci->update(canvas, delta);
     canvas.addElement(std::move(std::make_unique<Element>(*player->self->element)));
+    canvas.addElement(std::move(std::make_unique<Element>(*cocci->self->element)));
 }
 
 GameLogic::~GameLogic() {

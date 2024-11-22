@@ -4,6 +4,7 @@
 
 #include <valarray>
 #include <thread>
+#include <iostream>
 #include "Utils.hpp"
 
 std::vector<float> Utils::generateCircleVertices(float cx, float cy, float cz, float radius, int numSegments,

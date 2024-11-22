@@ -9,9 +9,11 @@
 #include "../Logic.hpp"
 #include "../../Components/Entities/Entities.hpp"
 #include "../../Components/Entities/Player/Player.hpp"
+#include "../../Components/Entities/Enemies/Bacteria/Cocci/Cocci.hpp"
 
 class GameLogic: public Logic{
     Player *player;
+    Cocci *cocci;
 public:
     GameLogic();
     void processLogic(Canvas &c, GLFWwindow &window) override;

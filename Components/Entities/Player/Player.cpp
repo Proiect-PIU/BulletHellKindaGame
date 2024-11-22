@@ -9,7 +9,7 @@
 #define time weapon->stats->shootTime
 #define cooldown weapon->stats->shootCooldown
 #define reset weapon->stats->shootReset
-void Player::setPattern(Pattern *p) {
+void Player::setPattern(BulletPattern *p) {
     if (!pattern) {
         delete pattern;
     }
@@ -38,7 +38,7 @@ void Player::loadBullets() {
     float speed = 5.0f;
     glm::vec3 pos = self->element->getPosition();
     pos.y += 0.05f;
-    mag.push_back(*(new Bullets(lifespan, speed, pos, 0.0f)));
+    mag.push_back(*(new Bullets(lifespan, speed, weapon->element, pos, 0.0f)));
 }
 
 void Player::updatedBullets(Canvas &c, float deltaTime) {
@@ -47,7 +47,7 @@ void Player::updatedBullets(Canvas &c, float deltaTime) {
         if(bullet->lifespan <= 0.0f) {
             bullet = mag.erase(bullet);
         } else {
-            pattern->updatePattern(deltaTime, c, *bullet, weapon->element);
+            pattern->updatePattern(deltaTime, c, *bullet);
         }
         if(!mag.empty()) {
             *bullet++;
@@ -82,7 +82,7 @@ void Player::processInputs(GLFWwindow &window, float deltaTime) {
             time = cooldown;
         }
     }
-    if (time > 0.0f) {
+    if (time > reset) {
         time -= deltaTime;
     }
 }
