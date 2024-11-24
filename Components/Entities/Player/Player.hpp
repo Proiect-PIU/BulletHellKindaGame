@@ -13,13 +13,13 @@
 #include "../../../Components/Pattern/BulletPattern.hpp"
 
 class Player: public Entities{
-    enum player_state{IDLE, MOVING, ATTACKING, BOMBING} state = IDLE;
+    enum Player_state{IDLE, MOVING, ATTACKING, BOMBING} state = IDLE;
     int dir = NONE;
     std::vector<Bullets> mag = {};
 public:
     Player(Entity *e, Weapon *w): Entities(*e, *w){};
     void setPattern(BulletPattern *p);
-    void update(GLFWwindow &window, Canvas &c, float deltaTime);
+    void update(Canvas &c, float deltaTime, GLFWwindow &window)override;
     void processInputs(GLFWwindow &window, float deltaTime);
     void loadBullets();
     void updatedBullets(Canvas &c, float deltaTime);

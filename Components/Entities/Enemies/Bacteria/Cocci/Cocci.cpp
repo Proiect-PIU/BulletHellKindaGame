@@ -5,6 +5,6 @@
 #include <iostream>
 #include "Cocci.hpp"
 
-void Cocci::update(Canvas &c, float deltaTime) {
+void Cocci::update(Canvas &c, float deltaTime, GLFWwindow &window) {
     AI->updatePattern(deltaTime, c, *this);
 }
