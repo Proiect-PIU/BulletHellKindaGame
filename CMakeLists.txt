@@ -47,6 +47,14 @@ add_executable(CppGameDarCuOpenGL Core/main.cpp
         Components/Pattern/EnemyPattern.hpp
         Components/Pattern/AiPatterns/CocciPattern.cpp
         Components/Pattern/AiPatterns/CocciPattern.hpp
+        Creators/Updater/Updater.cpp
+        Creators/Updater/Updater.hpp
+        Creators/Loader/Loader.cpp
+        Creators/Loader/Loader.hpp
+        Levels/Level.hpp
+        Levels/Wave.hpp
+        Levels/TestLevels/TestLevel.cpp
+        Levels/TestLevels/TestLevel.hpp
 )
 
 target_link_libraries(CppGameDarCuOpenGL

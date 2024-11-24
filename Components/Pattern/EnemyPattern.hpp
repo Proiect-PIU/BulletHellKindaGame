@@ -13,7 +13,7 @@ class EnemyPattern{
 public:
     explicit EnemyPattern() = default;
     virtual void updatePattern(float deltaTime, Canvas &canvas, Entities &entity) = 0;
-    ~EnemyPattern() = default;
+    virtual ~EnemyPattern() = default;
 };
 
 

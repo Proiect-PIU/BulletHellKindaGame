@@ -31,6 +31,7 @@ public:
             entity.move(LEFT, deltaTime);
         }
     };
+    //~CocciPattern()override = default;
 };
 
 

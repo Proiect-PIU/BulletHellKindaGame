@@ -16,7 +16,7 @@ void Player::setPattern(BulletPattern *p) {
     pattern = p;
 }
 
-void Player::update(GLFWwindow &window, Canvas &c, float deltaTime) {
+void Player::update(Canvas &c, float deltaTime, GLFWwindow &window) {
     processInputs(window, deltaTime);
     switch (state) {
         case MOVING:

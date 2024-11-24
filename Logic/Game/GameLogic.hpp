@@ -10,10 +10,13 @@
 #include "../../Components/Entities/Entities.hpp"
 #include "../../Components/Entities/Player/Player.hpp"
 #include "../../Components/Entities/Enemies/Bacteria/Cocci/Cocci.hpp"
+#include "../../Levels/Level.hpp"
+#include "../../Creators/Updater/Updater.hpp"
 
 class GameLogic: public Logic{
     Player *player;
-    Cocci *cocci;
+    Level *testLevel;
+    Updater *worker;
 public:
     GameLogic();
     void processLogic(Canvas &c, GLFWwindow &window) override;

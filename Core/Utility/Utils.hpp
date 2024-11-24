@@ -7,7 +7,6 @@
 
 
 #include <vector>
-#include <glm/glm.hpp>
 #include <chrono>
 #include "Collision/Shape.hpp"
 
