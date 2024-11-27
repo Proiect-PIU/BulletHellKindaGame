@@ -19,8 +19,6 @@ public:
     std::vector<float> vertices;
     Shape(const std::vector<float>& vertices, ShapeType type, glm::mat4 transform = glm::mat4(1.0f))
     : vertices(vertices), type(type), transform(transform){};
-
-    virtual void transformShapeToWorld() = 0;
 };
 
 #endif //CPPGAMEDARCUOPENGL_SHAPE_HPP

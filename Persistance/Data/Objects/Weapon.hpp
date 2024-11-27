@@ -13,9 +13,11 @@ class Weapon{
 public:
     Element *element;
     Graphics *graphics;
+    Shape *shape;
     WeaponStats *stats;
     Weapon(Graphics *graphics, WeaponStats *stats): graphics(graphics), stats(stats){
         element = new Element(graphics);
+        shape = new Shape(graphics->getVertices(), Shape::ShapeType::POLYGON);
     };
     ~Weapon(){
         delete element;
