@@ -7,14 +7,17 @@
 
 #include "../../../Renderer/Canvas/Element/Element.hpp"
 #include "../Stats/BaseStats.hpp"
+#include "../../../Core/Utility/Collision/Polygon.hpp"
 
 class Entity{
 public:
     Element *element;
     Graphics *graphics;
+    Shape *shape;
     BaseStats *stats;
     Entity(Graphics *graphics, BaseStats *stats): graphics(graphics), stats(stats){
         element = new Element(graphics);
+        shape = new Shape(graphics->getVertices(), Shape::ShapeType::POLYGON);
     };
     ~Entity(){
         delete element;
