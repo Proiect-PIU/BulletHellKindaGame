@@ -12,7 +12,6 @@
 
 namespace fs = std::filesystem;
 
-Loader::Loader()=default;
 
 Loader& Loader::getInstance()
 {
@@ -36,7 +35,7 @@ void Loader::loadFromFolder(const std::string& folderPath)
     }
 }
 
-const std::unordered_map<std::string, std::pair<std::vector<std::vector<float>>, std::vector<std::vector<int>>>>& const std::unordered_map<std::string, std::pair<std::vector<std::vector<float>>, std::vector<std::vector<int>>>>& Loader::getData() const
+const std::unordered_map<std::string, std::pair<std::vector<float>, std::vector<unsigned int>>>& Loader::getData() const
 {
     return data;
 }
@@ -79,50 +78,41 @@ void Loader::parseFile(const std::string& filePath)
     data[fileName] = {vertices, indices};
 }
 
-std::vector<std::vector<float>> Loader::parseVertices(const std::string& section)
+std::vector<float> Loader::parseVertices(const std::string& section)
 {
-    std::vector<std::vector<float>> vertices;
+    std::vector<float> vertices;
     std::stringstream ss(section);
     std::string line;
 
     while (std::getline(ss, line))
     {
         std::stringstream lineStream(line);
-        std::vector<float> vertex;
         float value;
         while (lineStream >> value)
         {
-            vertex.push_back(value);
-        }
-        if(!vertex.empty())
-        {
-            vertices.push_back(vertex);
+            vertices.push_back(value);
         }
     }
 
     return vertices;
 }
 
-std::vector<std::vector<int>> Loader::parseIndices(const std::string& section)
+std::vector<unsigned int> Loader::parseIndices(const std::string& section)
 {
-    std::vector<std::vector<int>> indices;
+    std::vector<unsigned int> indices;
     std::stringstream ss(section);
     std::string line;
 
     while(std::getline(ss, line))
     {
         std::stringstream lineStream(line);
-        std::vector<int> index;
-        int value;
+        unsigned int value;
         while(lineStream >> value)
         {
-            index.push_back(value);
-        }
-        if(!index.empty())
-        {
-            indices.push_back(index);
+            indices.push_back(value);
         }
 
-        return indices;
     }
+
+    return indices;
 }

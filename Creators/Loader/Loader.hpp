@@ -18,18 +18,18 @@ public:
 
     void loadFromFolder(const std::string& folderPath);
 
-    const std::unordered_map<std::string, std::pair<std::vector<std::vector<float>>, std::vector<std::vector<int>>>>& getData() const;
+    const std::unordered_map<std::string, std::pair<std::vector<float>, std::vector<unsigned int>>>& getData() const;
 
 private:
-    Loader();
+    Loader() = default;
 
-    std::unordered_map<std::string, std::pair<std::vector<std::vector<float>>, std::vector<std::vector<int>>>> data;
+    std::unordered_map<std::string, std::pair<std::vector<float>, std::vector<unsigned int>>> data;
 
     const char delimiter = '#';
 
     void parseFile(const std::string& filePath);
-    std::vector<std::vector<float>> parseVertices(const std::string& section);
-    std::vector<std::vector<int>> parseIndices(const std::string& section);
+    std::vector<float> parseVertices(const std::string& section);
+    std::vector<unsigned int> parseIndices(const std::string& section);
 };
 
 

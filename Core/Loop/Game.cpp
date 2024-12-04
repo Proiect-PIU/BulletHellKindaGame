@@ -7,8 +7,12 @@
 #include "../Utility/Utils.hpp"
 #include "../../Renderer/Renderer.hpp"
 #include "../../Logic/Game/GameLogic.hpp"
+#include "../../Creators/Loader/Loader.hpp"
 
 Game::Game() {
+
+    std::string folderPath = "Resources/Graphics";
+    Loader::getInstance().loadFromFolder(folderPath);
     gameContext = new GameContext();
     canvas = new Canvas();
     gameLogic = new GameLogic();
@@ -29,6 +33,8 @@ Game::~Game() {
 
 
 void Game::run() {
+    //Loader& loader = Loader::getInstance();
+
     while (!gameContext->windowClosed()) {
         auto frameStart = std::chrono::steady_clock::now();
 
