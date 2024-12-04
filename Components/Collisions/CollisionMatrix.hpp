@@ -13,12 +13,14 @@ class CollisionMatrix{
     size_t height;
     size_t nrSqrWidth;
     size_t nrSqrHeight;
-    size_t squareWidth;
-    size_t squareHeight;
-    std::vector<std::vector<Square>> grid;
+    float squareWidth;
+    float squareHeight;
+    std::vector<Square> grid;
 public:
     CollisionMatrix(size_t width, size_t height, size_t nrSqrWidth, size_t nrSqrHeight);
     void AddElement(Shape &shape, SquareState state);
+    void CheckForCollision();
+    void Empty();
     ~CollisionMatrix();
 };
 

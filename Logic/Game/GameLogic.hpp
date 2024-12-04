@@ -12,11 +12,12 @@
 #include "../../Components/Entities/Enemies/Bacteria/Cocci/Cocci.hpp"
 #include "../../Levels/Level.hpp"
 #include "../../Creators/Updater/Updater.hpp"
+#include "../../Components/Collisions/CollisionMatrix.hpp"
 
 class GameLogic: public Logic{
-    Player *player;
     Level *testLevel;
     Updater *worker;
+    CollisionMatrix *matrix;
 public:
     GameLogic();
     void processLogic(Canvas &c, GLFWwindow &window) override;

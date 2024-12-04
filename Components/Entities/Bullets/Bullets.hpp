@@ -8,6 +8,8 @@
 
 #include <glm/vec3.hpp>
 #include "../../../Renderer/Canvas/Element/Element.hpp"
+#include "../../../Core/Utility/Collision/Shape.hpp"
+#include "../../Collisions/Squares/SquareState.hpp"
 
 class Bullets{
 public:
@@ -16,12 +18,17 @@ public:
     float angle;
     glm::vec3 pos;
     Element *element;
-    Bullets(float lifespan, float speed, Element *e, glm::vec3 pos, float angle):
-    lifespan(lifespan), speed(speed), element(e), pos(pos), angle(angle) {};
+    Shape *shape;
+    SquareState state;
+    Bullets(SquareState state, float lifespan, float speed, Element *e, Shape *s, glm::vec3 pos, float angle):
+    state(state), lifespan(lifespan), speed(speed), element(e), shape(s), pos(pos), angle(angle) {};
     ~Bullets(){
         if(!element)
             delete element;
         element = nullptr;
+        if(!shape)
+            delete shape;
+        shape = nullptr;
     }
 };
 

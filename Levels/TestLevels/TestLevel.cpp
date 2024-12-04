@@ -5,12 +5,55 @@
 #include "TestLevel.hpp"
 #include "../../Components/Entities/Enemies/Bacteria/Cocci/Cocci.hpp"
 #include "../../Components/Pattern/ShootingPatterns/ClassicPattern.hpp"
+#include "../../Components/Entities/Player/Player.hpp"
 
 TestLevel::TestLevel(const std::vector<Wave*> &waves) : Level(waves) {
 
 }
 
 TestLevel::TestLevel() {
+    std::vector<float> playerShip = {
+            0.0f, 0.2f, 0.0f,    0.14f, 0.55f, 0.36f,   //0
+            0.05f, 0.05f, 0.0f,   0.11f, 0.24f, 0.00f,  //1
+            0.1f, 0.0f, 0.0f,   0.11f, 0.24f, 0.00f,    //2
+            0.1f, -0.05f, 0.0f,   1.00f, 0.87f, 0.07f,  //3
+            0.0f, 0.0f, 0.0f,   0.11f, 0.24f, 0.00f,    //4
+            -0.1f, -0.05f, 0.0f,   1.00f, 0.87f, 0.07f, //5
+            -0.1f, 0.0f, 0.0f,   0.11f, 0.24f, 0.00f,   //6
+            -0.05f, 0.05f, 0.0f,   0.11f, 0.24f, 0.00f, //7
+
+            0.0f, 0.1f, 0.0f,       0.38f, 0.74f, 0.88f,//8
+            0.01f, 0.08f, 0.0f,     0.08f, 0.1f, 0.35f, //9
+            0.02f, 0.06f, 0.0f,     0.08f, 0.1f, 0.35f, //10
+            0.0f, 0.05f, 0.0f,      0.08f, 0.1f, 0.35f, //11
+            -0.02f, 0.06f, 0.0f,     0.08f, 0.1f, 0.35f, //12
+            -0.01f, 0.08f, 0.0f,     0.08f, 0.1f, 0.35f,//13
+    };
+    std::vector<unsigned int> playerShipIndices = {
+            0, 1, 7,
+            1, 2, 7,
+            2, 6, 7,
+            2, 3, 4,
+            4, 5, 6,
+
+            8, 9, 13,
+            9, 10, 13,
+            10, 12, 13,
+            10, 11, 12
+    };
+
+    std::vector<float> weaponVertices = {
+            0.00f, 0.10f, 0.0f,   1.0f, 0.0f, 0.0f,
+            0.025f, 0.075f, 0.0f,   1.0f, 0.33f, 0.0f,
+            0.00f,  0.00f, 0.0f,   1.0f, 1.0f, 0.0f,
+            -0.025f,  0.075f, 0.0f,   1.0f, 0.33f, 0.0f
+    };
+    std::vector<unsigned int> weaponIndices = {
+            0, 1, 3,
+            1, 2, 3
+    };
+
+
     std::vector<float> cocciW = {
             0.0f, 0.02f, 0.0f,      0.4f, 0.28f, 0.77f,
             0.02f, 0.01f, 0.0f,      0.4f, 0.28f, 0.77f,
@@ -266,23 +309,19 @@ TestLevel::TestLevel() {
             36, 37, 38,
             39, 40, 41
     };
-    std::vector<float> weaponVertices = {
-            0.00f, 0.10f, 0.0f,   1.0f, 0.0f, 0.0f,
-            0.025f, 0.075f, 0.0f,   1.0f, 0.33f, 0.0f,
-            0.00f,  0.00f, 0.0f,   1.0f, 1.0f, 0.0f,
-            -0.025f,  0.075f, 0.0f,   1.0f, 0.33f, 0.0f
-    };
-    std::vector<unsigned int> weaponIndices = {
-            0, 1, 3,
-            1, 2, 3
-    };
     std::vector<Entities*> entities;
+    Entities *player = new Player(new Entity(new Graphics(playerShip, playerShipIndices),
+                                   new BaseStats(10, 3, 1), SquareState::ALLY),
+                        new Weapon(new Graphics(weaponVertices, weaponIndices),
+                                   new WeaponStats(new ClassicPattern(3), 0.3)));
     Entities *cocci = new Cocci(new Entity(new Graphics(cocci1, cocciIndices1),
-                                 new BaseStats(10, 3, 0.5)),
+                                 new BaseStats(10, 3, 0.5), SquareState::ENEMY),
                       new Weapon(new Graphics(weaponVertices, weaponIndices),
                                  new WeaponStats(new ClassicPattern(3), 0.3)));
+    player->self->element->setPosition(glm::vec3(0.0, -0.8, 0.0));
     cocci->self->element->setPosition(glm::vec3(-0.9, 0.8, 0.0));
 
+    entities.push_back(player);
     entities.push_back(cocci);
     waves.push_back(new Wave(entities, Wave::Condition::KILL_ALL));
 }

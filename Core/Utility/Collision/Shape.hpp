@@ -8,17 +8,55 @@
 
 #include <glm/ext/matrix_float4x4.hpp>
 #include <vector>
+#include <iostream>
 
 class Shape{
 public:
     glm::vec3 center;
     float radius;
+    float north = -2;
+    float south = 2;
+    float east = -2;
+    float west = 2;
 
     enum ShapeType{POLYGON, CIRCLE} type;
-    glm::mat4 transform;
+
     std::vector<float> vertices;
-    Shape(const std::vector<float>& vertices, ShapeType type, glm::mat4 transform = glm::mat4(1.0f))
-    : vertices(vertices), type(type), transform(transform){};
+    std::vector<float> baseVertices;
+    Shape(const std::vector<float>& vertices, ShapeType type)
+    : vertices(vertices), type(type){
+        baseVertices = vertices;
+    };
+    void update(glm::mat4 transform) {
+        vertices = baseVertices;
+        north = -2;
+        south = 2;
+        east = -2;
+        west = 2;
+        int step = 6;
+        if(type == ShapeType::POLYGON)
+            for (int i = 0; i < vertices.size(); i += step) {
+                glm::vec4 transformedVertex = transform * glm::vec4(vertices[i], vertices[i + 1], vertices[i + 2], 1.0f);
+                vertices[i] = transformedVertex.x;
+                vertices[i + 1] = transformedVertex.y;
+                vertices[i + 2] = transformedVertex.z;
+            }
+        else {
+            glm::vec4 localCenter(glm::vec3(vertices[0], vertices[1], vertices[2]), 1.0f);
+            this->center = glm::vec3(transform * localCenter);
+            this->radius = glm::length(glm::vec3(transform[step]));
+        }
+        for (int i = 0; i < vertices.size(); i += step) {
+            if(vertices[i + 1] > north)
+                north = vertices[i + 1];
+            if(vertices[i + 1] < south)
+                south = vertices[i + 1];
+            if(vertices[i] > east)
+                east = vertices[i];
+            if(vertices[i] < west)
+                west = vertices[i];
+        }
+    }
 };
 
 #endif //CPPGAMEDARCUOPENGL_SHAPE_HPP

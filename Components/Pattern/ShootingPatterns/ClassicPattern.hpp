@@ -8,13 +8,13 @@
 #include <iostream>
 #include "../BulletPattern.hpp"
 
-
+#define bulletGraphics bullet.element->getGraphics()
 class ClassicPattern: public BulletPattern{
 public:
     explicit ClassicPattern(int nrOfBullets): BulletPattern(nrOfBullets){};
-    void updatePattern(float deltaTime, Canvas &canvas, Bullets &bullet) override {
+    void updatePattern(float deltaTime, Canvas &canvas, CollisionMatrix &matrix, Bullets &bullet) override {
         float spacing = 0.01f;
-        float totalWidth = (float)(nrOfBullets - 1) * (bullet.element->getWidth() + spacing);
+        float totalWidth = (float)(nrOfBullets - 1) * (bulletGraphics->getWidth() + spacing);
         float startPos = bullet.pos.x - (totalWidth / 2.0f);
         float initPos = bullet.pos.x;
         int reps = nrOfBullets;
@@ -24,21 +24,24 @@ public:
             std::unique_ptr<Element> e;
             Graphics *g;
             if (bullet.element->hasIndices()) {
-                g = new Graphics(bullet.element->getVertices(), bullet.element->getIndices());
+                g = new Graphics(bulletGraphics->getVertices(), bulletGraphics->getIndices());
                 e = std::make_unique<Element>(g);
             } else {
-                g = new Graphics(bullet.element->getVertices());
+                g = new Graphics(bulletGraphics->getVertices());
                 e = std::make_unique<Element>(g);
             }
             if (!g) {
                 delete g;
             }
             e->setPosition(bullet.pos);
+            bullet.shape->update(e->getModelMatrix());
+            matrix.AddElement(*bullet.shape, bullet.state);
             canvas.addElement(std::move(e));
-            startPos += bullet.element->getWidth() + spacing;
+            startPos += bulletGraphics->getWidth() + spacing;
         }
         bullet.pos.x = initPos;
     };
 };
+#undef bulletGraphics
 
 #endif //CPPGAMEDARCUOPENGL_CLASSICPATTERN_HPP

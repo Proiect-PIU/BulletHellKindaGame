@@ -55,8 +55,8 @@ add_executable(CppGameDarCuOpenGL Core/main.cpp
         Levels/TestLevels/TestLevel.hpp
         Components/Collisions/CollisionMatrix.cpp
         Components/Collisions/CollisionMatrix.hpp
-        Components/Collisions/Squares/Square.cpp
         Components/Collisions/Squares/Square.hpp
+        Components/Collisions/Squares/SquareState.hpp
 )
 
 target_link_libraries(CppGameDarCuOpenGL

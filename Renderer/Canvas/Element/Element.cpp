@@ -7,8 +7,7 @@
 #include "Element.hpp"
 
 Element::Element(Graphics *graphics)
-        : vertices(graphics->getVertices()), vertexCount(vertices.size()),
-          indices(graphics->getIndices()), indexCount(indices.size()),
+        : graphics(graphics),
           VAO(0), VBO(0), EBO(0), position(0.0f, 0.0f, 0.0f),
           rotationAngle(0.0f),
           rotationAxis(0.0f, 0.0f, 1.0f),
@@ -17,10 +16,7 @@ Element::Element(Graphics *graphics)
     loadElement();
 }
 Element::Element(const Element& other)
-        : vertices(other.vertices),
-          vertexCount(other.vertexCount),
-          indices(other.indices),
-          indexCount(other.indexCount),
+        : graphics(other.graphics),
           VAO(0), VBO(0), EBO(0),
           position(other.position),
           rotationAngle(other.rotationAngle),
@@ -41,11 +37,11 @@ void Element::loadElement() {
     glBindVertexArray(VAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, graphics->getVertices().size() * sizeof(float), graphics->getVertices().data(), GL_STATIC_DRAW);
 
     if (hasIndices()) {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, graphics->getIndices().size() * sizeof(unsigned int), graphics->getIndices().data(), GL_STATIC_DRAW);
     }
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)nullptr);
@@ -85,28 +81,4 @@ void Element::setRotation(float angle, const glm::vec3& axis) {
 void Element::setScale(const glm::vec3& newScale) {
     scale = newScale;
     updateModelMatrix();
-}
-
-float Element::getWidth() const {
-    if (vertices.empty()) return 0.0f;
-    float minX = vertices[0];
-    float maxX = vertices[0];
-    for (size_t i = 0; i < vertices.size(); i += 6) {
-        float x = vertices[i];
-        if (x < minX) minX = x;
-        if (x > maxX) maxX = x;
-    }
-    return maxX - minX;
-}
-
-float Element::getHeight() const {
-    if (vertices.empty()) return 0.0f;
-    float minY = vertices[1];
-    float maxY = vertices[1];
-    for (size_t i = 1; i < vertices.size(); i += 6) {
-        float y = vertices[i];
-        if (y < minY) minY = y;
-        if (y > maxY) maxY = y;
-    }
-    return maxY - minY;
 }
