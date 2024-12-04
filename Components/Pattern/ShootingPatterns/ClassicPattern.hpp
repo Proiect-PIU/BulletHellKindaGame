@@ -12,7 +12,7 @@
 class ClassicPattern: public BulletPattern{
 public:
     explicit ClassicPattern(int nrOfBullets): BulletPattern(nrOfBullets){};
-    void updatePattern(float deltaTime, Canvas &canvas, Bullets &bullet) override {
+    void updatePattern(float deltaTime, Canvas &canvas, CollisionMatrix &matrix, Bullets &bullet) override {
         float spacing = 0.01f;
         float totalWidth = (float)(nrOfBullets - 1) * (bulletGraphics->getWidth() + spacing);
         float startPos = bullet.pos.x - (totalWidth / 2.0f);
@@ -34,6 +34,8 @@ public:
                 delete g;
             }
             e->setPosition(bullet.pos);
+            bullet.shape->update(e->getModelMatrix());
+            matrix.AddElement(*bullet.shape, bullet.state);
             canvas.addElement(std::move(e));
             startPos += bulletGraphics->getWidth() + spacing;
         }

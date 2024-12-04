@@ -16,7 +16,7 @@ void Player::setPattern(BulletPattern *p) {
     pattern = p;
 }
 
-void Player::update(Canvas &c, float deltaTime, GLFWwindow &window) {
+void Player::update(Canvas &c, CollisionMatrix &matrix, float deltaTime, GLFWwindow &window) {
     processInputs(window, deltaTime);
     switch (state) {
         case MOVING:
@@ -31,7 +31,7 @@ void Player::update(Canvas &c, float deltaTime, GLFWwindow &window) {
     }
 
     state = IDLE;
-    updatedBullets(c, deltaTime);
+    updatedBullets(c, matrix, deltaTime);
 }
 
 void Player::loadBullets() {
@@ -39,16 +39,16 @@ void Player::loadBullets() {
     float speed = 5.0f;
     glm::vec3 pos = self->element->getPosition();
     pos.y += 0.05f;
-    mag.push_back(*(new Bullets(lifespan, speed, weapon->element, pos, 0.0f)));
+    mag.push_back(*(new Bullets(SquareState::ALLY, lifespan, speed, weapon->element, weapon->shape, pos, 0.0f)));
 }
 
-void Player::updatedBullets(Canvas &c, float deltaTime) {
+void Player::updatedBullets(Canvas &c, CollisionMatrix &matrix, float deltaTime) {
     for(auto bullet = mag.begin(); bullet != mag.end();) {
         bullet->lifespan -= deltaTime;
         if(bullet->lifespan <= 0.0f) {
             bullet = mag.erase(bullet);
         } else {
-            pattern->updatePattern(deltaTime, c, *bullet);
+            pattern->updatePattern(deltaTime, c, matrix, *bullet);
         }
         if(!mag.empty()) {
             *bullet++;
