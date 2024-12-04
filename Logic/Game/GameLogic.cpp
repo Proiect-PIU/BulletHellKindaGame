@@ -9,6 +9,7 @@
 GameLogic::GameLogic() {
     testLevel = new TestLevel();
     worker = new Updater();
+    matrix = new CollisionMatrix(1, 1, 16, 16);
     std::vector<float> playerShip = {
             0.0f, 0.2f, 0.0f,    0.14f, 0.55f, 0.36f,   //0
             0.05f, 0.05f, 0.0f,   0.11f, 0.24f, 0.00f,  //1
@@ -70,7 +71,8 @@ float getDeltaTime() {
 void GameLogic::processLogic(Canvas &canvas, GLFWwindow &window) {
     float delta = getDeltaTime();
     player->update(canvas, delta, window);
-    worker->update(*testLevel, canvas, delta, window);
+    matrix->AddElement(*player->self->shape, SquareState::ALLY);
+    worker->update(*testLevel, canvas, *matrix, delta, window);
     canvas.addElement(std::move(std::make_unique<Element>(*player->self->element)));
 }
 

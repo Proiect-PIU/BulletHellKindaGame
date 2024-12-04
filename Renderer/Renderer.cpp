@@ -27,9 +27,9 @@ void Renderer::drawCanvas(Canvas &c, unsigned int shaderProgram) {
         glBindVertexArray(element->getVAO());
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(element->getModelMatrix()));
         if(element->hasIndices()){
-            glDrawElements(GL_TRIANGLES, element->getIndexCount(), GL_UNSIGNED_INT, 0);
+            glDrawElements(GL_TRIANGLES, element->getGraphics()->getIndices().size(), GL_UNSIGNED_INT, 0);
         } else {
-            glDrawArrays(GL_TRIANGLE_FAN, 0, element->getVertexCount() / 6);
+            glDrawArrays(GL_TRIANGLE_FAN, 0, element->getGraphics()->getVertices().size() / 6);
         }
     }
     c.blank();
