@@ -10,7 +10,7 @@
 class Polygon: public Shape{
 public:
     Polygon(const std::vector<float> &vertices, glm::mat4 transform = glm::mat4(1.0f))
-    : Shape(vertices, ShapeType::POLYGON, transform) {};
+    : Shape(vertices, ShapeType::POLYGON) {};
 //    void transformShapeToWorld() override {
 //        Polygon transformedShape = *this;
 //        transformedShape.transform = glm::mat4(1.0f);

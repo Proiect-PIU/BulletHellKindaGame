@@ -17,26 +17,26 @@ public:
         state = EMPTY;
         shapes = {};
     };
-    Square(Shape &shape, SquareState state){
-        switch (this->state) {
+    void AddShape(const Shape &shape, SquareState newState) {
+        switch (state) {
             case WARZONE:
                 break;
             case EMPTY:
-                this->state = state;
+                state = newState;
                 break;
             case ALLY:
-                if(state == ENEMY)
-                    this->state = WARZONE;
+                if(newState == ENEMY)
+                    state = WARZONE;
                 break;
             case ENEMY:
-                if(state == ALLY)
-                    this->state = WARZONE;
+                if(newState == ALLY)
+                    state = WARZONE;
                 break;
         }
         shapes.push_back(shape);
     };
-    std::vector<Shape> GetShapes() { return shapes; };
-    SquareState GetState() { return state; };
+    [[nodiscard]] const std::vector<Shape>& GetShapes() const { return shapes; }
+    [[nodiscard]] SquareState GetState() const { return state; }
 };
 
 

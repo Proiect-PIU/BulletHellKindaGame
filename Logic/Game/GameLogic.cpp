@@ -71,6 +71,8 @@ float getDeltaTime() {
 void GameLogic::processLogic(Canvas &canvas, GLFWwindow &window) {
     float delta = getDeltaTime();
     player->update(canvas, delta, window);
+    player->self->shape->update(player->self->element->getModelMatrix());
+
     matrix->AddElement(*player->self->shape, SquareState::ALLY);
     worker->update(*testLevel, canvas, *matrix, delta, window);
     canvas.addElement(std::move(std::make_unique<Element>(*player->self->element)));
