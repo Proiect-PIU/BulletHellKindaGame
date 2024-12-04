@@ -42,8 +42,6 @@ add_executable(CppGameDarCuOpenGL Core/main.cpp
         Persistance/Data/Stats/WeaponStats.hpp
         Persistance/Data/Objects/Weapon.hpp
         Persistance/Data/Objects/Entity.hpp
-        Core/Utility/Collision/Circle.hpp
-        Core/Utility/Collision/Polygon.hpp
         Components/Pattern/EnemyPattern.hpp
         Components/Pattern/AiPatterns/CocciPattern.cpp
         Components/Pattern/AiPatterns/CocciPattern.hpp

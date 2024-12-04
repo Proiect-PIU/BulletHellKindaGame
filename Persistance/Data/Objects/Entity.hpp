@@ -7,7 +7,6 @@
 
 #include "../../../Renderer/Canvas/Element/Element.hpp"
 #include "../Stats/BaseStats.hpp"
-#include "../../../Core/Utility/Collision/Polygon.hpp"
 
 class Entity{
 public:
