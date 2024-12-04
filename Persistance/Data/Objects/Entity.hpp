@@ -7,7 +7,7 @@
 
 #include "../../../Renderer/Canvas/Element/Element.hpp"
 #include "../Stats/BaseStats.hpp"
-#include "../../../Core/Utility/Collision/Polygon.hpp"
+#include "../../../Components/Collisions/Squares/SquareState.hpp"
 
 class Entity{
 public:
@@ -15,7 +15,8 @@ public:
     Graphics *graphics;
     Shape *shape;
     BaseStats *stats;
-    Entity(Graphics *graphics, BaseStats *stats): graphics(graphics), stats(stats){
+    SquareState state;
+    Entity(Graphics *graphics, BaseStats *stats, SquareState state): graphics(graphics), stats(stats), state(state){
         element = new Element(graphics);
         shape = new Shape(graphics->getVertices(), Shape::ShapeType::POLYGON);
     };
@@ -23,6 +24,7 @@ public:
         delete element;
         delete graphics;
         delete stats;
+        delete shape;
     }
 };
 

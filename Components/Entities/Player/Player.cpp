@@ -29,6 +29,7 @@ void Player::update(Canvas &c, float deltaTime, GLFWwindow &window) {
         case IDLE:
             break;
     }
+
     state = IDLE;
     updatedBullets(c, deltaTime);
 }

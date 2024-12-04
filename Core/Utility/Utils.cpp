@@ -87,7 +87,7 @@ bool polygonPolygonCollision(const Shape& polyA, const Shape& polyB) {
             glm::vec2 p1 = vertices[i];
             glm::vec2 p2 = vertices[(i + 1) % vertices.size()];
             glm::vec2 edge = p2 - p1;
-            glm::vec2 normal(-edge.y, edge.x); // Perpendicular
+            glm::vec2 normal(-edge.y, edge.x);
             axes.push_back(glm::normalize(normal));
         }
     };

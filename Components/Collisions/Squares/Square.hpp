@@ -6,8 +6,8 @@
 #define CPPGAMEDARCUOPENGL_SQUARE_HPP
 
 #include "../../../Core/Utility/Collision/Shape.hpp"
+#include "SquareState.hpp"
 
-enum SquareState{EMPTY, ALLY, ENEMY, WARZONE};
 
 class Square{
     SquareState state;

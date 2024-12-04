@@ -31,6 +31,7 @@ void Entities::move(Directions dir, float deltaTime) {
     glm::vec3 newPos = glm::vec3(pos.x + dx * 1.2f * deltaTime * speed,
                                  pos.y + dy * 1.4f * deltaTime * speed, 0.0f);
     self->element->setPosition(newPos);
+    self->shape->update(self->element->getModelMatrix());
 #undef entity
 #undef speed
 }

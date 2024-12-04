@@ -15,7 +15,6 @@
 #include "../../Components/Collisions/CollisionMatrix.hpp"
 
 class GameLogic: public Logic{
-    Player *player;
     Level *testLevel;
     Updater *worker;
     CollisionMatrix *matrix;
