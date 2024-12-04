@@ -10,9 +10,13 @@
 enum SquareState{EMPTY, ALLY, ENEMY, WARZONE};
 
 class Square{
-    SquareState state = EMPTY;
-    std::vector<Shape> shapes = {};
+    SquareState state;
+    std::vector<Shape> shapes;
 public:
+    Square(){
+        state = EMPTY;
+        shapes = {};
+    };
     Square(Shape &shape, SquareState state){
         switch (this->state) {
             case WARZONE:
@@ -31,6 +35,8 @@ public:
         }
         shapes.push_back(shape);
     };
+    std::vector<Shape> GetShapes() { return shapes; };
+    SquareState GetState() { return state; };
 };
 
 

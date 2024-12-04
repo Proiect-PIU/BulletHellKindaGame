@@ -7,11 +7,12 @@
 
 
 #include "../../Levels/Level.hpp"
+#include "../../Components/Collisions/CollisionMatrix.hpp"
 
 class Updater{
 public:
     Updater()= default;
-    void update(Level &level, Canvas &canvas, float deltaTime, GLFWwindow &window);
+    void update(Level &level, Canvas &canvas, CollisionMatrix &matrix, float deltaTime, GLFWwindow &window);
 };
 
 
