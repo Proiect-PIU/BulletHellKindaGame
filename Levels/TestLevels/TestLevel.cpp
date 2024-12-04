@@ -6,12 +6,19 @@
 #include "../../Components/Entities/Enemies/Bacteria/Cocci/Cocci.hpp"
 #include "../../Components/Pattern/ShootingPatterns/ClassicPattern.hpp"
 #include "../../Components/Entities/Player/Player.hpp"
+#include "../../Creators/Loader/Loader.hpp"
+
 
 TestLevel::TestLevel(const std::vector<Wave*> &waves) : Level(waves) {
 
 }
 
 TestLevel::TestLevel() {
+        //Loader& loader = Loader::getInstance();
+        const auto& data = Loader::getInstance().getData();
+
+
+
     std::vector<float> playerShip = {
             0.0f, 0.2f, 0.0f,    0.14f, 0.55f, 0.36f,   //0
             0.05f, 0.05f, 0.0f,   0.11f, 0.24f, 0.00f,  //1
@@ -310,7 +317,7 @@ TestLevel::TestLevel() {
             39, 40, 41
     };
     std::vector<Entities*> entities;
-    Entities *player = new Player(new Entity(new Graphics(playerShip, playerShipIndices),
+    Entities *player = new Player(new Entity(new Graphics(data.at("ship").first, data.at("ship").second),
                                    new BaseStats(10, 3, 1), SquareState::ALLY),
                         new Weapon(new Graphics(weaponVertices, weaponIndices),
                                    new WeaponStats(new ClassicPattern(3), 0.3)));
