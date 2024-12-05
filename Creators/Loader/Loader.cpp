@@ -21,7 +21,7 @@ Loader& Loader::getInstance()
 
 void Loader::loadFromFolder(const std::string& folderPath)
 {
-    if (!fs::exists(folderPath) || !fs::is_directory(folderPath))
+      if (!fs::exists(folderPath) || !fs::is_directory(folderPath))
     {
         throw std::invalid_argument("Folderul nu exista sau nu este un director...");
     }
