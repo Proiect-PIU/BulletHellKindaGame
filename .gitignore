@@ -6,3 +6,6 @@ CMakeCache.txt
 CppGameDarCuOpenGL
 CppGameDarCuOpenGL.cbp
 Makefile
+.cmake/
+CMakeFiles/
+Testing/
