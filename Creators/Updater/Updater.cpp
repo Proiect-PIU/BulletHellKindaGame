@@ -3,12 +3,16 @@
 //
 
 #include "Updater.hpp"
+#include "../Loader/Loader.hpp"
 
-void Updater::update(Level &level, Canvas &canvas, CollisionMatrix &matrix, float deltaTime, GLFWwindow &window) {
+void Updater::update(Level &level) {
+    Canvas *canvas = Loader::getInstance().getCanvas();
+    CollisionMatrix *matrix = Loader::getInstance().getMatrix();
     for (auto& entity : level.waves[level.currentWave]->entities) {
-        entity->update(canvas, matrix, deltaTime, window);
-        entity->self->shape->update(entity->self->element->getModelMatrix());
-        matrix.AddElement(*entity->self->shape, entity->self->state);
-        canvas.addElement(std::move(std::make_unique<Element>(*entity->self->element)));
+        entity->update();
+
+        matrix->addElement(*entity->self->shape, entity->self->state);
+        canvas->addElement(std::move(std::make_unique<Element>(*entity->self->element)));
     }
+    matrix->checkForCollision();
 }

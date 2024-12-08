@@ -16,9 +16,11 @@ out vec3 vertexColor;
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
+uniform float aspectRatio;
 
 void main() {
-    gl_Position = projection * view * model * vec4(aPos, 1.0);
+    vec4 adjustedPos = vec4(aPos.x / aspectRatio, aPos.y, aPos.z, 1.0);
+    gl_Position = projection * view * model * adjustedPos;
     vertexColor = aColor;
 }
 )";
@@ -46,7 +48,7 @@ GameContext::GameContext() {
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
-    window = glfwCreateWindow(800, 800, "LearnOpenGL", NULL, NULL);
+    window = glfwCreateWindow(1920, 1080, "LearnOpenGL", NULL, NULL);
     if (!window) {
         std::cerr << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
@@ -56,9 +58,9 @@ GameContext::GameContext() {
     if (glewInit() != GLEW_OK) {
         std::cerr << "Failed to initialize GLEW" << std::endl;
     }
-
-    //glViewport(0, 0, 200, 200);
-//    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    int width, height;
+    glfwGetFramebufferSize(window, &width, &height);
+    glViewport(0, 0, width, height);
 
     unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
@@ -93,10 +95,19 @@ GameContext::GameContext() {
     }
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
+
+    glUseProgram(shaderProgram);
+
+    float aspectRatio = static_cast<float>(width) / static_cast<float>(height);
+    GLint aspectLoc = glGetUniformLocation(shaderProgram, "aspectRatio");
+    if (aspectLoc != -1)
+        glUniform1f(aspectLoc, aspectRatio);
+    else
+        std::cerr << "WARNING: Aspect ratio uniform not found" << std::endl;
 }
 
 GameContext::~GameContext() {
-
+    delete window;
 }
 
 int GameContext::windowClosed() {

@@ -19,10 +19,10 @@ class Player: public Entities{
 public:
     Player(Entity *e, Weapon *w): Entities(*e, *w){};
     void setPattern(BulletPattern *p);
-    void update(Canvas &c, CollisionMatrix &matrix, float deltaTime, GLFWwindow &window)override;
-    void processInputs(GLFWwindow &window, float deltaTime);
+    void update()override;
+    void processInputs();
     void loadBullets();
-    void updatedBullets(Canvas &c, CollisionMatrix &matrix, float deltaTime);
+    void updateBullets();
     ~Player() = default;
 };
 

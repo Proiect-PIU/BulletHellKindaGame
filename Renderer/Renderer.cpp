@@ -4,10 +4,12 @@
 
 #include <GL/glew.h>
 #include "Renderer.hpp"
+#include "../Creators/Loader/Loader.hpp"
 #include <glm/gtc/type_ptr.hpp>
 
-void Renderer::drawCanvas(Canvas &c, unsigned int shaderProgram) {
-    const auto& elementList = c.getList();
+void Renderer::drawCanvas(unsigned int shaderProgram) {
+    Canvas *canvas = Loader::getInstance().getCanvas();
+    const auto& elementList = canvas->getList();
 
     glm::mat4 view = glm::mat4(1.0f);
     glm::mat4 projection = glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f);
@@ -32,5 +34,5 @@ void Renderer::drawCanvas(Canvas &c, unsigned int shaderProgram) {
             glDrawArrays(GL_TRIANGLE_FAN, 0, element->getGraphics()->getVertices().size() / 6);
         }
     }
-    c.blank();
+    canvas->blank();
 }

@@ -11,7 +11,7 @@
 
 class Logic{
 public:
-    virtual void processLogic(Canvas &c, GLFWwindow &window) = 0;
+    virtual void processLogic() = 0;
     virtual ~Logic() = default;
 };
 

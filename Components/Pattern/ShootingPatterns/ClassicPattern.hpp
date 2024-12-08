@@ -7,12 +7,16 @@
 
 #include <iostream>
 #include "../BulletPattern.hpp"
+#include "../../../Creators/Loader/Loader.hpp"
 
 #define bulletGraphics bullet.element->getGraphics()
 class ClassicPattern: public BulletPattern{
 public:
     explicit ClassicPattern(int nrOfBullets): BulletPattern(nrOfBullets){};
-    void updatePattern(float deltaTime, Canvas &canvas, CollisionMatrix &matrix, Bullets &bullet) override {
+    void updatePattern(Bullets &bullet) override {
+        Canvas *canvas = Loader::getInstance().getCanvas();
+        float deltaTime = Loader::getInstance().getDeltaTime();
+        CollisionMatrix *matrix = Loader::getInstance().getMatrix();
         float spacing = 0.01f;
         float totalWidth = (float)(nrOfBullets - 1) * (bulletGraphics->getWidth() + spacing);
         float startPos = bullet.pos.x - (totalWidth / 2.0f);
@@ -33,10 +37,11 @@ public:
             if (!g) {
                 delete g;
             }
+            e->setScale(bullet.element->getScale());
             e->setPosition(bullet.pos);
             bullet.shape->update(e->getModelMatrix());
-            matrix.AddElement(*bullet.shape, bullet.state);
-            canvas.addElement(std::move(e));
+            matrix->addElement(*bullet.shape, bullet.state);
+            canvas->addElement(std::move(e));
             startPos += bulletGraphics->getWidth() + spacing;
         }
         bullet.pos.x = initPos;

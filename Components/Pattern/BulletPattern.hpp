@@ -15,7 +15,7 @@ protected:
     int nrOfBullets;
 public:
     explicit BulletPattern(int nrOfBullets): nrOfBullets(nrOfBullets) {};
-    virtual void updatePattern(float deltaTime, Canvas &canvas, CollisionMatrix &matrix, Bullets &bullet) = 0;
+    virtual void updatePattern(Bullets &bullet) = 0;
     ~BulletPattern() = default;
 };
 

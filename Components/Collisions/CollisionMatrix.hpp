@@ -17,11 +17,13 @@ class CollisionMatrix{
     float squareHeight;
     std::vector<Square> grid;
 public:
+
+    CollisionMatrix() = default;
     CollisionMatrix(size_t width, size_t height, size_t nrSqrWidth, size_t nrSqrHeight);
-    void AddElement(Shape &shape, SquareState state);
-    void CheckForCollision();
-    void Empty();
-    ~CollisionMatrix();
+    void addElement(Shape &shape, SquareState state);
+    void checkForCollision();
+    void empty();
+    ~CollisionMatrix() = default;
 };
 
 

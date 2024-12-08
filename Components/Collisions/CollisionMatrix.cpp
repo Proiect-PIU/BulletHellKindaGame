@@ -13,7 +13,7 @@ CollisionMatrix::CollisionMatrix(size_t width, size_t height, size_t nrSqrWidth,
     grid.resize(nrSqrWidth * nrSqrHeight);
 }
 
-void CollisionMatrix::AddElement(Shape &shape, SquareState state) {
+void CollisionMatrix::addElement(Shape &shape, SquareState state) {
     for (int i = 0; i < nrSqrHeight; ++i) {
         for (int j = 0; j < nrSqrWidth; ++j) {
             float squareLeft = j * squareWidth;
@@ -29,7 +29,7 @@ void CollisionMatrix::AddElement(Shape &shape, SquareState state) {
     }
 }
 
-void CollisionMatrix::CheckForCollision() {
+void CollisionMatrix::checkForCollision() {
     for (const auto &square : grid) {
         if (square.GetState() == WARZONE) {
             const auto &shapes = square.GetShapes();
@@ -43,10 +43,10 @@ void CollisionMatrix::CheckForCollision() {
             }
         }
     }
-    Empty();
+    empty();
 }
 
-void CollisionMatrix::Empty() {
+void CollisionMatrix::empty() {
     for (auto &square : grid) {
         square = Square();
     }

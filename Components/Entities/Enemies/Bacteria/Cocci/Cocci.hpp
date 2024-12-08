@@ -16,7 +16,7 @@ public:
     Cocci(Entity *e, Weapon *w): Entities(*e, *w){
         AI = new CocciPattern();
     };
-    void update(Canvas &c, CollisionMatrix &matrix, float deltaTime, GLFWwindow &window)override;
+    void update()override;
     ~Cocci(){
         if(!AI)
             delete AI;

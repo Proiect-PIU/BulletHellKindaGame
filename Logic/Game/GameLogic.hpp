@@ -17,10 +17,9 @@
 class GameLogic: public Logic{
     Level *testLevel;
     Updater *worker;
-    CollisionMatrix *matrix;
 public:
     GameLogic();
-    void processLogic(Canvas &c, GLFWwindow &window) override;
+    void processLogic() override;
     ~GameLogic() override;
 };
 

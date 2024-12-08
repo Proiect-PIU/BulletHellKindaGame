@@ -320,14 +320,17 @@ TestLevel::TestLevel() {
 
     std::vector<Entities*> entities;
     Entities *player = new Player(new Entity(new Graphics(data.at("ship").first, data.at("ship").second),
-                                   new BaseStats(10, 3, 1), SquareState::ALLY),
+                                   new BaseStats(10, 3, 0.8), SquareState::ALLY),
                         new Weapon(new Graphics(data.at("weapon").first, data.at("weapon").second),
-                                   new WeaponStats(new ClassicPattern(3), 0.3)));
+                                   new WeaponStats(new ClassicPattern(3), 0.3f, 1)));
     Entities *cocci = new Cocci(new Entity(new Graphics(data.at("cocci").first, data.at("cocci").second),
                                  new BaseStats(10, 3, 0.5), SquareState::ENEMY),
                       new Weapon(new Graphics(data.at("weapon").first, data.at("weapon").second),
-                                 new WeaponStats(new ClassicPattern(3), 0.3)));
+                                 new WeaponStats(new ClassicPattern(3), 1, 1)));
     player->self->element->setPosition(glm::vec3(0.0, -0.8, 0.0));
+    float scale = 0.8;
+    player->self->element->setScale(glm::vec3(scale, scale, 0));
+    player->weapon->element->setScale(glm::vec3(scale, scale, 0));
     cocci->self->element->setPosition(glm::vec3(-0.9, 0.8, 0.0));
 
     entities.push_back(player);
