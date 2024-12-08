@@ -8,6 +8,9 @@
 #include <unordered_map>
 #include <vector>
 #include <string>
+#include <GLFW/glfw3.h>
+#include "../../Renderer/Canvas/Canvas.hpp"
+#include "../../Components/Collisions/CollisionMatrix.hpp"
 
 class Loader{
 public:
@@ -17,13 +20,25 @@ public:
     Loader& operator=(const Loader&) = delete;
 
     void loadFromFolder(const std::string& folderPath);
+    void setWindow(GLFWwindow *w);
 
-    const std::unordered_map<std::string, std::pair<std::vector<float>, std::vector<unsigned int>>>& getData() const;
+    [[nodiscard]] const std::unordered_map<std::string, std::pair<std::vector<float>, std::vector<unsigned int>>>& getData() const;
+    Canvas *getCanvas();
+    CollisionMatrix *getMatrix();
+
+    void updateDeltaTime();
+    float getDeltaTime();
+    GLFWwindow *getWindow();
 
 private:
     Loader() = default;
 
     std::unordered_map<std::string, std::pair<std::vector<float>, std::vector<unsigned int>>> data;
+    std::unique_ptr<Canvas> canvas;
+    std::unique_ptr<CollisionMatrix> matrix;
+
+    float deltaTime;
+    GLFWwindow *window;
 
     const char delimiter = '#';
 

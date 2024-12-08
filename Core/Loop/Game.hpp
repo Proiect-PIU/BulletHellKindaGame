@@ -11,7 +11,6 @@
 class Game{
     Logic *gameLogic;
     GameContext *gameContext;
-    Canvas *canvas;
 public:
     Game();
     ~Game();

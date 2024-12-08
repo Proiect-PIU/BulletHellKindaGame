@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "Entities.hpp"
+#include "../../Creators/Loader/Loader.hpp"
 
 Entities::~Entities() {
     if (!self){
@@ -14,7 +15,8 @@ Entities::~Entities() {
     }
 }
 
-void Entities::move(Directions dir, float deltaTime) {
+void Entities::move(Directions dir) {
+    float deltaTime = Loader::getInstance().getDeltaTime();
     float dx = 0, dy = 0;
 
     if (dir & UP) dy += 1;
@@ -28,8 +30,8 @@ void Entities::move(Directions dir, float deltaTime) {
     }
 #define pos self->element->getPosition()
 #define speed self->stats->speed
-    glm::vec3 newPos = glm::vec3(pos.x + dx * 1.2f * deltaTime * speed,
-                                 pos.y + dy * 1.4f * deltaTime * speed, 0.0f);
+    glm::vec3 newPos = glm::vec3(pos.x + dx * deltaTime * speed,
+                                 pos.y + dy * 1.6 * deltaTime * speed, 0.0f);
     self->element->setPosition(newPos);
     self->shape->update(self->element->getModelMatrix());
 #undef entity

@@ -19,9 +19,18 @@ Loader& Loader::getInstance()
     return instance;
 }
 
+void Loader::setWindow(GLFWwindow *w)
+{
+    window = w;
+}
+GLFWwindow *Loader::getWindow()
+{
+    return window;
+}
+
 void Loader::loadFromFolder(const std::string& folderPath)
 {
-      if (!fs::exists(folderPath) || !fs::is_directory(folderPath))
+    if (!fs::exists(folderPath) || !fs::is_directory(folderPath))
     {
         throw std::invalid_argument("Folderul nu exista sau nu este un director...");
     }
@@ -38,6 +47,35 @@ void Loader::loadFromFolder(const std::string& folderPath)
 const std::unordered_map<std::string, std::pair<std::vector<float>, std::vector<unsigned int>>>& Loader::getData() const
 {
     return data;
+}
+
+static std::chrono::steady_clock::time_point lastUpdateTime = std::chrono::steady_clock::now();
+void Loader::updateDeltaTime() {
+    auto currentTime = std::chrono::steady_clock::now();
+    float dTime = std::chrono::duration<float, std::chrono::seconds::period>(currentTime - lastUpdateTime).count();
+    lastUpdateTime = currentTime;
+    deltaTime = dTime;
+}
+
+float Loader::getDeltaTime() {
+    return deltaTime;
+}
+
+Canvas *Loader::getCanvas()
+{
+    if (!canvas)
+    {
+        canvas = std::make_unique<Canvas>();
+    }
+    return canvas.get();
+}
+CollisionMatrix *Loader::getMatrix()
+{
+    if (!matrix)
+    {
+        matrix = std::make_unique<CollisionMatrix>(1, 1, 16, 16);
+    }
+    return matrix.get();
 }
 
 void Loader::parseFile(const std::string& filePath)

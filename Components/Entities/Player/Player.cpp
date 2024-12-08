@@ -5,6 +5,8 @@
 #include <iostream>
 #include "Player.hpp"
 #include "../../../Core/Utility/Utils.hpp"
+#include "../../../Creators/Loader/Loader.hpp"
+
 #define pattern weapon->stats->pattern
 #define time weapon->stats->shootTime
 #define cooldown weapon->stats->shootCooldown
@@ -16,11 +18,11 @@ void Player::setPattern(BulletPattern *p) {
     pattern = p;
 }
 
-void Player::update(Canvas &c, CollisionMatrix &matrix, float deltaTime, GLFWwindow &window) {
-    processInputs(window, deltaTime);
+void Player::update() {
+    processInputs();
     switch (state) {
         case MOVING:
-            move((Directions)dir, deltaTime);
+            move((Directions)dir);
             break;
         case ATTACKING:
             loadBullets();
@@ -31,7 +33,10 @@ void Player::update(Canvas &c, CollisionMatrix &matrix, float deltaTime, GLFWwin
     }
 
     state = IDLE;
-    updatedBullets(c, matrix, deltaTime);
+    updateBullets();
+    self->shape->update(self->element->getModelMatrix());
+//    weapon->shape->update(weapon->element->getModelMatrix());
+
 }
 
 void Player::loadBullets() {
@@ -42,13 +47,14 @@ void Player::loadBullets() {
     mag.push_back(*(new Bullets(SquareState::ALLY, lifespan, speed, weapon->element, weapon->shape, pos, 0.0f)));
 }
 
-void Player::updatedBullets(Canvas &c, CollisionMatrix &matrix, float deltaTime) {
+void Player::updateBullets() {
+    float deltaTime = Loader::getInstance().getDeltaTime();
     for(auto bullet = mag.begin(); bullet != mag.end();) {
         bullet->lifespan -= deltaTime;
         if(bullet->lifespan <= 0.0f) {
             bullet = mag.erase(bullet);
         } else {
-            pattern->updatePattern(deltaTime, c, matrix, *bullet);
+            pattern->updatePattern(*bullet);
         }
         if(!mag.empty()) {
             *bullet++;
@@ -56,28 +62,30 @@ void Player::updatedBullets(Canvas &c, CollisionMatrix &matrix, float deltaTime)
     }
 }
 
-void Player::processInputs(GLFWwindow &window, float deltaTime) {
+void Player::processInputs() {
+    GLFWwindow *window = Loader::getInstance().getWindow();
+    float deltaTime = Loader::getInstance().getDeltaTime();
     dir = NONE;
-    if (glfwGetKey(&window, GLFW_KEY_LEFT) == GLFW_PRESS) {
+    if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
         state = MOVING;
         dir |= LEFT;
     }
-    if (glfwGetKey(&window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
+    if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
         state = MOVING;
         dir |= RIGHT;
     }
-    if (glfwGetKey(&window, GLFW_KEY_UP) == GLFW_PRESS) {
+    if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
         state = MOVING;
         dir |= UP;
     }
-    if (glfwGetKey(&window, GLFW_KEY_DOWN) == GLFW_PRESS) {
+    if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
         state = MOVING;
         dir |= DOWN;
     }
     if(dir == NONE) {
         state = IDLE;
     }
-    if (glfwGetKey(&window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
         if (time <= reset) {
             state = ATTACKING;
             time = cooldown;

@@ -8,6 +8,7 @@
 
 #include "../EnemyPattern.hpp"
 #include "../../../Persistance/Data/Objects/Entity.hpp"
+#include "../../../Creators/Loader/Loader.hpp"
 
 class CocciPattern: public EnemyPattern{
     float reset = 0.0f;
@@ -16,7 +17,8 @@ class CocciPattern: public EnemyPattern{
     bool swDir = false;
 public:
     explicit CocciPattern() = default;
-    void updatePattern(float deltaTime, Canvas &canvas, Entities &entity) override {
+    void updatePattern(Entities &entity) override {
+        float deltaTime = Loader::getInstance().getDeltaTime();
         if (time <= reset) {
             time = cooldown;
             swDir = !swDir;
@@ -25,10 +27,10 @@ public:
             time -= deltaTime;
         }
         if (swDir) {
-            entity.move(RIGHT, deltaTime);
+            entity.move(RIGHT);
         }
         else {
-            entity.move(LEFT, deltaTime);
+            entity.move(LEFT);
         }
     };
     //~CocciPattern()override = default;

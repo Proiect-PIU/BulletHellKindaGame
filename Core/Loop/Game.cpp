@@ -14,8 +14,8 @@ Game::Game() {
     std::string folderPath = "Resources/Graphics";
     Loader::getInstance().loadFromFolder(folderPath);
     gameContext = new GameContext();
-    canvas = new Canvas();
     gameLogic = new GameLogic();
+    Loader::getInstance().setWindow(gameContext->getWindow());
 }
 
 Game::~Game() {
@@ -33,14 +33,14 @@ Game::~Game() {
 
 
 void Game::run() {
-    //Loader& loader = Loader::getInstance();
 
     while (!gameContext->windowClosed()) {
         auto frameStart = std::chrono::steady_clock::now();
+        Loader::getInstance().updateDeltaTime();
 
-        gameLogic->processLogic(*canvas, *gameContext->getWindow());
+        gameLogic->processLogic();
 
-        Renderer::drawCanvas(*canvas, gameContext->getShaderProgram());
+        Renderer::drawCanvas(gameContext->getShaderProgram());
 
         glfwSwapBuffers(gameContext->getWindow());
         glfwPollEvents();

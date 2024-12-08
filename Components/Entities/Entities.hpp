@@ -17,8 +17,8 @@ public:
     Entity *self;
     Weapon *weapon;
     explicit Entities(Entity &e, Weapon &w): self(&e), weapon(&w){};
-    virtual void update(Canvas &c, CollisionMatrix &matrix, float deltaTime, GLFWwindow &window) = 0;
-    void move(Directions dir, float deltaTime);
+    virtual void update() = 0;
+    void move(Directions dir);
     ~Entities();
 };
 

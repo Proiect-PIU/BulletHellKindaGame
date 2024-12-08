@@ -12,10 +12,11 @@ public:
     float shootReset;
     float shootTime;
     float shootCooldown;
+    unsigned int damage;
     BulletPattern *pattern;
 
-    WeaponStats(BulletPattern *pattern, float shootCooldown, float shootReset = 0):
-    pattern(pattern), shootCooldown(shootCooldown),
+    WeaponStats(BulletPattern *pattern, float shootCooldown, unsigned int damage, float shootReset = 0):
+    pattern(pattern), shootCooldown(shootCooldown), damage(damage),
     shootReset(shootReset), shootTime(shootCooldown){};
     ~WeaponStats(){
         delete pattern;
