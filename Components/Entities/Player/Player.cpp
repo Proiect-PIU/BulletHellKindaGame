@@ -41,7 +41,7 @@ void Player::update() {
 
 void Player::loadBullets() {
     float lifespan = 1.0f;
-    float speed = 5.0f;
+    float speed = 2.0f;
     glm::vec3 pos = self->element->getPosition();
     pos.y += 0.05f;
     mag.push_back(*(new Bullets(SquareState::ALLY, lifespan, speed, weapon->element, weapon->shape, pos, 0.0f)));
