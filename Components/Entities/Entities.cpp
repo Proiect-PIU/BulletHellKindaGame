@@ -25,15 +25,12 @@ void Entities::move(Directions dir) {
     if (dir & RIGHT) dx += 1;
 
     if (dx != 0 && dy != 0) {
-        dx /= sqrt(2);
-        dy /= sqrt(2);
+        dx /= (float)sqrt(2);
+        dy /= (float)sqrt(2);
     }
-#define pos self->element->getPosition()
-#define speed self->stats->speed
-    glm::vec3 newPos = glm::vec3(pos.x + dx * deltaTime * speed,
-                                 pos.y + dy * 1.6 * deltaTime * speed, 0.0f);
-    self->element->setPosition(newPos);
-    self->shape->update(self->element->getModelMatrix());
-#undef entity
-#undef speed
+    float speed = self->stats->speed;
+    float x = self->figure->getPosition().x + dx * deltaTime * speed;
+    float y = self->figure->getPosition().y + dy * 1.6f * deltaTime * speed;
+    glm::vec3 newPos = glm::vec3(x, y, 0.0f);
+    self->figure->setPosition(newPos);
 }

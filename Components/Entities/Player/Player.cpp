@@ -4,19 +4,18 @@
 
 #include <iostream>
 #include "Player.hpp"
-#include "../../../Core/Utility/Utils.hpp"
 #include "../../../Creators/Loader/Loader.hpp"
 
-#define pattern weapon->stats->pattern
+//#define pattern weapon->stats->pattern
 #define time weapon->stats->shootTime
 #define cooldown weapon->stats->shootCooldown
 #define reset weapon->stats->shootReset
-void Player::setPattern(BulletPattern *p) {
-    if (!pattern) {
-        delete pattern;
-    }
-    pattern = p;
-}
+//void Player::setPattern(BulletPattern *p) {
+//    if (!pattern) {
+//        delete pattern;
+//    }
+//    pattern = p;
+//}
 
 void Player::update() {
     processInputs();
@@ -34,30 +33,33 @@ void Player::update() {
 
     state = IDLE;
     updateBullets();
-    self->shape->update(self->element->getModelMatrix());
-//    weapon->shape->update(weapon->element->getModelMatrix());
-
 }
 
 void Player::loadBullets() {
-    float lifespan = 1.0f;
-    float speed = 2.0f;
-    glm::vec3 pos = self->element->getPosition();
-    pos.y += 0.05f;
-    mag.push_back(*(new Bullets(SquareState::ALLY, lifespan, speed, weapon->element, weapon->shape, pos, 0.0f)));
+//    float lifespan = 1.0f;
+//    float speed = 2.0f;
+//    pos.y += 0.05f;
+//    mag.push_back(*(new Bullets(SquareState::ALLY, lifespan, speed, weapon->element, weapon->shape, 0.0f)));
+    weapon->figure->setPosition(glm::vec3(self->figure->getPosition().x,
+                                          self->figure->getPosition().y + 0.05,
+                                          0.0));
+    weapon->bullets->setPosition(glm::vec3(self->figure->getPosition().x,
+                                         self->figure->getPosition().y + 0.05,
+                                         0.0));
+    mag.push_back(*(new Weapon(*weapon)));
 }
 
 void Player::updateBullets() {
     float deltaTime = Loader::getInstance().getDeltaTime();
-    for(auto bullet = mag.begin(); bullet != mag.end();) {
-        bullet->lifespan -= deltaTime;
-        if(bullet->lifespan <= 0.0f) {
-            bullet = mag.erase(bullet);
+    for(auto it = mag.begin(); it != mag.end();) {
+        (*it).bullets->lifespan -= deltaTime;
+        if((*it).bullets->lifespan <= 0.0f) {
+            it = mag.erase(it);
         } else {
-            pattern->updatePattern(*bullet);
+            pattern->updatePattern(**&it, self->getElement()->getPosition());
         }
         if(!mag.empty()) {
-            *bullet++;
+            it++;
         }
     }
 }

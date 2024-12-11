@@ -25,17 +25,20 @@ TestLevel::TestLevel() {
     Entities *player = new Player(new Entity(new Graphics(data.at("hec_pylori").first, data.at("hec_pylori").second),
                                    new BaseStats(10, 3, 0.8), SquareState::ALLY),
                         new Weapon(new Graphics(data.at("weapon_cocci").first, data.at("weapon_cocci").second),
-                                   new WeaponStats(new ClassicPattern(3), 0.3f, 1)));
+                                   new WeaponStats(0.3f, 1),
+                                   new BulletStats(SquareState::ALLY, 1.0f, 2.0f, 0.0f)),
+                                  new ClassicPattern(3, glm::vec3(0, 0.05, 0)));
     Entities *cocci = new Cocci(new Entity(new Graphics(data.at("cocci_2").first, data.at("cocci_2").second),
                                  new BaseStats(10, 3, 0.5), SquareState::ENEMY),
                       new Weapon(new Graphics(data.at("weapon_cocci").first, data.at("weapon_cocci").second),
-                                 new WeaponStats(new ClassicPattern(3), 1, 1)));
-    player->self->element->setPosition(glm::vec3(0.0, -0.8, 0.0));
+                                 new WeaponStats(0.3f, 1),
+                                 new BulletStats(SquareState::ALLY, 1.0f, 2.0f, 0.0f)),
+                                new ClassicPattern(3, glm::vec3(0, 0.05, 0)));
+    player->self->figure->setPosition(glm::vec3(0.0, -0.8, 0.0));
     float scale = 0.8;
-    player->self->element->setScale(glm::vec3(scale, scale, 0));
-    player->self->shape->update(player->self->element->getModelMatrix());
-    player->weapon->element->setScale(glm::vec3(scale, scale, 0));
-    cocci->self->element->setPosition(glm::vec3(-0.9, 0.8, 0.0));
+    player->self->figure->setScale(glm::vec3(scale, scale, 0));
+    player->weapon->figure->setScale(glm::vec3(scale, scale, 0));
+    cocci->self->figure->setPosition(glm::vec3(-0.9, 0.8, 0.0));
 
     entities.push_back(player);
     entities.push_back(cocci);

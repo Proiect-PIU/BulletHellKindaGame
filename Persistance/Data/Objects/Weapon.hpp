@@ -8,21 +8,37 @@
 
 #include "../../../Renderer/Canvas/Element/Element.hpp"
 #include "../Stats/WeaponStats.hpp"
+#include "../Stats/BulletStats.hpp"
 
 class Weapon{
 public:
-    Element *element;
-    Graphics *graphics;
-    Shape *shape;
+    Figure *figure;
+    BulletStats *bullets;
     WeaponStats *stats;
-    Weapon(Graphics *graphics, WeaponStats *stats): graphics(graphics), stats(stats){
-        element = new Element(graphics);
-        shape = new Shape(graphics->getVertices(), Shape::ShapeType::POLYGON);
+    Weapon(Graphics *graphics, WeaponStats *stats, BulletStats *bullets): stats(stats), bullets(bullets){
+        figure = new Figure(new Element(graphics), new Shape(graphics->getVertices(), Shape::ShapeType::POLYGON));
     };
+    Weapon(const Weapon &w){
+        figure = new Figure(new Element(w.figure->getElement()->getGraphics()),
+                            new Shape(w.figure->getElement()->getGraphics()->getVertices(), Shape::ShapeType::POLYGON));
+        bullets = new BulletStats(*w.bullets);
+        stats = new WeaponStats(*w.stats);
+    };
+    [[nodiscard]] Element *getElement() const{ return figure->getElement();};
+    [[nodiscard]] Shape *getShape() const{ return figure->getShape();};
     ~Weapon(){
-        delete element;
-        delete graphics;
-        delete stats;
+        if (!stats) {
+            delete stats;
+        }
+        if (!figure) {
+            delete figure;
+        }
+        if(!bullets) {
+            delete bullets;
+        }
+        stats = nullptr;
+        figure = nullptr;
+        bullets = nullptr;
     }
 };
 

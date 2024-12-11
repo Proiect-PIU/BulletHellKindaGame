@@ -9,16 +9,15 @@
 #include <GLFW/glfw3.h>
 #include "../Entities.hpp"
 #include "../../../Renderer/Canvas/Canvas.hpp"
-#include "../Bullets/Bullets.hpp"
 #include "../../../Components/Pattern/BulletPattern.hpp"
 
 class Player: public Entities{
     enum Player_state{IDLE, MOVING, ATTACKING, BOMBING} state = IDLE;
     int dir = NONE;
-    std::vector<Bullets> mag = {};
+    std::vector<Weapon> mag = {};
 public:
-    Player(Entity *e, Weapon *w): Entities(*e, *w){};
-    void setPattern(BulletPattern *p);
+    Player(Entity *e, Weapon *w, BulletPattern *pattern): Entities(*e, *w, *pattern){};
+    //void setPattern(BulletPattern *p);
     void update()override;
     void processInputs();
     void loadBullets();

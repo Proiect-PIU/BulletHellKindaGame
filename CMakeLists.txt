@@ -29,8 +29,6 @@ add_executable(CppGameDarCuOpenGL Core/main.cpp
         Components/Entities/Entities.hpp
         Components/Entities/Player/Player.cpp
         Components/Entities/Player/Player.hpp
-        Components/Entities/Bullets/Bullets.cpp
-        Components/Entities/Bullets/Bullets.hpp
         Components/Entities/Player/Player.cpp
         Components/Pattern/BulletPattern.hpp
         Components/Pattern/ShootingPatterns/ClassicPattern.hpp
@@ -58,7 +56,7 @@ add_executable(CppGameDarCuOpenGL Core/main.cpp
         Components/Collisions/Squares/Square.hpp
         Components/Collisions/Squares/SquareState.hpp
         Components/Entities/Enemies/Bacteria/HePylori/HePylori.cpp
-)
+        Persistance/Data/Figure/Figure.hpp Persistance/Data/Stats/BulletStats.hpp)
 
 target_link_libraries(CppGameDarCuOpenGL
         OpenGL::GL
