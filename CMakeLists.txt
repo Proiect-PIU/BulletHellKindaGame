@@ -57,6 +57,7 @@ add_executable(CppGameDarCuOpenGL Core/main.cpp
         Components/Collisions/CollisionMatrix.hpp
         Components/Collisions/Squares/Square.hpp
         Components/Collisions/Squares/SquareState.hpp
+        Components/Entities/Enemies/Bacteria/HePylori/HePylori.cpp
 )
 
 target_link_libraries(CppGameDarCuOpenGL
