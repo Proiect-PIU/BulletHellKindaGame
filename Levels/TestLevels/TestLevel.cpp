@@ -22,7 +22,7 @@ TestLevel::TestLevel() {
 
 
     std::vector<Entities*> entities;
-    Entities *player = new Player(new Entity(new Graphics(data.at("ship").first, data.at("ship").second),
+    Entities *player = new Player(new Entity(new Graphics(data.at("hec_pylori").first, data.at("hec_pylori").second),
                                    new BaseStats(10, 3, 0.8), SquareState::ALLY),
                         new Weapon(new Graphics(data.at("weapon_cocci").first, data.at("weapon_cocci").second),
                                    new WeaponStats(0.3f, 1),
