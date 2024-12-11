@@ -7,13 +7,12 @@
 
 
 #include "../../../Entities.hpp"
-#include "../../../../Pattern/EnemyPattern.hpp"
 #include "../../../../Pattern/AiPatterns/CocciPattern.hpp"
 
 class Cocci: public Entities{
     EnemyPattern *AI;
 public:
-    Cocci(Entity *e, Weapon *w): Entities(*e, *w){
+    Cocci(Entity *e, Weapon *w, BulletPattern *pattern): Entities(*e, *w, *pattern){
         AI = new CocciPattern();
     };
     void update()override;

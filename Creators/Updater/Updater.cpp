@@ -11,8 +11,8 @@ void Updater::update(Level &level) {
     for (auto& entity : level.waves[level.currentWave]->entities) {
         entity->update();
 
-        matrix->addElement(*entity->self->shape, entity->self->state);
-        canvas->addElement(std::move(std::make_unique<Element>(*entity->self->element)));
+        matrix->addElement(*entity->self->getShape(), entity->self->state);
+        canvas->addElement(std::move(std::make_unique<Element>(*entity->self->getElement())));
     }
     matrix->checkForCollision();
 }

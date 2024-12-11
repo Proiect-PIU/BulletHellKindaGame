@@ -7,44 +7,34 @@
 
 #include <iostream>
 #include "../BulletPattern.hpp"
-#include "../../../Creators/Loader/Loader.hpp"
 
-#define bulletGraphics bullet.element->getGraphics()
+#define bulletGraphics weapon.getElement()->getGraphics()
 class ClassicPattern: public BulletPattern{
 public:
-    explicit ClassicPattern(int nrOfBullets): BulletPattern(nrOfBullets){};
-    void updatePattern(Bullets &bullet) override {
+    ClassicPattern(int nrOfBullets, glm::vec3 distanceFromEntity):
+    BulletPattern(nrOfBullets, distanceFromEntity){};
+    void updatePattern(Weapon &weapon, glm::vec3 entityPos) override{
         Canvas *canvas = Loader::getInstance().getCanvas();
         float deltaTime = Loader::getInstance().getDeltaTime();
         CollisionMatrix *matrix = Loader::getInstance().getMatrix();
+
+
         float spacing = 0.01f;
         float totalWidth = (float)(nrOfBullets - 1) * (bulletGraphics->getWidth() + spacing);
-        float startPos = bullet.pos.x - (totalWidth / 2.0f);
-        float initPos = bullet.pos.x;
+        float startPosX = weapon.bullets->pos.x - (totalWidth / 2.0f);
         int reps = nrOfBullets;
-        float posY = bullet.pos.y + bullet.speed * deltaTime;
+        weapon.bullets->pos.y += weapon.bullets->speed * deltaTime;
+        float nextPosY = weapon.bullets->pos.y;
+
         while (reps--) {
-            bullet.pos = glm::vec3(startPos, posY, 0.0f);
+            glm::vec3 pos(startPosX, nextPosY, 0.0f);
             std::unique_ptr<Element> e;
-            Graphics *g;
-            if (bullet.element->hasIndices()) {
-                g = new Graphics(bulletGraphics->getVertices(), bulletGraphics->getIndices());
-                e = std::make_unique<Element>(g);
-            } else {
-                g = new Graphics(bulletGraphics->getVertices());
-                e = std::make_unique<Element>(g);
-            }
-            if (!g) {
-                delete g;
-            }
-            e->setScale(bullet.element->getScale());
-            e->setPosition(bullet.pos);
-            bullet.shape->update(e->getModelMatrix());
-            matrix->addElement(*bullet.shape, bullet.state);
-            canvas->addElement(std::move(e));
-            startPos += bulletGraphics->getWidth() + spacing;
+            auto *w = new Weapon(weapon);
+            w->figure->setPosition(pos);
+            matrix->addElement(*w->getShape(), w->bullets->state);
+            canvas->addElement(std::move(std::make_unique<Element>(*w->getElement())));
+            startPosX += bulletGraphics->getWidth() + spacing;
         }
-        bullet.pos.x = initPos;
     };
 };
 #undef bulletGraphics

@@ -11,12 +11,15 @@
 #include "../../Core/Utility/Utils.hpp"
 #include "../../Persistance/Data/Objects/Entity.hpp"
 #include "../../Persistance/Data/Objects/Weapon.hpp"
+#include "../Pattern/BulletPattern.hpp"
 
 class Entities{
 public:
     Entity *self;
     Weapon *weapon;
-    explicit Entities(Entity &e, Weapon &w): self(&e), weapon(&w){};
+    BulletPattern *pattern;
+    Entities(Entity &e, Weapon &w, BulletPattern &p):
+    self(&e), weapon(&w), pattern(&p){};
     virtual void update() = 0;
     void move(Directions dir);
     ~Entities();

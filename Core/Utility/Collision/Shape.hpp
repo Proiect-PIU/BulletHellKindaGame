@@ -7,6 +7,7 @@
 
 
 #include <glm/ext/matrix_float4x4.hpp>
+#include <utility>
 #include <vector>
 #include <iostream>
 
@@ -22,13 +23,10 @@ public:
     enum ShapeType{POLYGON, CIRCLE} type;
 
     std::vector<float> vertices;
-    std::vector<float> baseVertices;
     Shape(const std::vector<float>& vertices, ShapeType type)
-    : vertices(vertices), type(type){
-        baseVertices = vertices;
-    };
-    void update(glm::mat4 transform) {
-        vertices = baseVertices;
+    : vertices(vertices), type(type){};
+    void update(std::vector<float> baseVertices, glm::mat4 transform) {
+        vertices = std::move(baseVertices);
         north = -2;
         south = 2;
         east = -2;

@@ -5,22 +5,20 @@
 #ifndef CPPGAMEDARCUOPENGL_WEAPONSTATS_HPP
 #define CPPGAMEDARCUOPENGL_WEAPONSTATS_HPP
 
-#include "../../../Components/Pattern/BulletPattern.hpp"
-
 class WeaponStats{
 public:
     float shootReset;
     float shootTime;
     float shootCooldown;
     unsigned int damage;
-    BulletPattern *pattern;
 
-    WeaponStats(BulletPattern *pattern, float shootCooldown, unsigned int damage, float shootReset = 0):
-    pattern(pattern), shootCooldown(shootCooldown), damage(damage),
-    shootReset(shootReset), shootTime(shootCooldown){};
-    ~WeaponStats(){
-        delete pattern;
-    };
+    WeaponStats(float shootCooldown, unsigned int damage, float shootReset = 0):
+        shootCooldown(shootCooldown), damage(damage),
+        shootReset(shootReset), shootTime(shootCooldown){};
+    WeaponStats(const WeaponStats &w):
+        shootCooldown(w.shootCooldown), damage(w.damage),
+        shootReset(w.shootReset), shootTime(w.shootCooldown){};
+    ~WeaponStats()= default;;
 };
 
 
