@@ -7,22 +7,24 @@
 
 
 #include <GLFW/glfw3.h>
-#include "../../Renderer/Canvas/Element/Element.hpp"
-#include "../../Core/Utility/Utils.hpp"
+
+#include "../../Core/Utility/Enums/Directions.h"
 #include "../../Persistance/Data/Objects/Entity.hpp"
-#include "../../Persistance/Data/Objects/Weapon.hpp"
-#include "../Pattern/BulletPattern.hpp"
+#include "Bullets/BulletTypes.h"
+#include "../../Core/Utility/Timer.hpp"
 
 class Entities{
 public:
     Entity *self;
-    Weapon *weapon;
-    BulletPattern *pattern;
-    Entities(Entity &e, Weapon &w, BulletPattern &p):
-    self(&e), weapon(&w), pattern(&p){};
+    Timer *timer;
+    BulletType type;
+
+    Entities(Entity &e, BulletType bt, Timer &t):
+    self(&e), type(bt), timer(&t){};
     virtual void update() = 0;
     void move(Directions dir);
-    ~Entities();
+    [[nodiscard]] BulletType getType() const;
+    virtual ~Entities();
 };
 
 

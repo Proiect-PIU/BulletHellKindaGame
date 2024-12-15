@@ -4,15 +4,15 @@
 
 #include <iostream>
 #include "Entities.hpp"
-#include "../../Creators/Loader/Loader.hpp"
+
 
 Entities::~Entities() {
     if (!self){
        delete self;
     }
-    if (!weapon) {
-        delete weapon;
-    }
+}
+BulletType Entities::getType() const {
+    return type;
 }
 
 void Entities::move(Directions dir) {

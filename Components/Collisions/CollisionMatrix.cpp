@@ -13,7 +13,7 @@ CollisionMatrix::CollisionMatrix(size_t width, size_t height, size_t nrSqrWidth,
     grid.resize(nrSqrWidth * nrSqrHeight);
 }
 
-void CollisionMatrix::addElement(Shape &shape, SquareState state) {
+void CollisionMatrix::addEntity(Entities &entity, SquareState state) {
     for (int i = 0; i < nrSqrHeight; ++i) {
         for (int j = 0; j < nrSqrWidth; ++j) {
             float squareLeft = j * squareWidth;
@@ -21,22 +21,24 @@ void CollisionMatrix::addElement(Shape &shape, SquareState state) {
             float squareBottom = i * squareHeight;
             float squareTop = (i + 1) * squareHeight;
 
-            if (shape.east > squareLeft && shape.west < squareRight &&
-                shape.north > squareBottom && shape.south < squareTop) {
-                grid[i * nrSqrWidth + j].AddShape(shape, state);
+            if (entity.self->getShape()->east > squareLeft && entity.self->getShape()->west < squareRight &&
+            entity.self->getShape()->north > squareBottom && entity.self->getShape()->south < squareTop) {
+                grid[i * nrSqrWidth + j].AddEntity(entity, state);
             }
         }
     }
 }
 
 void CollisionMatrix::checkForCollision() {
+
     for (const auto &square : grid) {
         if (square.GetState() == WARZONE) {
-            const auto &shapes = square.GetShapes();
-            size_t numShapes = shapes.size();
+            const std::vector<Entities*> &entities = square.GetEntities();
+            size_t numShapes = entities.size();
             for (size_t j = 0; j < numShapes; ++j) {
                 for (size_t k = j + 1; k < numShapes; ++k) {
-                    if (Utils::shapesCollide(shapes[j], shapes[k])) {
+                    if (Utils::shapesCollide(*entities[j]->self->getShape(),
+                                             *entities[k]->self->getShape())) {
                         std::cout << "HIT\n";
                     }
                 }

@@ -10,19 +10,18 @@
 #include "../Entities.hpp"
 #include "../../../Renderer/Canvas/Canvas.hpp"
 #include "../../../Components/Pattern/BulletPattern.hpp"
+#include "../Bullets/BulletTypes.h"
 
 class Player: public Entities{
     enum Player_state{IDLE, MOVING, ATTACKING, BOMBING} state = IDLE;
     int dir = NONE;
-    std::vector<Weapon> mag = {};
+    bool shoot = false;
 public:
-    Player(Entity *e, Weapon *w, BulletPattern *pattern): Entities(*e, *w, *pattern){};
-    //void setPattern(BulletPattern *p);
+    Player(Entity &e, BulletType bt, Timer &t): Entities(e, bt, t){};
     void update()override;
     void processInputs();
-    void loadBullets();
-    void updateBullets();
-    ~Player() = default;
+    [[nodiscard]] bool hasShoot() const;
+    ~Player() override = default;
 };
 
 

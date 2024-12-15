@@ -5,7 +5,7 @@
 #ifndef CPPGAMEDARCUOPENGL_UPDATER_HPP
 #define CPPGAMEDARCUOPENGL_UPDATER_HPP
 
-
+#include "../../Components/Entities/Entities.hpp"
 #include "../../Levels/Level.hpp"
 #include "../../Components/Collisions/CollisionMatrix.hpp"
 

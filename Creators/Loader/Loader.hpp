@@ -9,6 +9,7 @@
 #include <vector>
 #include <string>
 #include <GLFW/glfw3.h>
+#include "../../Components/Entities/Entities.hpp"
 #include "../../Renderer/Canvas/Canvas.hpp"
 #include "../../Components/Collisions/CollisionMatrix.hpp"
 

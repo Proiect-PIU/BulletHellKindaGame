@@ -5,7 +5,6 @@
 #include "GameLogic.hpp"
 #include "../../Components/Pattern/ShootingPatterns/ClassicPattern.hpp"
 #include "../../Levels/TestLevels/TestLevel.hpp"
-#include "../../Creators/Loader/Loader.hpp"
 
 GameLogic::GameLogic() {
     testLevel = new TestLevel();
