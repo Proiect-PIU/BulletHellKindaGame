@@ -22,13 +22,13 @@ TestLevel::TestLevel() {
 
 
     std::vector<Entities*> entities;
-    Entities *player = new Player(new Entity(new Graphics(data.at("hec_pylori").first, data.at("hec_pylori").second),
+    Entities *player = new Player(new Entity(new Graphics(data.at("weapon_j").first, data.at("weapon_j").second),
                                    new BaseStats(10, 3, 0.8), SquareState::ALLY),
-                        new Weapon(new Graphics(data.at("weapon_cocci").first, data.at("weapon_cocci").second),
+                        new Weapon(new Graphics(data.at("weapon_memory_bannisher").first, data.at("weapon_memory_bannisher").second),
                                    new WeaponStats(0.3f, 1),
                                    new BulletStats(SquareState::ALLY, 1.0f, 2.0f, 0.0f)),
                                   new ClassicPattern(3, glm::vec3(0, 0.05, 0)));
-    Entities *cocci = new Cocci(new Entity(new Graphics(data.at("cocci_2").first, data.at("cocci_2").second),
+    Entities *cocci = new Cocci(new Entity(new Graphics(data.at("boss_4_de_boss").first, data.at("boss_4_de_boss").second),
                                  new BaseStats(10, 3, 0.5), SquareState::ENEMY),
                       new Weapon(new Graphics(data.at("weapon_cocci").first, data.at("weapon_cocci").second),
                                  new WeaponStats(0.3f, 1),
@@ -36,9 +36,12 @@ TestLevel::TestLevel() {
                                 new ClassicPattern(3, glm::vec3(0, 0.05, 0)));
     player->self->figure->setPosition(glm::vec3(0.0, -0.8, 0.0));
     float scale = 0.8;
-    player->self->figure->setScale(glm::vec3(scale, scale, 0));
+    player->self->figure->setScale(glm::vec3(scale*3, 3*scale, 0));
     player->weapon->figure->setScale(glm::vec3(scale, scale, 0));
     cocci->self->figure->setPosition(glm::vec3(-0.9, 0.8, 0.0));
+    cocci->self->figure->setScale(glm::vec3(6, 6, 0));
+    //cocci->self->figure->setScale(glm::vec3(10, 10, 0));
+    //cocci->self->figure->setPosition(glm::vec3(0, -0.3, 0));
 
     entities.push_back(player);
     entities.push_back(cocci);
