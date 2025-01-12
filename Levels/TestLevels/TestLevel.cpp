@@ -39,6 +39,7 @@ TestLevel::TestLevel() {
     player->nrOfBullets = 10;
     player->angle = 20.0;
 
+
     entities.emplace_back(player, std::vector<Bullet*>{});
     entities.emplace_back(cocci, std::vector<Bullet*>{});
     waves.push_back(new Wave(entities, Wave::Condition::KILL_ALL));
