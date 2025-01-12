@@ -36,7 +36,7 @@ void Entities::move(Directions dir) {
     }
     float speed = self->stats->speed;
     float x = self->figure->getPosition().x + dx * deltaTime * speed;
-    float y = self->figure->getPosition().y + dy * 1.6f * deltaTime * speed;
+    float y = self->figure->getPosition().y + dy * deltaTime * speed;
     glm::vec3 newPos = glm::vec3(x, y, 0.0f);
     self->figure->setPosition(newPos);
 }

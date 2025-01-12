@@ -5,6 +5,7 @@
 #include <valarray>
 #include <thread>
 #include <iostream>
+#include <cstdlib>
 #include "Utils.hpp"
 
 std::vector<float> Utils::generateCircleVertices(float cx, float cy, float cz, float radius, int numSegments,
@@ -47,7 +48,9 @@ void Utils::capFrameRate(const std::chrono::steady_clock::time_point &frameStart
         std::this_thread::sleep_for(delayTime);
     }
 }
-
+float Utils::randRange(float min, float max) {
+    return min + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (max - min)));
+}
 std::vector<glm::vec3> extractPositions(const std::vector<float>& vertices) {
     std::vector<glm::vec3> positions;
     size_t stride = 6;
@@ -74,31 +77,22 @@ bool pointInPolygon(const glm::vec2& point, const std::vector<glm::vec2>& vertic
 }
 
 bool polygonPolygonCollision(const Shape& polyA, const Shape& polyB) {
-    float margin = 0.01f;
-    float adjustedEastA = polyA.east - margin;
-    float adjustedWestA = polyA.west + margin;
+    float margin = 0.02f;
+
+    float adjustedEastA  = polyA.east  - margin;
+    float adjustedWestA  = polyA.west  + margin;
     float adjustedNorthA = polyA.north - margin;
     float adjustedSouthA = polyA.south + margin;
 
-    float adjustedEastB = polyB.east - margin;
-    float adjustedWestB = polyB.west + margin;
+    float adjustedEastB  = polyB.east  - margin;
+    float adjustedWestB  = polyB.west  + margin;
     float adjustedNorthB = polyB.north - margin;
     float adjustedSouthB = polyB.south + margin;
 
-    if (adjustedEastA > adjustedWestB && adjustedEastA < adjustedEastB &&
-        adjustedNorthA > adjustedSouthB && adjustedNorthA < adjustedNorthB)
-        return true;
-    if (adjustedWestA > adjustedWestB && adjustedWestA < adjustedEastB &&
-        adjustedNorthA > adjustedSouthB && adjustedNorthA < adjustedNorthB)
-        return true;
-    if (adjustedEastA > adjustedWestB && adjustedEastA < adjustedEastB &&
-        adjustedSouthA > adjustedSouthB && adjustedSouthA < adjustedNorthB)
-        return true;
-    if (adjustedWestA > adjustedWestB && adjustedWestA < adjustedEastB &&
-        adjustedSouthA > adjustedSouthB && adjustedSouthA < adjustedNorthB)
-        return true;
+    bool separatedHorizontally = adjustedWestA > adjustedEastB || adjustedEastA < adjustedWestB;
+    bool separatedVertically   = adjustedSouthA > adjustedNorthB || adjustedNorthA < adjustedSouthB;
 
-    return false;
+    return !(separatedHorizontally || separatedVertically);
 }
 
 bool circleCircleCollision(const Shape& circleA, const Shape& circleB) {

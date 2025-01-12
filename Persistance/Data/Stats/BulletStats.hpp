@@ -13,6 +13,7 @@ public:
     float speed;
     float angle;
     float currentAngle;
+    float spacing;
     BulletStats(float lifespan, float speed, float angle):
         lifespan(lifespan), speed(speed), angle(angle) {
     };

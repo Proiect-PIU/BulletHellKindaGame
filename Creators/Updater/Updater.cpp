@@ -10,12 +10,12 @@
 void createBullets(Entities* entity, std::vector<Bullet*>& mag) {
     float angleStep = entity->angle / (entity->nrOfBullets - 1);
     float startAngle = -entity->angle / 2.0f;
-    float spacing = 0.04f;
-    float totalWidth = (entity->nrOfBullets - 1) * spacing;
-    float startPosX = entity->self->figure->getPosition().x - (totalWidth / 2.0f);
 
     for (int i = 0; i < entity->nrOfBullets; ++i) {
+
         auto bullet = Weapons::getBullet(entity->getType(), entity->self->state);
+        float totalWidth = (entity->nrOfBullets - 1) * bullet->stats->spacing;
+        float startPosX = entity->self->figure->getPosition().x - (totalWidth / 2.0f);
 
         if (entity->self->state == SquareState::ENEMY) {
             bullet->stats->speed *= -1;
@@ -25,7 +25,7 @@ void createBullets(Entities* entity, std::vector<Bullet*>& mag) {
             bullet->stats->currentAngle = glm::radians(startAngle + i * angleStep);
         }
 
-        glm::vec3 pos(startPosX + i * spacing, entity->self->figure->getPosition().y, 0.0f);
+        glm::vec3 pos(startPosX + i * bullet->stats->spacing, entity->self->figure->getPosition().y, 0.0f);
         bullet->stats->setPosition(pos);
         bullet->stats->initPos = pos;
         bullet->stats->angle = entity->angle;

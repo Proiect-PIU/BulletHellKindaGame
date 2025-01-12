@@ -12,6 +12,7 @@
 
 class GameLogic: public Logic{
     Level *testLevel;
+    Level *level_1;
     Updater *worker;
 public:
     GameLogic();

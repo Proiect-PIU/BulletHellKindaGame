@@ -20,6 +20,7 @@ public:
             const glm::vec3& edgeColor
     );
     static void capFrameRate(const std::chrono::steady_clock::time_point& frameStart);
+    static float randRange(float min, float max);
     static bool shapesCollide(const Shape& shapeA, const Shape& shapeB);
 };
 

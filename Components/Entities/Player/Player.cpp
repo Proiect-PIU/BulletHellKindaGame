@@ -19,6 +19,7 @@ void Player::update() {
         case IDLE:
             break;
     }
+    std::cout << self->stats->health << '\n';
     state = IDLE;
     //updateBullets();
 }

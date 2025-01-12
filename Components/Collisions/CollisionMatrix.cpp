@@ -78,12 +78,13 @@ void CollisionMatrix::checkForCollision() {
             size_t numShapes = entities.size();
             for (size_t j = 0; j < numShapes; ++j)  {
                 for (size_t k = j + 1; k < numShapes; ++k) {
-                    if ((!entities[j]->isBullet && !entities[j]->isBullet) &&
+                    if ((entities[j]->self->state != entities[k]->self->state) &&
+                            !(entities[j]->isBullet && entities[k]->isBullet) &&
                             Utils::shapesCollide(*entities[j]->self->getShape(),
                                              *entities[k]->self->getShape())) {
                         entities[j]->self->stats->health -= entities[k]->self->stats->damage;
                         entities[k]->self->stats->health -= entities[j]->self->stats->damage;
-                        std::cout << "HIT\n";
+                        //std::cout << "HIT\n";
                         hit = true;
                     }
                 }

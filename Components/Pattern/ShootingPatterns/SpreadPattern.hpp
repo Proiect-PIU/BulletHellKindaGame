@@ -9,8 +9,7 @@
 
 class SpreadPattern : public BulletPattern {
 public:
-    SpreadPattern(int nrOfBullets)
-            : BulletPattern(nrOfBullets) {}
+    SpreadPattern(int nrOfBullets): BulletPattern(nrOfBullets) {}
     void updatePattern(std::vector<Bullet*>& bullets) override {
         Canvas* canvas = Loader::getInstance().getCanvas();
         CollisionMatrix* matrix = Loader::getInstance().getMatrix();
