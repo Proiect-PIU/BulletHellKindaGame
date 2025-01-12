@@ -11,7 +11,7 @@
 
 class Logic{
 public:
-    virtual void processLogic() = 0;
+    virtual int processLogic(int &option) = 0;
     virtual ~Logic() = default;
 };
 

@@ -33,22 +33,25 @@ void createBullets(Entities* entity, std::vector<Bullet*>& mag) {
     }
 }
 
-void Updater::update(Level &level) {
-    Canvas *canvas = Loader::getInstance().getCanvas();
-    CollisionMatrix *matrix = Loader::getInstance().getMatrix();
+void Updater::update(Level& level) {
+    Canvas* canvas = Loader::getInstance().getCanvas();
+    CollisionMatrix* matrix = Loader::getInstance().getMatrix();
+
     auto& entities = level.waves[level.currentWave]->entities;
-    for (auto ent = entities.begin(); ent < entities.end();) {
+
+    for (auto ent = entities.begin(); ent != entities.end();) {
         auto entity = ent->first;
         auto& mag = ent->second;
-        entity->update();
-        if (entity->self->stats->health <= 0) {
-            ent = entities.erase(ent);
-            delete entity;
-            continue;
+
+        if (entity->self->stats->health > 0) {
+            entity->update();
+            if (entity->hasShoot()) {
+                createBullets(entity, mag);
+            }
+            matrix->addEntity(*entity, entity->self->state);
+            canvas->addElement(std::make_unique<Element>(*entity->self->getElement()));
         }
-        if (entity->hasShoot()) {
-            createBullets(entity, mag);
-        }
+
         if (!mag.empty()) {
             BulletPattern* weapon = Weapons::getWeapon(entity->getType(), entity->nrOfBullets);
             for (auto it = mag.begin(); it != mag.end();) {
@@ -63,12 +66,17 @@ void Updater::update(Level &level) {
             }
             weapon->updatePattern(mag);
         }
-        matrix->addEntity(*entity, entity->self->state);
-        canvas->addElement(std::move(std::make_unique<Element>(*entity->self->getElement())));
 
-        ++ent;
+        if (entity->self->stats->health <= 0 && mag.empty()) {
+            delete entity;
+            ent = entities.erase(ent);
+        } else {
+            ++ent;
+        }
     }
+
     if (!entities.empty()) {
         matrix->checkForCollision();
     }
+    level.isCleared();
 }

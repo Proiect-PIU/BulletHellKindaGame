@@ -9,7 +9,7 @@
 #include "../../Logic/Logic.hpp"
 
 class Game{
-    Logic *gameLogic;
+    Logic *logic;
     GameContext *gameContext;
 public:
     Game();

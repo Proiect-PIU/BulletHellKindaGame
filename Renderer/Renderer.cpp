@@ -22,7 +22,8 @@ void Renderer::drawCanvas(unsigned int shaderProgram) {
     glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
     glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
-    glClearColor(0.5f, 0.0f, 0.0f, 1.0f);
+    glm::vec4 bgc = canvas->getBackground();
+    glClearColor(bgc.r, bgc.g, bgc.b, bgc.a);
     glClear(GL_COLOR_BUFFER_BIT);
     for (const auto& element : elementList) {
 
