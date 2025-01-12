@@ -5,38 +5,19 @@
 #ifndef CPPGAMEDARCUOPENGL_SQUARE_HPP
 #define CPPGAMEDARCUOPENGL_SQUARE_HPP
 
-#include "../../../Core/Utility/Collision/Shape.hpp"
-#include "SquareState.hpp"
 
+#include "SquareState.hpp"
+#include "../../Entities/Entities.hpp"
 
 class Square{
     SquareState state;
-    std::vector<Shape> shapes;
+
+    std::vector<Entities*> entities;
 public:
-    Square(){
-        state = EMPTY;
-        shapes = {};
-    };
-    void AddShape(const Shape &shape, SquareState newState) {
-        switch (state) {
-            case WARZONE:
-                break;
-            case EMPTY:
-                state = newState;
-                break;
-            case ALLY:
-                if(newState == ENEMY)
-                    state = WARZONE;
-                break;
-            case ENEMY:
-                if(newState == ALLY)
-                    state = WARZONE;
-                break;
-        }
-        shapes.push_back(shape);
-    };
-    [[nodiscard]] const std::vector<Shape>& GetShapes() const { return shapes; }
-    [[nodiscard]] SquareState GetState() const { return state; }
+    Square();
+    void AddEntity(Entities &entity, SquareState newState);
+    [[nodiscard]] const std::vector<Entities*>& GetEntities() const;
+    [[nodiscard]] SquareState GetState() const;
 };
 
 

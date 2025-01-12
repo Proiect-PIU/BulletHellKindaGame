@@ -25,6 +25,8 @@ public:
     };
     Element *getElement(){ return element;};
     Shape *getShape(){ return shape;};
+    [[nodiscard]] float getWidth() const{ return element->getGraphics()->getWidth(); };
+    [[nodiscard]] float getHeight() const{ return element->getGraphics()->getHeight(); };
     ~Figure(){
         if (!element) {
             delete element;

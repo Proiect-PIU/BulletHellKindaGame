@@ -10,8 +10,6 @@
 #include <chrono>
 #include "Collision/Shape.hpp"
 
-enum Directions: int {UP = 0b1000, DOWN = 0b0100, LEFT = 0b0010, RIGHT = 0b0001, NONE = 0};
-
 class Utils{
 public:
     Utils()= default;
@@ -22,6 +20,7 @@ public:
             const glm::vec3& edgeColor
     );
     static void capFrameRate(const std::chrono::steady_clock::time_point& frameStart);
+    static float randRange(float min, float max);
     static bool shapesCollide(const Shape& shapeA, const Shape& shapeB);
 };
 

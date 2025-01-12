@@ -4,20 +4,21 @@
 
 #include <glm/vec3.hpp>
 #include "../Figure/Figure.hpp"
-#include "../../../Components/Collisions/Squares/SquareState.hpp"
 
 class BulletStats{
 public:
     glm::vec3 pos;
-    SquareState state;
+    glm::vec3 initPos;
     float lifespan;
     float speed;
     float angle;
-    BulletStats(SquareState state, float lifespan, float speed, float angle):
-        state(state), lifespan(lifespan), speed(speed), angle(angle) {
+    float currentAngle;
+    float spacing;
+    BulletStats(float lifespan, float speed, float angle):
+        lifespan(lifespan), speed(speed), angle(angle) {
     };
     BulletStats(const BulletStats &b):
-        state(b.state), lifespan(b.lifespan), speed(b.speed), angle(b.angle), pos(b.pos) {
+        lifespan(b.lifespan), speed(b.speed), angle(b.angle), pos(b.pos) {
     };
     void setPosition(glm::vec3 p) {
         pos = p;

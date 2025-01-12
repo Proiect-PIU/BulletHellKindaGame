@@ -3,16 +3,22 @@
 //
 
 #include <iostream>
-#include "Entities.hpp"
 #include "../../Creators/Loader/Loader.hpp"
+#include "Entities.hpp"
+
 
 Entities::~Entities() {
     if (!self){
        delete self;
     }
-    if (!weapon) {
-        delete weapon;
-    }
+}
+BulletType Entities::getType() const {
+    return type;
+}
+bool Entities::hasShoot() {
+    bool copy = shoot;
+    shoot = false;
+    return copy;
 }
 
 void Entities::move(Directions dir) {
@@ -30,7 +36,7 @@ void Entities::move(Directions dir) {
     }
     float speed = self->stats->speed;
     float x = self->figure->getPosition().x + dx * deltaTime * speed;
-    float y = self->figure->getPosition().y + dy * 1.6f * deltaTime * speed;
+    float y = self->figure->getPosition().y + dy * deltaTime * speed;
     glm::vec3 newPos = glm::vec3(x, y, 0.0f);
     self->figure->setPosition(newPos);
 }

@@ -48,7 +48,7 @@ GameContext::GameContext() {
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
-    window = glfwCreateWindow(1920, 1080, "LearnOpenGL", NULL, NULL);
+    window = glfwCreateWindow(1080, 1080, "No more medicine, I'll go in!", NULL, NULL);
     if (!window) {
         std::cerr << "Failed to create GLFW window" << std::endl;
         glfwTerminate();

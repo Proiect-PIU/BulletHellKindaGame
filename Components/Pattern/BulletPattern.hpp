@@ -6,15 +6,15 @@
 #define CPPGAMEDARCUOPENGL_BULLETPATTERN_HPP
 
 #include <cmath>
+#include "../Entities/Bullets/Bullet.hpp"
 
 class BulletPattern{
 protected:
     int nrOfBullets;
-    glm::vec3 distanceFromEntity;
 public:
-    BulletPattern(int nrOfBullets, glm::vec3 distanceFromEntity):
-    nrOfBullets(nrOfBullets), distanceFromEntity(distanceFromEntity) {};
-    virtual void updatePattern(Weapon &weapon, glm::vec3 entityPos) = 0;
+    BulletPattern(int nrOfBullets):
+    nrOfBullets(nrOfBullets) {};
+    virtual void updatePattern(std::vector<Bullet*>& bullets) = 0;
     ~BulletPattern() = default;
 };
 

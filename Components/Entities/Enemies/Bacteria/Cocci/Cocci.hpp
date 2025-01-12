@@ -12,11 +12,11 @@
 class Cocci: public Entities{
     EnemyPattern *AI;
 public:
-    Cocci(Entity *e, Weapon *w, BulletPattern *pattern): Entities(*e, *w, *pattern){
+    Cocci(Entity &e, BulletType bt, Timer &t): Entities(e, bt, t){
         AI = new CocciPattern();
     };
     void update()override;
-    ~Cocci(){
+    ~Cocci() override {
         if(!AI)
             delete AI;
         AI = nullptr;

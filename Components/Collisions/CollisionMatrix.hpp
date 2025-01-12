@@ -8,9 +8,10 @@
 #include "Squares/Square.hpp"
 
 
+
 class CollisionMatrix{
-    size_t width;
-    size_t height;
+    float width;
+    float height;
     size_t nrSqrWidth;
     size_t nrSqrHeight;
     float squareWidth;
@@ -19,8 +20,8 @@ class CollisionMatrix{
 public:
 
     CollisionMatrix() = default;
-    CollisionMatrix(size_t width, size_t height, size_t nrSqrWidth, size_t nrSqrHeight);
-    void addElement(Shape &shape, SquareState state);
+    CollisionMatrix(float width, float height, size_t nrSqrWidth, size_t nrSqrHeight);
+    void addEntity(Entities &entity, SquareState state);
     void checkForCollision();
     void empty();
     ~CollisionMatrix() = default;
