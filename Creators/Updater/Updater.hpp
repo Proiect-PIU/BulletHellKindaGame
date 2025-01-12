@@ -8,6 +8,7 @@
 #include "../../Components/Entities/Entities.hpp"
 #include "../../Levels/Level.hpp"
 #include "../../Components/Collisions/CollisionMatrix.hpp"
+#include "../../Components/Entities/Bullets/Bullet.hpp"
 
 class Updater{
 public:

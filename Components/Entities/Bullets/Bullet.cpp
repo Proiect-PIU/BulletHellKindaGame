@@ -1,13 +1,12 @@
 
-#include "Bullet.h"
+#include "Bullet.hpp"
+#include "../../../Creators/Loader/Loader.hpp"
 
 void Bullet::update(){
     float deltaTime = Loader::getInstance().getDeltaTime();
     stats->lifespan -= deltaTime;
-    if (deltaTime <= 0.0f) {
+    if (stats->lifespan <= 0.0f || self->stats->health <= 0) {
         dead = true;
-    } else {
-        pattern->updatePattern(*this);
     }
 }
 

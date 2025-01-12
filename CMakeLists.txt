@@ -55,7 +55,11 @@ add_executable(CppGameDarCuOpenGL Core/main.cpp
         Components/Collisions/Squares/Square.hpp
         Components/Collisions/Squares/SquareState.hpp
         Components/Entities/Enemies/Bacteria/HePylori/HePylori.cpp
-        Persistance/Data/Figure/Figure.hpp Persistance/Data/Stats/BulletStats.hpp Components/Entities/Bullets/Bullet.cpp Components/Entities/Bullets/Bullet.h Components/Entities/Bullets/BulletTypes.h Components/Entities/Enemies/Bacteria/HePylori/HePylori.hpp Core/Utility/Enums/Directions.h)
+        Persistance/Data/Figure/Figure.hpp Persistance/Data/Stats/BulletStats.hpp Components/Entities/Bullets/Bullet.cpp Components/Entities/Bullets/Bullet.hpp Components/Entities/Bullets/BulletTypes.hpp Components/Entities/Enemies/Bacteria/HePylori/HePylori.hpp Core/Utility/Enums/Directions.h Components/Collisions/Squares/Square.cpp Core/Utility/Timer.cpp Components/Entities/Bullets/Weapons.h Components/Pattern/ShootingPatterns/SpreadPattern.hpp)
+
+target_include_directories(CppGameDarCuOpenGL PRIVATE
+        ${CMAKE_SOURCE_DIR}/Creators
+        )
 
 target_link_libraries(CppGameDarCuOpenGL
         OpenGL::GL

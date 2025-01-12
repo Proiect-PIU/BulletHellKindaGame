@@ -10,17 +10,16 @@
 #include "../Entities.hpp"
 #include "../../../Renderer/Canvas/Canvas.hpp"
 #include "../../../Components/Pattern/BulletPattern.hpp"
-#include "../Bullets/BulletTypes.h"
+#include "../Bullets/BulletTypes.hpp"
 
 class Player: public Entities{
     enum Player_state{IDLE, MOVING, ATTACKING, BOMBING} state = IDLE;
     int dir = NONE;
-    bool shoot = false;
+
 public:
     Player(Entity &e, BulletType bt, Timer &t): Entities(e, bt, t){};
     void update()override;
     void processInputs();
-    [[nodiscard]] bool hasShoot() const;
     ~Player() override = default;
 };
 

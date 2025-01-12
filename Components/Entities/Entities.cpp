@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include "../../Creators/Loader/Loader.hpp"
 #include "Entities.hpp"
 
 
@@ -13,6 +14,11 @@ Entities::~Entities() {
 }
 BulletType Entities::getType() const {
     return type;
+}
+bool Entities::hasShoot() {
+    bool copy = shoot;
+    shoot = false;
+    return copy;
 }
 
 void Entities::move(Directions dir) {

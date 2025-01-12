@@ -7,17 +7,21 @@
 
 
 #include "../Components/Entities/Entities.hpp"
+#include "../Components//Entities/Bullets/Bullet.hpp"
 
 class Wave{
 public:
-    std::vector<Entities*> entities;
+    std::vector<std::pair<Entities*, std::vector<Bullet*>>> entities;
     float timer;
     enum Condition{KILL_ALL, SURVIVE, UNSET}condition = UNSET;
-    Wave(const std::vector<Entities *> &entities, Condition condition, float timer = 0.0f):
-    entities(entities), condition(condition), timer(timer){};
+    Wave(const std::vector<std::pair<Entities*, std::vector<Bullet*>>> &entities,
+         Condition condition, float timer = 0.0f):
+        entities(entities), condition(condition), timer(timer){};
     ~Wave(){
         for (auto& enemy : entities) {
-            delete enemy;
+            delete enemy.first;
+            for(auto& bullet : enemy.second)
+                delete bullet;
         }
     };
 };

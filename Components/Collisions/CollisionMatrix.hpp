@@ -10,8 +10,8 @@
 
 
 class CollisionMatrix{
-    size_t width;
-    size_t height;
+    float width;
+    float height;
     size_t nrSqrWidth;
     size_t nrSqrHeight;
     float squareWidth;
@@ -20,7 +20,7 @@ class CollisionMatrix{
 public:
 
     CollisionMatrix() = default;
-    CollisionMatrix(size_t width, size_t height, size_t nrSqrWidth, size_t nrSqrHeight);
+    CollisionMatrix(float width, float height, size_t nrSqrWidth, size_t nrSqrHeight);
     void addEntity(Entities &entity, SquareState state);
     void checkForCollision();
     void empty();

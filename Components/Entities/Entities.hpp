@@ -10,7 +10,7 @@
 
 #include "../../Core/Utility/Enums/Directions.h"
 #include "../../Persistance/Data/Objects/Entity.hpp"
-#include "Bullets/BulletTypes.h"
+#include "Bullets/BulletTypes.hpp"
 #include "../../Core/Utility/Timer.hpp"
 
 class Entities{
@@ -18,12 +18,17 @@ public:
     Entity *self;
     Timer *timer;
     BulletType type;
+    int nrOfBullets = 1;
+    bool isBullet = false;
+    float angle = 0.0f;
+    bool shoot = false;
 
     Entities(Entity &e, BulletType bt, Timer &t):
     self(&e), type(bt), timer(&t){};
     virtual void update() = 0;
     void move(Directions dir);
     [[nodiscard]] BulletType getType() const;
+    [[nodiscard]] bool hasShoot();
     virtual ~Entities();
 };
 

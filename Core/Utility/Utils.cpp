@@ -36,7 +36,7 @@ std::vector<float> Utils::generateCircleVertices(float cx, float cy, float cz, f
     return vertices;
 }
 
-const int FPS = 144;
+const int FPS = 120;
 const std::chrono::milliseconds frameDuration(1000 / FPS);
 void Utils::capFrameRate(const std::chrono::steady_clock::time_point &frameStart) {
     auto frameEnd = std::chrono::steady_clock::now();
@@ -74,45 +74,31 @@ bool pointInPolygon(const glm::vec2& point, const std::vector<glm::vec2>& vertic
 }
 
 bool polygonPolygonCollision(const Shape& polyA, const Shape& polyB) {
-    std::vector<glm::vec3> verticesA = extractPositions(polyA.vertices);
-    std::vector<glm::vec3> verticesB = extractPositions(polyB.vertices);
+    float margin = 0.01f;
+    float adjustedEastA = polyA.east - margin;
+    float adjustedWestA = polyA.west + margin;
+    float adjustedNorthA = polyA.north - margin;
+    float adjustedSouthA = polyA.south + margin;
 
-    std::vector<glm::vec2> verticesA2D, verticesB2D;
-    for (const auto& pos : verticesA) verticesA2D.emplace_back(pos.x, pos.y);
-    for (const auto& pos : verticesB) verticesB2D.emplace_back(pos.x, pos.y);
-    std::vector<glm::vec2> axes;
+    float adjustedEastB = polyB.east - margin;
+    float adjustedWestB = polyB.west + margin;
+    float adjustedNorthB = polyB.north - margin;
+    float adjustedSouthB = polyB.south + margin;
 
-    auto addAxes = [](const std::vector<glm::vec2>& vertices, std::vector<glm::vec2>& axes) {
-        for (size_t i = 0; i < vertices.size(); ++i) {
-            glm::vec2 p1 = vertices[i];
-            glm::vec2 p2 = vertices[(i + 1) % vertices.size()];
-            glm::vec2 edge = p2 - p1;
-            glm::vec2 normal(-edge.y, edge.x);
-            axes.push_back(glm::normalize(normal));
-        }
-    };
-    addAxes(verticesA2D, axes);
-    addAxes(verticesB2D, axes);
-    for (const auto& axis : axes) {
-        float minA = std::numeric_limits<float>::max();
-        float maxA = std::numeric_limits<float>::lowest();
-        for (const auto& vertex : verticesA2D) {
-            float projection = glm::dot(vertex, axis);
-            minA = std::min(minA, projection);
-            maxA = std::max(maxA, projection);
-        }
-        float minB = std::numeric_limits<float>::max();
-        float maxB = std::numeric_limits<float>::lowest();
-        for (const auto& vertex : verticesB2D) {
-            float projection = glm::dot(vertex, axis);
-            minB = std::min(minB, projection);
-            maxB = std::max(maxB, projection);
-        }
-        if (maxA < minB || maxB < minA) {
-            return false;
-        }
-    }
-    return true;
+    if (adjustedEastA > adjustedWestB && adjustedEastA < adjustedEastB &&
+        adjustedNorthA > adjustedSouthB && adjustedNorthA < adjustedNorthB)
+        return true;
+    if (adjustedWestA > adjustedWestB && adjustedWestA < adjustedEastB &&
+        adjustedNorthA > adjustedSouthB && adjustedNorthA < adjustedNorthB)
+        return true;
+    if (adjustedEastA > adjustedWestB && adjustedEastA < adjustedEastB &&
+        adjustedSouthA > adjustedSouthB && adjustedSouthA < adjustedNorthB)
+        return true;
+    if (adjustedWestA > adjustedWestB && adjustedWestA < adjustedEastB &&
+        adjustedSouthA > adjustedSouthB && adjustedSouthA < adjustedNorthB)
+        return true;
+
+    return false;
 }
 
 bool circleCircleCollision(const Shape& circleA, const Shape& circleB) {
@@ -151,15 +137,15 @@ bool circlePolygonCollision(const Shape& circle, const Shape& polygon) {
 
 #define TYPE Shape::ShapeType
 bool Utils::shapesCollide(const Shape& shapeA, const Shape& shapeB) {
-    if (shapeA.type == TYPE::POLYGON && shapeB.type == TYPE::POLYGON) {
+    if (shapeA.type == TYPE::POLYGON && shapeB.type == TYPE::POLYGON)
         return polygonPolygonCollision(shapeA, shapeB);
-    } else if (shapeA.type == TYPE::CIRCLE && shapeB.type == TYPE::CIRCLE) {
-        return circleCircleCollision(shapeA, shapeB);
-    } else if (shapeA.type == TYPE::CIRCLE && shapeB.type == TYPE::POLYGON) {
-        return circlePolygonCollision(shapeA, shapeB);
-    } else if (shapeA.type == TYPE::POLYGON && shapeB.type == TYPE::CIRCLE) {
-        return circlePolygonCollision(shapeB, shapeA);
-    }
+//    } else if (shapeA.type == TYPE::CIRCLE && shapeB.type == TYPE::CIRCLE) {
+//        return circleCircleCollision(shapeA, shapeB);
+//    } else if (shapeA.type == TYPE::CIRCLE && shapeB.type == TYPE::POLYGON) {
+//        return circlePolygonCollision(shapeA, shapeB);
+//    } else if (shapeA.type == TYPE::POLYGON && shapeB.type == TYPE::CIRCLE) {
+//        return circlePolygonCollision(shapeB, shapeA);
+//    }
     return false;
 }
 #undef TYPE

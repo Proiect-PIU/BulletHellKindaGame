@@ -73,7 +73,7 @@ CollisionMatrix *Loader::getMatrix()
 {
     if (!matrix)
     {
-        matrix = std::make_unique<CollisionMatrix>(1, 1, 16, 16);
+        matrix = std::make_unique<CollisionMatrix>(3.554, 2, 16, 16);
     }
     return matrix.get();
 }

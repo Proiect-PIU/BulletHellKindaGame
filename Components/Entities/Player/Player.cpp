@@ -22,9 +22,6 @@ void Player::update() {
     state = IDLE;
     //updateBullets();
 }
-bool Player::hasShoot() const {
-    return shoot;
-}
 
 
 
@@ -77,12 +74,13 @@ void Player::processInputs() {
         state = MOVING;
         dir |= DOWN;
     }
-    if(dir == NONE) {
+    if (dir == NONE) {
         state = IDLE;
     }
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
         if (!timer->onCooldown()) {
-            state = ATTACKING;
+            // state = ATTACKING;
+            shoot = true;
         }
     } else {
         shoot = false;

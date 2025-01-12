@@ -7,7 +7,7 @@
 #include "../Utility/Utils.hpp"
 #include "../../Renderer/Renderer.hpp"
 #include "../../Logic/Game/GameLogic.hpp"
-
+#include "../../Creators/Loader/Loader.hpp"
 
 Game::Game() {
 

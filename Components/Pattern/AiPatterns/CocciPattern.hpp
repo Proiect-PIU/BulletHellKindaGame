@@ -12,6 +12,8 @@
 
 class CocciPattern: public EnemyPattern{
     float reset = 0.0f;
+    float shootReset = 1.0f;
+    float shootTime = 1.0f;
     float cooldown = 3.0f;
     float time = 0.0f;
     bool swDir = false;
@@ -23,13 +25,19 @@ public:
             time = cooldown;
             swDir = !swDir;
         }
+        if (shootTime >= 0.0) {
+            shootTime -= deltaTime;
+            entity.shoot = false;
+        } else {
+            shootTime = shootReset;
+            entity.shoot = true;
+        }
         if (time > reset) {
             time -= deltaTime;
         }
         if (swDir) {
             entity.move(RIGHT);
-        }
-        else {
+        } else {
             entity.move(LEFT);
         }
     };

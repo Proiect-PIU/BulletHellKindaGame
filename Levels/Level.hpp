@@ -8,6 +8,7 @@
 
 #include <vector>
 #include "Wave.hpp"
+#include "../Components/Entities/Bullets/Bullet.hpp"
 
 class Level{
 public:

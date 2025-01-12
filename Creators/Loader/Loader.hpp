@@ -27,6 +27,7 @@ public:
     Canvas *getCanvas();
     CollisionMatrix *getMatrix();
 
+
     void updateDeltaTime();
     float getDeltaTime();
     GLFWwindow *getWindow();
@@ -37,6 +38,7 @@ private:
     std::unordered_map<std::string, std::pair<std::vector<float>, std::vector<unsigned int>>> data;
     std::unique_ptr<Canvas> canvas;
     std::unique_ptr<CollisionMatrix> matrix;
+
 
     float deltaTime;
     GLFWwindow *window;
