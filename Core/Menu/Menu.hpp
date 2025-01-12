@@ -7,14 +7,16 @@
 
 class Menu {
 public:
-    enum Options{PLAY, EXIT} option;
+    static int option;
+    int nrOptions;
     bool selected = false;
 
     explicit Menu(glm::vec4 color);
-    void addButton();
+    void addMenuButtons();
+    void addLevelButtons();
+    void addBackground();
     bool processInputs();
     ~Menu() = default;
 };
-
 
 #endif //CPPGAMEDARCUOPENGL_MENU_HPP
