@@ -9,14 +9,39 @@ MenuLogic::MenuLogic() {
 }
 
 int MenuLogic::processLogic(int &option) {
-    menu->addButton();
-    if(menu->processInputs()){
-        switch(menu->option){
-            case Menu::PLAY:
-                return LEVEL_MENU;
-            case Menu::EXIT:
-                return EXIT;
-        }
+    menu->selected = false;
+    switch(option) {
+        case 1:
+            menu->nrOptions = 2;
+            menu->addMenuButtons();
+            if(menu->processInputs()) {
+                switch(menu->option) {
+                    case 0:
+                        return LEVEL_MENU;
+                    case 1:
+                        return EXIT;
+                }
+            }
+            return MAIN_MENU;
+        case 2:
+            menu->nrOptions = 4;
+            menu->addBackground();
+            menu->addLevelButtons();
+            if(menu->processInputs()) {
+                switch(menu->option) {
+                    case 0:
+                        return PLAY_1;
+                    case 1:
+                        return PLAY_2;
+                    case 2:
+                        return PLAY_3;
+                    case 3:
+                        return PLAY_4;
+                }
+            }
+            return LEVEL_MENU;
+        default:
+            return EXIT;
     }
 }
 

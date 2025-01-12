@@ -31,7 +31,7 @@ Game::~Game() {
 //void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 //    glViewport(0, 0, width, height);
 //}
-
+int Menu::option = 0;
 
 void Game::run() {
     bool close = false;
