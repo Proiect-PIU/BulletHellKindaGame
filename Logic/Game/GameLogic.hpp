@@ -13,10 +13,14 @@
 class GameLogic: public Logic{
     Level *testLevel;
     Level *level_1;
+    Level *level_2;
+    Level *level_3;
+    Level *level_4;
     Updater *worker;
+    bool loaded_1 = false, loaded_2 = false, loaded_3 = false;
 public:
     GameLogic();
-    void processLogic() override;
+    int processLogic(int &option) override;
     ~GameLogic() override;
 };
 

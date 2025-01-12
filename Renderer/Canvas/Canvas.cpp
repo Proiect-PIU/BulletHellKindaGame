@@ -14,6 +14,12 @@ Element *Canvas::getElement(int n) {
     }
     return nullptr;
 }
+void Canvas::setBackground(glm::vec4 color) {
+    backgroundColor = color;
+}
+glm::vec4 Canvas::getBackground() {
+    return backgroundColor;
+}
 
 const std::vector<std::unique_ptr<Element>> &Canvas::getList() const {
     return elementList;

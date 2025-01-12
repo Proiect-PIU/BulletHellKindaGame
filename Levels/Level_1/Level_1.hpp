@@ -7,6 +7,9 @@ class Level_1: public Level {
 public:
     Level_1();
     explicit Level_1(const std::vector<Wave*> &waves);
+    void wave_1() override;
+    void wave_2() override;
+    void wave_3() override;
 };
 
 

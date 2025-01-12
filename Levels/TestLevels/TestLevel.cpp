@@ -13,11 +13,8 @@ TestLevel::TestLevel(const std::vector<Wave*> &waves) : Level(waves) {
 }
 
 TestLevel::TestLevel() {
-    //Loader& loader = Loader::getInstance();
     const auto& data = Loader::getInstance().getData();
 
-    // shipW speed = 5.0
-    // cocciW speed = 2.0
 
 
     std::vector<std::pair<Entities*, std::vector<Bullet*>>> entities;
@@ -43,4 +40,19 @@ TestLevel::TestLevel() {
     entities.emplace_back(player, std::vector<Bullet*>{});
     entities.emplace_back(cocci, std::vector<Bullet*>{});
     waves.push_back(new Wave(entities, Wave::Condition::KILL_ALL));
+}
+
+void TestLevel::wave_1()
+{
+
+}
+
+void TestLevel::wave_2()
+{
+
+}
+
+void TestLevel::wave_3()
+{
+
 }
