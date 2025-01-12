@@ -49,13 +49,24 @@ bool Menu::processInputs() {
 void Menu::addMenuButtons() {
     Canvas* canvas = Loader::getInstance().getCanvas();
     const auto& data = Loader::getInstance().getData();
-    auto *button = new Graphics(Utils::generateCircleVertices(
-            0.0, 0.0, 0.0, 0.02, 10,
-            glm::vec3(0.9, 0.9, 0.9), glm::vec3(0.9, 0.9, 0.9))
-    );
-    std::unique_ptr<Element> element = std::make_unique<Element>(button);
+    Graphics *button_1, *button_2;
+    if(option == 1) {
+        button_1 = new Graphics(data.at("play_select").first, data.at("play_select").second);
+        button_2 = new Graphics(data.at("exit").first, data.at("exit").second);
+    } else {
+        button_1 = new Graphics(data.at("play").first, data.at("play").second);
+        button_2 = new Graphics(data.at("exit_select").first, data.at("exit_select").second);
+    }
 
-    canvas->addElement(std::move(element));
+    std::unique_ptr<Element> element_1 = std::make_unique<Element>(button_1);
+    std::unique_ptr<Element> element_2 = std::make_unique<Element>(button_2);
+    glm::vec3 scale(4.0, 4.0, 0.0);
+    element_1->setScale(scale);
+    element_2->setScale(scale);
+    element_2->setPosition(glm::vec3(0.0, -0.4, 0.0));
+
+    canvas->addElement(std::move(element_1));
+    canvas->addElement(std::move(element_2));
 }
 
 void Menu::addLevelButtons() {
