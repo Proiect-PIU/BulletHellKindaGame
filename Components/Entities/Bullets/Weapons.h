@@ -24,9 +24,12 @@ public:
             case COCCI_STRONG:
             case HEPYLORI_BASIC:
             case HEPYLORI_STRONG:
+            case BLOUT:
             case TYNNA_SPECIAL:
                 return new SpreadPattern(nrOfBullets);
             case ZIGZAG:
+            case BAMBIR_BASIC:
+            case BAMBIR_STRONG:
                 return new ZigzagPattern(nrOfBullets);
             case FIRE:
                 return new FirePattern(nrOfBullets);
@@ -91,6 +94,42 @@ public:
                 bullet->isBullet = true;
                 bullet->stats->spacing = 0.08;
                 bullet->stats->speed = 1.0;
+                return bullet;
+            case BAMBIR_BASIC:
+                bullet = new Bullet(*(new Entity(new Graphics(Loader::getInstance().getData().at("weapon_bambir").first,
+                                                              Loader::getInstance().getData().at("weapon_bambir").second),
+                                                 new BaseStats(5, 0, 0, 5), state)), ZIGZAG,
+                                    *(new Timer(0.0f, 0)), *(new BulletStats(2.0f, 1.5f, 0.0f)));
+                bullet->isBullet = true;
+                bullet->stats->spacing = 0.2;
+                bullet->stats->speed = 1.0;
+                return bullet;
+            case BAMBIR_STRONG:
+                bullet = new Bullet(*(new Entity(new Graphics(Loader::getInstance().getData().at("weapon_bambir").first,
+                                                              Loader::getInstance().getData().at("weapon_bambir").second),
+                                                 new BaseStats(5, 0, 0, 5), state)), ZIGZAG,
+                                    *(new Timer(0.0f, 0)), *(new BulletStats(2.0f, 1.5f, 0.0f)));
+                bullet->isBullet = true;
+                bullet->stats->spacing = 0.2;
+                bullet->stats->speed = 1.2;
+                return bullet;
+            case ALOOULA:
+                bullet = new Bullet(*(new Entity(new Graphics(Loader::getInstance().getData().at("weapon_bambir").first,
+                                                              Loader::getInstance().getData().at("weapon_bambir").second),
+                                                 new BaseStats(5, 0, 0, 5), state)), ZIGZAG,
+                                    *(new Timer(0.0f, 0)), *(new BulletStats(2.0f, 1.5f, 0.0f)));
+                bullet->isBullet = true;
+                bullet->stats->spacing = 0.2;
+                bullet->stats->speed = 1.5;
+                return bullet;
+            case BLOUT:
+                bullet = new Bullet(*(new Entity(new Graphics(Loader::getInstance().getData().at("weapon_anxiety_inducer").first,
+                                                              Loader::getInstance().getData().at("weapon_anxiety_inducer").second),
+                                                 new BaseStats(5, 0, 0, 5), state)), ZIGZAG,
+                                    *(new Timer(0.0f, 0)), *(new BulletStats(2.0f, 1.5f, 0.0f)));
+                bullet->isBullet = true;
+                bullet->stats->spacing = 0.2;
+                bullet->stats->speed = 1.5;
                 return bullet;
             case FIRE:
                 bullet = new Bullet(*(new Entity(new Graphics(Loader::getInstance().getData().at("weapon").first,

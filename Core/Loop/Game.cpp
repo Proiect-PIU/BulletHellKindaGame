@@ -75,7 +75,7 @@ void Game::run() {
                 break;
             case WIN:
                 logic = menuLogic;
-                option = 3;
+                option = 2;
                 break;
         }
 
