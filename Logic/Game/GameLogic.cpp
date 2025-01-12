@@ -54,7 +54,7 @@ int GameLogic::processLogic(int &option) {
         loaded_3 = true;
     } else if (currentLevel->currentWave == 99) {
         state = LOSE;
-    } else {
+    } else if (currentLevel->currentWave == 3){
         state = WIN;
     }
     worker->update(*currentLevel);
