@@ -25,6 +25,7 @@ public:
             case HEPYLORI_BASIC:
             case HEPYLORI_STRONG:
             case BLOUT:
+            case TYNNA_SPECIAL:
                 return new SpreadPattern(nrOfBullets);
             case ZIGZAG:
             case BAMBIR_BASIC:
@@ -33,6 +34,7 @@ public:
             case FIRE:
                 return new FirePattern(nrOfBullets);
             case DNA:
+            case TARUS_ANTI_BAMBIRI:
                 return new DnaPattern(nrOfBullets);
             case CHAOTIC:
                 return new ChaoticPattern(nrOfBullets);
@@ -52,7 +54,7 @@ public:
                 bullet = new Bullet(*(new Entity(new Graphics(Loader::getInstance().getData().at("weapon_cocci").first,
                                                               Loader::getInstance().getData().at("weapon_cocci").second),
                                                  new BaseStats(5, 0, 0, 5), state)), BulletType::COCCI_BASIC,
-                                    *(new Timer(0.0f, 0)), *(new BulletStats(2.0f, 1.5f, 0.0f)));
+                                    *(new Timer(0.0f, 0)), *(new BulletStats(2.0f, 1.0f, 0.0f)));
                 bullet->isBullet = true;
                 bullet->stats->spacing = 0.06;
                 return bullet;
@@ -71,15 +73,15 @@ public:
                 bullet->isBullet = true;
                 return bullet;
             case HEPYLORI_BASIC:
-                bullet = new Bullet(*(new Entity(new Graphics(Loader::getInstance().getData().at("weapon_cocci").first,
-                                                              Loader::getInstance().getData().at("weapon_cocci").second),
+                bullet = new Bullet(*(new Entity(new Graphics(Loader::getInstance().getData().at("weapon_pylori").first,
+                                                              Loader::getInstance().getData().at("weapon_pylori").second),
                                                  new BaseStats(5, 0, 0, 5), state)), BulletType::HEPYLORI_BASIC,
                                     *(new Timer(0.0f, 0)), *(new BulletStats(5.0f, 0.5f, 0.0f)));
                 bullet->isBullet = true;
                 return bullet;
             case HEPYLORI_STRONG:
-                bullet = new Bullet(*(new Entity(new Graphics(Loader::getInstance().getData().at("weapon_cocci").first,
-                                                              Loader::getInstance().getData().at("weapon_cocci").second),
+                bullet = new Bullet(*(new Entity(new Graphics(Loader::getInstance().getData().at("weapon_pylori").first,
+                                                              Loader::getInstance().getData().at("weapon_pylori").second),
                                                  new BaseStats(5, 0, 0, 5), state)), BulletType::HEPYLORI_STRONG,
                                     *(new Timer(0.0f, 0)), *(new BulletStats(5.0f, 0.5f, 0.0f)));
                 bullet->isBullet = true;
@@ -145,7 +147,16 @@ public:
                                     *(new Timer(0.0f, 0)), *(new BulletStats(2.0f, 1.5f, 0.0f)));
                 bullet->isBullet = true;
                 bullet->stats->spacing = 0.01;
-                return bullet;
+            return bullet;
+            case TARUS_ANTI_BAMBIRI:
+                bullet = new Bullet(*(new Entity(new Graphics(Loader::getInstance().getData().at("weapon_bambir").first,
+                                                              Loader::getInstance().getData().at("weapon_bambir").second),
+                                                 new BaseStats(5, 0, 0, 5), state)), DNA,
+                                    *(new Timer(0.0f, 0)), *(new BulletStats(2.0f, 1.5f, 0.0f)));
+            bullet->isBullet = true;
+            bullet->stats->spacing = 0.01;
+            bullet->self->figure->setRotation(90, glm::vec3(1.0f, 0.0f, 0.0f));
+            return bullet;
             case CHAOTIC:
                 bullet = new Bullet(*(new Entity(new Graphics(Loader::getInstance().getData().at("weapon").first,
                                                               Loader::getInstance().getData().at("weapon").second),
@@ -154,6 +165,15 @@ public:
                 bullet->isBullet = true;
                 bullet->stats->spacing = 0.001;
                 bullet->stats->speed = 2.0;
+                return bullet;
+            case TYNNA_SPECIAL:
+                bullet = new Bullet(*(new Entity(new Graphics(Loader::getInstance().getData().at("cocci").first,
+                                                            Loader::getInstance().getData().at("cocci").second),
+                                                            new BaseStats(30, 0, 0, 10), state)), SPREAD,
+                                                            *(new Timer(0.0f, 0)), *(new BulletStats(3.0f, 1.0f, 0.0f)));
+                bullet->isBullet = true;
+                bullet->stats->spacing = 0.03;
+                bullet->stats->speed = 1.3;
                 return bullet;
         }
     }
