@@ -6,10 +6,11 @@
 #define CPPGAMEDARCUOPENGL_GAME_HPP
 
 #include "../Context/GameContext.hpp"
+#include "../../Logic/Logic.hpp"
 
 class Game{
-    //Logic *l;
-    GameContext *gc;
+    Logic *logic;
+    GameContext *gameContext;
 public:
     Game();
     ~Game();

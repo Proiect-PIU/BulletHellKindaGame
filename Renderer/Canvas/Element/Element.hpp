@@ -7,21 +7,33 @@
 
 
 #include <vector>
+#include <glm/gtc/matrix_transform.hpp>
+#include "../../../Persistance/Data/Geometry/Graphics.hpp"
+
 
 class Element{
     unsigned int VBO, VAO, EBO;
-    std::vector<float> vertices;
-    size_t vertexCount;
-    std::vector<unsigned int> indices;
-    size_t indexCount;
+    Graphics *graphics;
+    glm::mat4 modelMatrix;
+    glm::vec3 position;
+    float rotationAngle;
+    glm::vec3 rotationAxis;
+    glm::vec3 scale;
 public:
-    Element(const std::vector<float>& vertices, const std::vector<unsigned int>& indices = {});
+    explicit Element(Graphics *graphics);
+    Element(const Element& other);
     ~Element();
     void loadElement();
+    void setPosition(const glm::vec3& newPos);
+    void setRotation(float angle, const glm::vec3& axis);
+    void setScale(const glm::vec3& newScale);
+    void updateModelMatrix();
     [[nodiscard]] unsigned int getVAO() const{ return VAO;}
-    [[nodiscard]] size_t getVertexCount() const { return vertexCount; }
-    [[nodiscard]] size_t getIndexCount() const { return indexCount; }
-    [[nodiscard]] bool hasIndices() const { return !indices.empty(); }
+    [[nodiscard]] Graphics* getGraphics() const { return graphics; }
+    [[nodiscard]] bool hasIndices() const { return !graphics->getIndices().empty(); }
+    [[nodiscard]] const glm::mat4& getModelMatrix() const { return modelMatrix; }
+    [[nodiscard]] glm::vec3 getPosition() const { return position;};
+    [[nodiscard]] glm::vec3 getScale() const { return scale;};
 };
 
 

@@ -11,7 +11,7 @@
 class Renderer{
 public:
     Renderer(){};
-    static void drawCanvas(Canvas &c, unsigned int shaderProgram);
+    static void drawCanvas(unsigned int shaderProgram);
 };
 
 

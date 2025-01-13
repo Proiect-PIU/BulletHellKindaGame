@@ -4,14 +4,12 @@
 
 #include <valarray>
 #include <thread>
+#include <iostream>
+#include <cstdlib>
 #include "Utils.hpp"
 
-
-class vec3;
-
-std::vector<float>
-Utils::generateCircleVertices(float cx, float cy, float cz, float radius, int numSegments, const glm::vec3 &centerColor,
-                              const glm::vec3 &edgeColor) {
+std::vector<float> Utils::generateCircleVertices(float cx, float cy, float cz, float radius, int numSegments,
+                                                 const glm::vec3 &centerColor, const glm::vec3 &edgeColor) {
     std::vector<float> vertices;
 
     vertices.push_back(cx);
@@ -38,7 +36,8 @@ Utils::generateCircleVertices(float cx, float cy, float cz, float radius, int nu
 
     return vertices;
 }
-const int FPS = 144;
+
+const int FPS = 120;
 const std::chrono::milliseconds frameDuration(1000 / FPS);
 void Utils::capFrameRate(const std::chrono::steady_clock::time_point &frameStart) {
     auto frameEnd = std::chrono::steady_clock::now();
@@ -49,3 +48,35 @@ void Utils::capFrameRate(const std::chrono::steady_clock::time_point &frameStart
         std::this_thread::sleep_for(delayTime);
     }
 }
+
+float Utils::randRange(float min, float max) {
+    return min + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (max - min)));
+}
+
+bool polygonPolygonCollision(const Shape& polyA, const Shape& polyB) {
+    float margin = 0.02f;
+
+    float adjustedEastA  = polyA.east  - margin;
+    float adjustedWestA  = polyA.west  + margin;
+    float adjustedNorthA = polyA.north - margin;
+    float adjustedSouthA = polyA.south + margin;
+
+    float adjustedEastB  = polyB.east  - margin;
+    float adjustedWestB  = polyB.west  + margin;
+    float adjustedNorthB = polyB.north - margin;
+    float adjustedSouthB = polyB.south + margin;
+
+    bool separatedHorizontally = adjustedWestA > adjustedEastB || adjustedEastA < adjustedWestB;
+    bool separatedVertically   = adjustedSouthA > adjustedNorthB || adjustedNorthA < adjustedSouthB;
+
+    return !(separatedHorizontally || separatedVertically);
+}
+
+
+#define TYPE Shape::ShapeType
+bool Utils::shapesCollide(const Shape& shapeA, const Shape& shapeB) {
+    if (shapeA.type == TYPE::POLYGON && shapeB.type == TYPE::POLYGON)
+        return polygonPolygonCollision(shapeA, shapeB);
+    return false;
+}
+#undef TYPE

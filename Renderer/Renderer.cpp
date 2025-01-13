@@ -4,20 +4,36 @@
 
 #include <GL/glew.h>
 #include "Renderer.hpp"
+#include "../Creators/Loader/Loader.hpp"
+#include <glm/gtc/type_ptr.hpp>
 
-void Renderer::drawCanvas(Canvas &c, unsigned int shaderProgram) {
-    const auto& elementList = c.getList();
+void Renderer::drawCanvas(unsigned int shaderProgram) {
+    Canvas *canvas = Loader::getInstance().getCanvas();
+    const auto& elementList = canvas->getList();
 
-    glClearColor(0.5f, 0.0f, 0.0f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glm::mat4 view = glm::mat4(1.0f);
+    glm::mat4 projection = glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f);
+
+    unsigned int modelLoc = glGetUniformLocation(shaderProgram, "model");
+    unsigned int viewLoc = glGetUniformLocation(shaderProgram, "view");
+    unsigned int projLoc = glGetUniformLocation(shaderProgram, "projection");
+
     glUseProgram(shaderProgram);
+    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+    glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
+    glm::vec4 bgc = canvas->getBackground();
+    glClearColor(bgc.r, bgc.g, bgc.b, bgc.a);
+    glClear(GL_COLOR_BUFFER_BIT);
     for (const auto& element : elementList) {
+
         glBindVertexArray(element->getVAO());
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(element->getModelMatrix()));
         if(element->hasIndices()){
-            glDrawElements(GL_TRIANGLES, element->getIndexCount(), GL_UNSIGNED_INT, 0);
+            glDrawElements(GL_TRIANGLES, element->getGraphics()->getIndices().size(), GL_UNSIGNED_INT, 0);
         } else {
-            glDrawArrays(GL_TRIANGLE_FAN, 0, element->getVertexCount() / 6);
+            glDrawArrays(GL_TRIANGLE_FAN, 0, element->getGraphics()->getVertices().size() / 6);
         }
     }
+    canvas->blank();
 }

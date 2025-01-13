@@ -1,3 +1,0 @@
-/home/francisc/CLionProjects/CppGameDarCuOpenGL/cmake-build-debug/CMakeFiles/CppGameDarCuOpenGL.dir
-/home/francisc/CLionProjects/CppGameDarCuOpenGL/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/francisc/CLionProjects/CppGameDarCuOpenGL/cmake-build-debug/CMakeFiles/rebuild_cache.dir
