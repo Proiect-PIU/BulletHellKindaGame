@@ -35,10 +35,10 @@ int Menu::option = 0;
 
 void Game::run() {
     bool close = false;
-    int option = 3;
+    int option = 1;
     Logic *menuLogic = new MenuLogic();
     Logic *gameLogic = new GameLogic();
-    logic = gameLogic;
+    logic = menuLogic;
     while (!gameContext->windowClosed() && !close) {
         auto frameStart = std::chrono::steady_clock::now();
         Loader::getInstance().updateDeltaTime();

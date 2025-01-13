@@ -37,6 +37,7 @@ public:
             case TARUS_ANTI_BAMBIRI:
                 return new DnaPattern(nrOfBullets);
             case CHAOTIC:
+        case DEBOSS:
                 return new ChaoticPattern(nrOfBullets);
         }
     }
@@ -166,6 +167,15 @@ public:
                 bullet->stats->spacing = 0.001;
                 bullet->stats->speed = 2.0;
                 return bullet;
+            case DEBOSS:
+                bullet = new Bullet(*(new Entity(new Graphics(Loader::getInstance().getData().at("weapon_memory_bannisher").first,
+                                                              Loader::getInstance().getData().at("weapon_memory_bannisher").second),
+                                                 new BaseStats(5, 0, 0, 5), state)), CHAOTIC,
+                                    *(new Timer(0.0f, 0)), *(new BulletStats(2.0f, 1.5f, 0.0f)));
+                bullet->isBullet = true;
+                bullet->stats->spacing = 0.01;
+                bullet->stats->speed = 2.0;
+            return bullet;
             case TYNNA_SPECIAL:
                 bullet = new Bullet(*(new Entity(new Graphics(Loader::getInstance().getData().at("cocci").first,
                                                             Loader::getInstance().getData().at("cocci").second),

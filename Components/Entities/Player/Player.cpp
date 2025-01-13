@@ -27,19 +27,47 @@ void Player::processInputs() {
     dir = NONE;
     if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
         state = MOVING;
-        dir |= LEFT;
+        if(self->figure->getPosition().x < -0.95)
+        {
+            dir = NONE;
+        }
+        else
+        {
+            dir = LEFT;
+        }
     }
     if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
         state = MOVING;
-        dir |= RIGHT;
+        if(self->figure->getPosition().x > 0.95)
+        {
+            dir = NONE;
+        }
+        else
+        {
+            dir = RIGHT;
+        }
     }
     if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
         state = MOVING;
-        dir |= UP;
+        if(self->figure->getPosition().y > 0.95)
+        {
+            dir = NONE;
+        }
+        else
+        {
+            dir = UP;
+        }
     }
     if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
         state = MOVING;
-        dir |= DOWN;
+        if(self->figure->getPosition().y < -0.95)
+        {
+            dir = NONE;
+        }
+        else
+        {
+            dir = DOWN;
+        }
     }
     if (dir == NONE) {
         state = IDLE;

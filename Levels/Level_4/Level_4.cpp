@@ -59,7 +59,7 @@ void Level_4::wave_3(){
     const auto& data = Loader::getInstance().getData();
     Entities *deBoss = new Blout(*(new Entity(new Graphics(data.at("boss_4_de_boss").first, data.at("boss_4_de_boss").second),
                                              new BaseStats(12000, 3, 0.1, 1), SquareState::ENEMY)),
-                                BulletType::BLOUT,*(new Timer(0.2f, 0)));
+                                BulletType::DEBOSS,*(new Timer(0.2f, 0)));
     deBoss->self->figure->setPosition(glm::vec3(0.0, 0.9, 0.0));
     deBoss->self->figure->setScale(glm::vec3(9.0, 9.0, 0.0));
     deBoss->angle = 90.0;
